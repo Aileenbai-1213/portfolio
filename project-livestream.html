@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>直播用户购买动机与体验洞察专项 — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f0e8;
+      --surface: #ede8de;
+      --surface2: #e4ddd0;
+      --border: rgba(0,0,0,0.09);
+      --text-primary: #1a1a1a;
+      --text-secondary: #4a4a4a;
+      --text-muted: #8a8278;
+      --accent: #b85c00;
+      --accent2: #5a3fc0;
+      --accent3: #c0392b;
+      --font-sans: 'Inter', 'PingFang SC', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --content-width: 1200px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 2px; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(245,240,232,0.88);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text-primary); }
+    .nav-back svg { transition: transform 0.2s; }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    /* ===== HERO ===== */
+    .project-hero {
+      padding: 140px 32px 80px;
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .project-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .project-eyebrow::before {
+      content: '';
+      width: 16px; height: 1px;
+      background: #b85c00;
+    }
+    .project-title {
+      font-size: clamp(32px, 4.5vw, 60px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .project-meta-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .meta-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .meta-value { font-size: 14px; color: var(--text-secondary); }
+    .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .tag.ux { border-color: rgba(90,63,192,0.3); color: #5a3fc0; }
+    .tag.research { border-color: rgba(192,57,43,0.3); color: #c0392b; }
+    .tag.product { border-color: rgba(184,92,0,0.3); color: #b85c00; }
+    .tag.live { border-color: rgba(180,80,0,0.3); color: #b85000; }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+    }
+
+    /* ===== CONTENT ===== */
+    .project-content {
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      padding: 0 32px 120px;
+    }
+
+    /* Section block */
+    .content-section {
+      padding: 64px 0 0;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .content-section.visible { opacity: 1; transform: translateY(0); }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      width: 12px; height: 1px;
+      background: #b85c00;
+    }
+    .section-heading {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    /* ===== PROSE TEXT ===== */
+    .prose {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+    .prose strong { color: var(--text-primary); font-weight: 600; }
+    .prose em { color: #b85c00; font-style: normal; }
+
+    /* ===== HIGHLIGHT BOX ===== */
+    .highlight-box {
+      background: #fff8f0;
+      border: none;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .highlight-box .label {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .highlight-box p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #3a3a3a;
+    }
+    .highlight-box p strong { color: var(--text-primary); }
+
+    /* ===== RISK BOX ===== */
+    .risk-box {
+      background: rgba(200,120,0,0.06);
+      border: none;
+      border-left: 3px solid #c87800;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .risk-box .label {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #e8a000;
+      margin-bottom: 8px;
+    }
+    .risk-box p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #5a3a00;
+    }
+
+    /* ===== INFO BOX (purple) ===== */
+    .info-box {
+      background: rgba(90,63,192,0.05);
+      border: none;
+      border-left: 3px solid #5a3fc0;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .info-box .label {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9b7fff;
+      margin-bottom: 8px;
+    }
+    .info-box p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #2e2060;
+    }
+    .info-box p strong { color: #1a1060; }
+
+    /* ===== STAT CARDS ===== */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .stat-card .stat-num {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #b85c00;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-card .stat-num span { font-size: 20px; }
+    .stat-card .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .stat-card .stat-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* ===== PROBLEM CARDS ===== */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .problem-card {
+      background: var(--surface);
+      border: none;
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .problem-card .p-tag {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(192,57,43,0.1);
+      color: #a0291a;
+      border: none;
+      border-radius: 100px;
+      padding: 4px 12px;
+      margin-bottom: 12px;
+    }
+    .problem-card h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    .problem-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== METHOD CARDS ===== */
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .method-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+    }
+    .method-card .method-icon {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+    .method-card h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    .method-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .method-card .method-detail {
+      font-size: 14px;
+      color: var(--text-secondary);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      line-height: 1.75;
+    }
+    .method-card .method-detail strong { color: var(--text-primary); }
+
+    /* ===== INSIGHT CARDS ===== */
+    .insight-section {
+      background: #ede8de;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    .insight-section .insight-num {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #b85c00;
+      font-family: var(--font-mono);
+      margin-bottom: 10px;
+    }
+    .insight-section h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .insight-section .insight-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* ===== IMAGE PLACEHOLDER ===== */
+    .img-placeholder {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px dashed rgba(0,0,0,0.12);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      margin-bottom: 24px;
+    }
+    .img-placeholder .ph-icon { font-size: 28px; opacity: 0.4; }
+    .img-placeholder .ph-label { font-size: 12px; color: var(--text-muted); }
+
+    /* ===== IMG BLOCK (for real images later) ===== */
+    .img-block {
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 24px;
+      cursor: zoom-in;
+      position: relative;
+    }
+    .img-block img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .img-block:hover img { transform: scale(1.02); }
+    .img-caption {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: -16px;
+      margin-bottom: 24px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ===== IMG GRID ===== */
+    .img-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .img-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    /* ===== STRATEGY CARDS ===== */
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .strategy-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color 0.3s;
+    }
+    .strategy-card:hover { border-color: rgba(184,92,0,0.25); }
+    .strategy-num {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-family: var(--font-mono);
+    }
+    .strategy-card h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .strategy-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== OUTCOME CARDS ===== */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .outcome-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .outcome-card .o-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(184,92,0,0.08);
+      color: #8a4400;
+      border: 1px solid rgba(184,92,0,0.2);
+      border-radius: 100px;
+      padding: 3px 10px;
+      margin-bottom: 12px;
+    }
+    .outcome-card h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .outcome-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== READING PROGRESS ===== */
+    .reading-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: #b85c00;
+      z-index: 200;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(20,15,10,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      cursor: zoom-out;
+      backdrop-filter: blur(8px);
+    }
+    .lightbox.active { opacity: 1; pointer-events: all; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      transform: scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .lightbox.active img { transform: scale(1); }
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 32px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: rgba(255,255,255,0.8); }
+
+    /* ===== NEXT PROJECT ===== */
+    .next-project {
+      border-top: 1px solid var(--border);
+      padding: 64px 32px;
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .next-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .next-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .next-project:hover .next-title { color: var(--text-primary); }
+    .next-arrow {
+      width: 48px; height: 48px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 18px;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .next-project:hover .next-arrow {
+      border-color: #b85c00;
+      color: #b85c00;
+      transform: translateX(4px);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .problem-grid { grid-template-columns: 1fr; }
+      .method-grid { grid-template-columns: 1fr; }
+      .strategy-grid { grid-template-columns: 1fr; }
+      .outcome-grid { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: 1fr; }
+      .img-grid-2 { grid-template-columns: 1fr; }
+      .img-grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close" id="lightboxClose">ESC to close</div>
+    <img id="lightboxImg" src="" alt="" />
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">ailin<span>.</span></div>
+    <a href="index.html" class="nav-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Work
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="project-hero">
+    <div class="project-eyebrow">Research · Case Study</div>
+    <h1 class="project-title">直播用户购买动机<br>与体验洞察专项</h1>
+    <div class="project-meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value">2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Company</div>
+        <div class="meta-value">Meituan</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value">UX Researcher</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Methods</div>
+        <div class="meta-value">深度访谈 · Session 分析</div>
+      </div>
+    </div>
+    <div class="project-tags">
+      <span class="tag research">User Research</span>
+      <span class="tag live">直播电商</span>
+      <span class="tag ux">UX Strategy</span>
+      <span class="tag">C端</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CONTENT -->
+  <div class="project-content">
+
+    <!-- ① 研究背景 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">01 · Background</div>
+      <div class="section-heading">研究背景</div>
+
+      <div class="highlight-box">
+        <div class="label">业务背景</div>
+        <p>美团直播业务正处于快速发展阶段，直播间已成为重要的商品销售渠道。然而，<strong>直播间的购买转化率与用户留存表现参差不齐</strong>，业务侧对「用户为什么在直播间买单」以及「哪些体验因素影响了购买决策」缺乏系统性认知，导致设计优化方向不明确。</p>
+      </div>
+
+      <div class="section-heading" style="font-size: 17px; margin-top: 8px;">问题分析</div>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="p-tag">业务痛点 1</div>
+          <h4>购买动机不清晰</h4>
+          <p>不清楚用户在直播间的核心购买驱动力是什么——是价格优惠、主播信任、内容吸引力，还是其他因素？不同用户群体的动机差异有多大？</p>
+        </div>
+        <div class="problem-card">
+          <div class="p-tag">业务痛点 2</div>
+          <h4>体验断点难定位</h4>
+          <p>用户在直播间的完整购买链路中，哪些环节存在体验摩擦？哪些节点是流失的关键断点？现有数据埋点难以还原用户的真实决策过程。</p>
+        </div>
+        <div class="problem-card">
+          <div class="p-tag">业务痛点 3</div>
+          <h4>用户分层认知缺失</h4>
+          <p>直播间用户并非同质化群体，不同购买频次、不同品类偏好的用户行为模式差异显著，但缺乏基于真实用户行为的分层洞察。</p>
+        </div>
+        <div class="problem-card">
+          <div class="p-tag">业务痛点 4</div>
+          <h4>设计策略缺乏依据</h4>
+          <p>现有直播间 UI 设计与交互策略更多依赖经验判断，缺少来自用户视角的系统性洞察支撑，导致设计迭代方向分散、优先级难以对齐。</p>
+        </div>
+      </div>
+
+      <div class="section-heading" style="font-size: 17px; margin-top: 8px;">调研目标</div>
+
+      <div class="highlight-box">
+        <div class="label">核心问题</div>
+        <p><strong>直播间用户的购买动机是什么？</strong>哪些体验因素促进了购买，哪些造成了流失？如何基于用户真实行为与心理模型，为直播间体验优化提供可落地的设计策略？</p>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">3<span>个</span></div>
+          <div class="stat-label">核心研究问题</div>
+          <div class="stat-desc">购买动机 · 体验断点 · 用户分层</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">12<span>人</span></div>
+          <div class="stat-label">深度访谈样本</div>
+          <div class="stat-desc">覆盖不同购买频次与品类偏好</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">40<span>个</span></div>
+          <div class="stat-label">Session 分析样本</div>
+          <div class="stat-desc">还原真实购买行为链路</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ② 研究方法 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">02 · Methodology</div>
+      <div class="section-heading">研究方法</div>
+
+      <div class="prose">
+        本次研究采用<strong>定性 + 行为数据</strong>的混合研究方法，通过深度访谈还原用户的心理动机与决策过程，通过 Session 录屏分析捕捉真实的行为模式与体验断点，两种方法相互印证，形成完整的用户洞察。
+      </div>
+
+      <div class="method-grid">
+        <div class="method-card">
+          <div class="method-icon">🎙</div>
+          <h4>深度访谈</h4>
+          <p>通过半结构化访谈，深入了解用户在直播间的购买动机、决策过程、情感体验与痛点，挖掘数据背后的「为什么」。</p>
+          <div class="method-detail">
+            <strong>样本：</strong>12 人，覆盖高频购买者（≥3次/月）、低频购买者（&lt;1次/月）、未购买但有观看习惯的用户<br>
+            <strong>时长：</strong>每场 60–90 分钟<br>
+            <strong>形式：</strong>远程视频访谈 + 回溯式思维出声
+          </div>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">📹</div>
+          <h4>Session 录屏分析</h4>
+          <p>通过分析用户在直播间的真实操作录屏，识别行为模式、停留热点、流失节点，将定性洞察与行为数据相互验证。</p>
+          <div class="method-detail">
+            <strong>样本：</strong>40 个 Session，覆盖购买成功、加购未购、直接流失三类路径<br>
+            <strong>分析维度：</strong>停留时长分布、交互热点、流失节点、回看行为<br>
+            <strong>工具：</strong>行为录屏平台 + 自建分析框架
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ③ 核心洞察 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">03 · Key Insights</div>
+      <div class="section-heading">关键设计洞察与策略建议</div>
+
+      <div class="prose">
+        研究围绕三个核心问题展开，每个问题对应一组关键洞察与可落地的设计策略建议。
+      </div>
+
+      <!-- 洞察问题 1 -->
+      <div class="insight-section">
+        <div class="insight-num">Insight 01</div>
+        <h3>用户为什么在直播间购买？</h3>
+        <div class="insight-sub">关键动机1：价格优势是驱动用户持续下单的核心动机</div>
+        <div class="img-block">
+          <img src="images/livestream/ls-1-1.jpg" alt="关键动机1：价格优势 — 用户旅程与用户原声" />
+        </div>
+        <div class="img-block">
+          <img src="images/livestream/ls-1-2.jpg" alt="关键动机2：固定开播时间与优惠发放节点" />
+        </div>
+        <div class="img-block">
+          <img src="images/livestream/ls-1-3.jpg" alt="关键动机3：主播讲解带来的增量信息能够加强信任感" />
+        </div>
+      </div>
+
+      <!-- 洞察问题 2 -->
+      <div class="insight-section">
+        <div class="insight-num">Insight 02</div>
+        <h3>高频用户有哪些行为与场景特征？</h3>
+        <div class="insight-sub">更依赖搜索 · 希望快速直达关注主播 · 更喜欢逛</div>
+        <div class="img-block">
+          <img src="images/livestream/ls-2.jpg" alt="高频用户行为与场景特征" />
+        </div>
+        <div class="insight-sub" style="margin-top: 32px;">重点问题1：难找到主播和意向商品；靠着主播缺乏快速触达路径</div>
+        <div class="img-block">
+          <img src="images/livestream/ls-3.jpg" alt="重点问题1：找主播和商品路径体验断点" />
+        </div>
+      </div>
+
+      <!-- 洞察问题 3 -->
+      <div class="insight-section">
+        <div class="insight-num">Insight 03</div>
+        <h3>高频用户在直播间遇到了哪些重点体验问题？</h3>
+        <div class="insight-sub">重点问题2：选购交易时，套餐详情/价格难对比、使用规则获取成本大</div>
+        <div class="img-block">
+          <img src="images/livestream/ls-4.jpg" alt="重点问题2：选购交易时对比繁琐" />
+        </div>
+        <div class="insight-sub" style="margin-top: 32px;">重点问题3：无目的逛时，优质直播不易被发现；数字人/小商家主播频繁出现，影响沉浸式逛的体验</div>
+        <div class="img-block">
+          <img src="images/livestream/ls-5.jpg" alt="重点问题3：无目的逛时优质直播难发现" />
+        </div>
+        <div class="insight-sub" style="margin-top: 32px;">重点问题4：用户刚来直播间时对玩法规则理解有难度、对部分领券规则感到不明确</div>
+        <div class="img-block">
+          <img src="images/livestream/ls-6.jpg" alt="重点问题4：玩法规则理解难" />
+        </div>
+        <div class="insight-sub" style="margin-top: 32px;">重点问题5：用户在广场不知道怎么逛，不知道进哪个</div>
+        <div class="img-block">
+          <img src="images/livestream/ls-7.jpg" alt="重点问题5：广场不知道怎么逛" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ 项目亮点与方法沉淀 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">04 · Impact & Reflection</div>
+      <div class="section-heading">项目亮点与方法沉淀</div>
+
+      <div class="highlight-box">
+        <div class="label">项目成果</div>
+        <p>本次研究产出的 <strong>12 条设计策略建议全部被设计团队采纳</strong>，其中 7 条已进入设计排期，正在推进落地。研究结论同步沉淀为直播业务的用户洞察基础文档，为后续迭代提供持续参考。</p>
+      </div>
+
+      <div class="outcome-grid">
+        <div class="outcome-card">
+          <div class="o-tag">研究影响力</div>
+          <h4>12 条策略全部采纳</h4>
+          <p>研究产出的设计策略建议获得设计团队 100% 采纳，其中 7 条已进入设计排期，正在推进落地实施。</p>
+        </div>
+        <div class="outcome-card">
+          <div class="o-tag">方法创新</div>
+          <h4>混合研究框架沉淀</h4>
+          <p>将深度访谈与 Session 行为分析结合的研究框架，形成可复用的直播场景研究方法论，为团队后续研究提供参考。</p>
+        </div>
+        <div class="outcome-card">
+          <div class="o-tag">用户认知</div>
+          <h4>建立用户分层模型</h4>
+          <p>首次系统性地建立了直播间用户的行为分层模型，填补了业务侧对用户群体认知的空白，为精细化运营提供依据。</p>
+        </div>
+        <div class="outcome-card">
+          <div class="o-tag">知识沉淀</div>
+          <h4>洞察文档持续复用</h4>
+          <p>研究结论沉淀为直播业务用户洞察基础文档，已被多个相关项目引用，成为团队的共享知识资产。</p>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="label">方法论反思</div>
+        <p>本次研究最大的挑战在于<strong>还原用户在直播间的「当下决策」</strong>——直播购买行为高度依赖实时情境（主播话术、限时优惠、弹幕氛围），事后访谈难以完整还原。Session 录屏分析有效弥补了这一局限，但也带来了行为解读的主观性问题。未来可考虑引入直播间内的实时思维出声或眼动追踪，进一步提升数据的客观性。</p>
+      </div>
+
+      <div class="section-heading" style="font-size: 17px; margin-top: 8px; margin-bottom: 20px;">优化建议与机会点</div>
+      <div class="img-block">
+        <img src="images/livestream/ls-8.jpg" alt="优化建议与机会点：3条核心建议与设计方案 Before/After" />
+      </div>
+
+      <div class="section-heading" style="font-size: 17px; margin-top: 32px; margin-bottom: 20px;">AI 辅助访谈材料整理的方法</div>
+      <div class="img-block">
+        <img src="images/livestream/ls-9.jpg" alt="AI辅助访谈材料整理方法：3个步骤" />
+      </div>
+
+      <div class="section-heading" style="font-size: 17px; margin-top: 32px; margin-bottom: 20px;">业务反馈</div>
+      <div class="img-block">
+        <img src="images/livestream/ls-feedback.jpg" alt="业务方反馈截图" />
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <a class="next-project" href="index.html">
+    <div>
+      <div class="next-label">Back to</div>
+      <div class="next-title">All Projects</div>
+    </div>
+    <div class="next-arrow">→</div>
+  </a>
+
+  <script>
+    // Reading progress
+    const bar = document.getElementById('readingProgress');
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      bar.style.width = (window.scrollY / total * 100) + '%';
+    });
+
+    // Scroll reveal
+    const sections = document.querySelectorAll('[data-reveal]');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.06 });
+    sections.forEach(el => revealObs.observe(el));
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.img-block').forEach(block => {
+      block.addEventListener('click', () => {
+        const src = block.querySelector('img').src;
+        const alt = block.querySelector('img').alt;
+        lightboxImg.src = src;
+        lightboxImg.alt = alt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    lightbox.addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>

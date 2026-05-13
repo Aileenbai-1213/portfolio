@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>搜索结果页信息简化与优化 — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d;
+      --surface: #141414;
+      --surface2: #1c1c1c;
+      --border: rgba(255,255,255,0.07);
+      --text-primary: #f0f0f0;
+      --text-secondary: #888;
+      --text-muted: #555;
+      --accent: #c8ff00;
+      --accent2: #7b61ff;
+      --font-sans: 'Inter', 'PingFang SC', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --content-width: 1200px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(13,13,13,0.8);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text-primary); }
+    .nav-back svg { transition: transform 0.2s; }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    /* HERO */
+    .project-hero {
+      padding: 140px 32px 80px;
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .project-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .project-eyebrow::before {
+      content: '';
+      width: 16px; height: 1px;
+      background: var(--accent);
+    }
+    .project-title {
+      font-size: clamp(32px, 4.5vw, 60px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .project-meta-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .meta-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .meta-value { font-size: 14px; color: var(--text-secondary); }
+    .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .tag.ux { border-color: rgba(123,97,255,0.3); color: #9b7fff; }
+    .tag.research { border-color: rgba(255,107,107,0.3); color: #ff8f8f; }
+    .tag.product { border-color: rgba(200,255,0,0.25); color: #a8d400; }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+    }
+
+    /* CONTENT */
+    .project-content {
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      padding: 0 32px 120px;
+    }
+
+    .content-section {
+      padding: 64px 0 0;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .content-section.visible { opacity: 1; transform: translateY(0); }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      width: 12px; height: 1px;
+      background: var(--accent);
+    }
+    .section-heading {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    /* PROSE */
+    .prose {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+    .prose strong { color: var(--text-primary); font-weight: 600; }
+
+    /* HIGHLIGHT BOX */
+    .highlight-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .highlight-box .label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .highlight-box p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+    }
+    .highlight-box p strong { color: var(--text-primary); }
+
+    /* RESULT CARDS */
+    .result-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .result-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .result-card .r-num {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .result-card .r-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .result-card .r-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* IMG BLOCK */
+    .img-block {
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 24px;
+      cursor: zoom-in;
+    }
+    .img-block img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .img-block:hover img { transform: scale(1.015); }
+
+    /* READING PROGRESS */
+    .reading-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--accent);
+      z-index: 200;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0,0,0,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      cursor: zoom-out;
+      backdrop-filter: blur(8px);
+    }
+    .lightbox.active { opacity: 1; pointer-events: all; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      transform: scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .lightbox.active img { transform: scale(1); }
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 32px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: rgba(255,255,255,0.8); }
+
+    /* NEXT PROJECT */
+    .next-project {
+      border-top: 1px solid var(--border);
+      padding: 64px 32px;
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .next-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .next-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .next-project:hover .next-title { color: var(--text-primary); }
+    .next-arrow {
+      width: 48px; height: 48px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 18px;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .next-project:hover .next-arrow {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close" id="lightboxClose">ESC to close</div>
+    <img id="lightboxImg" src="" alt="" />
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">ailin<span>.</span></div>
+    <a href="index.html" class="nav-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Work
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="project-hero">
+    <div class="project-eyebrow">Case Study</div>
+    <h1 class="project-title">搜索结果页<br>信息简化与优化</h1>
+    <div class="project-meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value">2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Company</div>
+        <div class="meta-value">Meituan</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value">UX Designer</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Platform</div>
+        <div class="meta-value">美团 App · 主搜</div>
+      </div>
+    </div>
+    <div class="project-tags">
+      <span class="tag ux">UX Design</span>
+      <span class="tag research">信息架构</span>
+      <span class="tag product">C端</span>
+      <span class="tag">搜索</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CONTENT -->
+  <div class="project-content">
+
+    <!-- 数据结果前置 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">Overview</div>
+      <div class="section-heading">项目成果</div>
+      <div class="result-row">
+        <div class="result-card">
+          <div class="r-num">↑</div>
+          <div class="r-label">屏效提升</div>
+          <div class="r-desc">单屏有效信息密度显著提升</div>
+        </div>
+        <div class="result-card">
+          <div class="r-num">↑</div>
+          <div class="r-label">转化提升</div>
+          <div class="r-desc">CTR 显著正向 +0.08pp</div>
+        </div>
+        <div class="result-card">
+          <div class="r-num">↑</div>
+          <div class="r-label">订单提升</div>
+          <div class="r-desc">搜索订单量正向 7839 单</div>
+        </div>
+      </div>
+      <div class="img-block">
+        <img src="images/search2/s2-1.jpg" alt="搜索结果页信息简化与优化 — 改前改后对比" />
+      </div>
+    </div>
+
+    <!-- 项目背景 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">01 · Background</div>
+      <div class="section-heading">项目背景</div>
+      <div class="highlight-box">
+        <div class="label">核心问题</div>
+        <p>美团主搜承载各业务结果，具有「业务多」「信息杂」的特点。随着视频、直播等不同形态供给接入，搜索结果页信息越来越复杂，导致<strong>整体信息冗余、质量差；低价信息不凸显</strong>，搜索结果页显得「密密麻麻」，影响高优字段识别效率与整体浏览对比体验。</p>
+      </div>
+      <div class="img-block">
+        <img src="images/search2/s2-2.jpg" alt="项目背景 — 核心问题与项目目标" />
+      </div>
+    </div>
+
+    <!-- 问题全景 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">02 · Problem Space</div>
+      <div class="section-heading">美团主搜问题全景</div>
+      <div class="prose">
+        从信息链路视角梳理问题根源：<strong>生产信息 → 提供信息 → 筛选信息 → 组织信息 → 展示信息</strong>，每个环节都存在数据质量差、缺少准入过滤、策略正反馈缺失等问题，最终导致展示侧的信息混乱与体验损伤。
+      </div>
+      <div class="img-block">
+        <img src="images/search2/s2-3.jpg" alt="美团主搜问题全景图 — 信息链路框架" />
+      </div>
+    </div>
+
+    <!-- 问题挖掘 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">03 · Problem Analysis</div>
+      <div class="section-heading">问题挖掘 — 商品方向</div>
+      <div class="prose">
+        从<strong>信息选择</strong>（标签质量低、标签重复、重要信息缺失）和<strong>表达呈现</strong>（字段冗长、副标题样式乱、表达方式展位不一致）两个维度，系统梳理商品卡片上存在的具体问题。
+      </div>
+      <div class="img-block">
+        <img src="images/search2/s2-4.jpg" alt="问题挖掘 — 商品方向：信息选择与表达呈现" />
+      </div>
+    </div>
+
+    <!-- 调研过程 1 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">04 · Research</div>
+      <div class="section-heading">调研过程 — 本品分析与业务理解</div>
+      <div class="prose">
+        通过对 5 个业务线商品信息与展位现状的梳理，以及商品副标题与价格优惠信息类型的系统辨析，得出两个核心结论：展位层面有少量删减空间；信息层面存在副标题类型过多、无效低质字段多的问题。
+      </div>
+      <div class="img-block">
+        <img src="images/search2/s2-5.jpg" alt="调研过程 — 本品分析、业务理解" />
+      </div>
+    </div>
+
+    <!-- 调研过程 2 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">04 · Research</div>
+      <div class="section-heading">调研过程 — 竞品分析与业务数据解读</div>
+      <div class="prose">
+        通过本竞品对比分析和业务侧数据输入，明确不同商品类目的决策属性差异（如蔬菜类关注「产地」，酱油类关注「品牌/等级」），以及首复购用户的需求差异，为信息优先级排序提供数据依据。
+      </div>
+      <div class="img-block">
+        <img src="images/search2/s2-6.jpg" alt="调研过程 — 竞品分析与业务数据解读" />
+      </div>
+    </div>
+
+    <!-- 方案 1 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">05 · Solution</div>
+      <div class="section-heading">方案 — 建立信息准入与展示原则</div>
+      <div class="highlight-box">
+        <div class="label">策略</div>
+        <p>建立<strong>信息准入原则、展示原则、分级标准</strong>，保证展示简洁与高质的信息。从「理解易懂、指代清晰、吸引力强、有价值、避免冗余、保持一致」六个维度制定准入规则；同时建立优惠标签的准入标准与分级标准，优先展示高级别的重点信息。</p>
+      </div>
+      <div class="img-block">
+        <img src="images/search2/s2-7.jpg" alt="方案 — 建立信息准入标准与展示原则" />
+      </div>
+    </div>
+
+    <!-- 方案 2 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">05 · Solution</div>
+      <div class="section-heading">方案 — 6 类信息的系统性优化</div>
+      <div class="prose">
+        根据标准，对商品信息与商家信息共 6 类字段分别执行<strong>削减、弱化、强化、优化</strong>四种改进策略，涵盖副标题、月售数量、优惠标签、价格说明、优惠贴、配送信息等，并通过方案示意图清晰呈现改前改后对比。
+      </div>
+      <div class="img-block">
+        <img src="images/search2/s2-8.jpg" alt="方案 — 6类信息削减/弱化/强化/优化，含数据表现" />
+      </div>
+      <div class="highlight-box">
+        <div class="label">数据表现</div>
+        <p>CTR 显著正向 <strong>+0.08pp</strong>，搜索订单量正向 <strong>7839 单</strong>，访购率正向 <strong>+0.04pp</strong>。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <a class="next-project" href="index.html">
+    <div>
+      <div class="next-label">Back to</div>
+      <div class="next-title">All Projects</div>
+    </div>
+    <div class="next-arrow">→</div>
+  </a>
+
+  <script>
+    const bar = document.getElementById('readingProgress');
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      bar.style.width = (window.scrollY / total * 100) + '%';
+    });
+
+    const sections = document.querySelectorAll('[data-reveal]');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
+      });
+    }, { threshold: 0.06 });
+    sections.forEach(el => revealObs.observe(el));
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    document.querySelectorAll('.img-block').forEach(block => {
+      block.addEventListener('click', () => {
+        lightboxImg.src = block.querySelector('img').src;
+        lightboxImg.alt = block.querySelector('img').alt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    lightbox.addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>

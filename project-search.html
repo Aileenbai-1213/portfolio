@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>搜索结果页改版 — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d;
+      --surface: #141414;
+      --surface2: #1c1c1c;
+      --border: rgba(255,255,255,0.07);
+      --text-primary: #f0f0f0;
+      --text-secondary: #888;
+      --text-muted: #555;
+      --accent: #c8ff00;
+      --accent2: #7b61ff;
+      --font-sans: 'Inter', 'PingFang SC', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --content-width: 1200px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(13,13,13,0.8);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text-primary); }
+    .nav-back svg { transition: transform 0.2s; }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    /* ===== HERO ===== */
+    .project-hero {
+      padding: 140px 32px 80px;
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .project-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .project-eyebrow::before {
+      content: '';
+      width: 16px; height: 1px;
+      background: var(--accent);
+    }
+    .project-title {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .project-meta-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .meta-item {}
+    .meta-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .meta-value {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .tag.ux { border-color: rgba(123,97,255,0.3); color: #9b7fff; }
+    .tag.research { border-color: rgba(255,107,107,0.3); color: #ff8f8f; }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+    }
+
+    /* ===== CONTENT ===== */
+    .project-content {
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      padding: 0 32px 120px;
+    }
+
+    /* Section block */
+    .content-section {
+      padding: 64px 0 0;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .content-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      width: 12px; height: 1px;
+      background: var(--accent);
+    }
+    .section-heading {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 32px;
+      color: var(--text-primary);
+    }
+
+    /* ===== IMAGE BLOCK ===== */
+    .img-block {
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      margin-bottom: 12px;
+      cursor: zoom-in;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .img-block:hover {
+      border-color: rgba(255,255,255,0.12);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+    .img-block img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .img-caption {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      margin-bottom: 40px;
+      padding-left: 4px;
+    }
+    .img-caption span {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      margin-right: 6px;
+    }
+
+    /* Two-col images */
+    .img-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0,0,0,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      cursor: zoom-out;
+      backdrop-filter: blur(8px);
+    }
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      transform: scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .lightbox.active img {
+      transform: scale(1);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 32px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: rgba(255,255,255,0.8); }
+
+    /* ===== NEXT PROJECT ===== */
+    .next-project {
+      border-top: 1px solid var(--border);
+      padding: 64px 32px;
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .next-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .next-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .next-project:hover .next-title { color: var(--text-primary); }
+    .next-arrow {
+      width: 48px; height: 48px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 18px;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .next-project:hover .next-arrow {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .reading-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--accent);
+      z-index: 200;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reading progress -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close" id="lightboxClose">ESC to close</div>
+    <img id="lightboxImg" src="" alt="" />
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">ailin<span>.</span></div>
+    <a href="index.html" class="nav-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Work
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="project-hero">
+    <div class="project-eyebrow">Case Study</div>
+    <h1 class="project-title">搜索结果页改版</h1>
+    <div class="project-meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value">2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Company</div>
+        <div class="meta-value">Meituan</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value">UX Designer</div>
+      </div>
+    </div>
+    <div class="project-tags">
+      <span class="tag ux">UX Design</span>
+      <span class="tag research">User Research</span>
+      <span class="tag">C端</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CONTENT -->
+  <div class="project-content">
+
+    <!-- Section 1: 项目概览 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">Overview</div>
+      <div class="section-heading">项目概览</div>
+
+      <div class="img-block">
+        <img src="images/13.jpg" alt="美团搜索交易视频化建设 — 项目封面与改版对比" loading="lazy" />
+      </div>
+      <div class="img-caption">
+        <span>01</span>项目概览 · 搜索结果页视频化改版前后对比
+      </div>
+
+      <div class="img-block">
+        <img src="images/14.jpg" alt="项目背景 — 项目目标、设计动作与设计目标" loading="lazy" />
+      </div>
+      <div class="img-caption">
+        <span>02</span>项目背景 · 项目目标 · 设计动作与设计目标
+      </div>
+    </div>
+
+    <!-- Section 2: 调研过程 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">Research</div>
+      <div class="section-heading">调研过程</div>
+
+      <div class="img-block">
+        <img src="images/15.jpg" alt="调研过程 — Query分析与用户需求分析：Session分析" loading="lazy" />
+      </div>
+      <div class="img-caption">
+        <span>03</span>Query 分析 &amp; 桌面研究 · 用户需求分析：Session 分析
+      </div>
+
+      <div class="img-block">
+        <img src="images/16.jpg" alt="调研过程 — 供给分析与竞品分析、抖音对标" loading="lazy" />
+      </div>
+      <div class="img-caption">
+        <span>04</span>供给分析 · 竞品摸排 · 抖音对标
+      </div>
+
+      <div class="img-block">
+        <img src="images/17.jpg" alt="复盘与分享 — 用户特征洞察" loading="lazy" />
+      </div>
+      <div class="img-caption">
+        <span>05</span>复盘与分享 · 用户特征洞察：理解用户需求，判断不同场景下视频诉求程度
+      </div>
+
+      <div class="img-block">
+        <img src="images/18.jpg" alt="复盘与分享 — 供给分析与字段梳理" loading="lazy" />
+      </div>
+      <div class="img-caption">
+        <span>06</span>复盘与分享 · 供给分析：分析供给情况，以指导视频在页面上的展示设计
+      </div>
+
+      <div class="img-block">
+        <img src="images/19.jpg" alt="复盘与分享 — 竞品摸排与方案呈现" loading="lazy" />
+      </div>
+      <div class="img-caption">
+        <span>07</span>复盘与分享 · 竞品摸排 · 方案呈现：了解视频展示触点与展示方式
+      </div>
+    </div>
+
+    <!-- Section 3: 设计方案 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">Design Solution</div>
+      <div class="section-heading">设计方案</div>
+
+      <div class="img-block">
+        <img src="images/20.jpg" alt="方案说明 — 视频诉求强弱与搜索词类型对应的框架/模板方案" loading="lazy" />
+      </div>
+      <div class="img-caption">
+        <span>08</span>方案说明 · 视频诉求强弱 × 搜索词类型 → 改框架 / 改模板 / 加插入卡
+      </div>
+
+      <div class="img-block">
+        <img src="images/21.jpg" alt="方案展示 — 强/中/弱视频诉求下的完整方案与数据结果" loading="lazy" />
+      </div>
+      <div class="img-caption">
+        <span>09</span>方案展示 · 强 / 中 / 弱视频诉求场景完整方案 · 数据结果
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <a class="next-project" href="index.html">
+    <div>
+      <div class="next-label">Back to</div>
+      <div class="next-title">All Projects</div>
+    </div>
+    <div class="next-arrow">→</div>
+  </a>
+
+  <script>
+    // Reading progress
+    const bar = document.getElementById('readingProgress');
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      bar.style.width = (window.scrollY / total * 100) + '%';
+    });
+
+    // Scroll reveal
+    const sections = document.querySelectorAll('[data-reveal]');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.08 });
+    sections.forEach(el => revealObs.observe(el));
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.img-block').forEach(block => {
+      block.addEventListener('click', () => {
+        const src = block.querySelector('img').src;
+        const alt = block.querySelector('img').alt;
+        lightboxImg.src = src;
+        lightboxImg.alt = alt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    lightbox.addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>
