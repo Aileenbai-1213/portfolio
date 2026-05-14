@@ -6,6 +6,153 @@
   <title>ailin — Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'AlibabaPuHuiTi3';src:url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff2') format('woff2');font-weight:400;font-display:swap;}@font-face{font-family:'AlibabaPuHuiTi3';src:url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-65-Medium/AlibabaPuHuiTi-3-65-Medium.woff2') format('woff2');font-weight:500 600;font-display:swap;}</style>
+
+  <!-- ===== SPLASH STYLES ===== -->
+  <style>
+  /* 开屏变量（局部，不覆盖主站变量） */
+  :root {
+    --splash-bg:    #22201e;
+    --splash-ink:   rgba(244,241,236,0.92);
+    --splash-dim:   rgba(244,241,236,0.60);
+    --splash-dim2:  rgba(244,241,236,0.18);
+    --splash-accent:#e8572a;
+    --ease-splash:  cubic-bezier(.22,1,.36,1);
+  }
+
+  /* 开屏遮罩层 */
+  #splash-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: var(--splash-bg);
+    transition: opacity 1s var(--ease-splash);
+  }
+  #splash-overlay.leaving {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* 开屏时隐藏主体滚动 */
+  body.splash-active { overflow: hidden; }
+
+  /* ===== STARFIELD ===== */
+  .splash-starfield-wrap {
+    position: absolute; inset: 0;
+    pointer-events: none; overflow: hidden;
+  }
+  .splash-starfield-layer {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 150vmax; height: 150vmax;
+    transform: translate(-50%,-50%);
+  }
+  .splash-layer--far  { animation: splashRotateCCW 360s linear infinite; }
+  .splash-layer--mid  { animation: splashRotateCW  260s linear infinite; }
+  .splash-layer--near { animation: splashRotateCCW 190s linear infinite; }
+  @keyframes splashRotateCW  { to { transform: translate(-50%,-50%) rotate(360deg); } }
+  @keyframes splashRotateCCW { to { transform: translate(-50%,-50%) rotate(-360deg); } }
+  .splash-star {
+    position: absolute; border-radius: 50%; background: #fff;
+    animation: splashTwinkle 9s ease-in-out infinite;
+  }
+  .splash-layer--near .splash-star { box-shadow: 0 0 4px rgba(255,255,255,.8); }
+  .splash-layer--mid  .splash-star { box-shadow: 0 0 3px rgba(255,255,255,.6); }
+  .splash-layer--far  .splash-star { box-shadow: 0 0 2px rgba(255,255,255,.4); }
+  @keyframes splashTwinkle {
+    0%,100% { opacity: .7; } 50% { opacity: 1; }
+  }
+
+  /* ===== SHOOTING STARS ===== */
+  @keyframes splashShoot {
+    0%   { transform: translateZ(0) rotate(var(--ang)); opacity: 0; }
+    8%   { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translate3d(var(--dx),var(--dy),0) rotate(var(--ang)); opacity: 0; }
+  }
+  .splash-shooting-star {
+    position: absolute;
+    font-family: 'Inter', monospace;
+    color: rgba(255,255,255,.85);
+    text-shadow: 0 0 10px rgba(255,255,255,.5);
+    font-size: 12px; letter-spacing: .1em;
+    white-space: nowrap; pointer-events: none;
+    transform-origin: left center;
+    animation: splashShoot var(--dur) cubic-bezier(.16,.84,.44,1) forwards;
+  }
+
+  /* ===== 中心内容 ===== */
+  .splash-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 2;
+    text-align: center;
+  }
+  .splash-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--splash-dim);
+    margin-bottom: 12px;
+    opacity: 0; transform: translateY(8px);
+    animation: splashFadeUp .6s .4s var(--ease-splash) forwards;
+  }
+  .splash-title {
+    font-family: 'Lora', serif;
+    font-size: 34px; font-weight: 400;
+    letter-spacing: -.02em; line-height: 1.1;
+    color: var(--splash-ink);
+    white-space: nowrap;
+    margin-bottom: 16px;
+    opacity: 0; transform: translateY(14px);
+    animation: splashFadeUp .75s .62s var(--ease-splash) forwards;
+  }
+  .splash-title .name-accent { color: var(--splash-accent); font-style: italic; }
+  .splash-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 17px; font-weight: 300;
+    letter-spacing: .03em; line-height: 1.75;
+    color: var(--splash-dim);
+    max-width: 420px;
+    margin-bottom: 48px;
+    opacity: 0; transform: translateY(10px);
+    animation: splashFadeUp .65s 1s var(--ease-splash) forwards;
+  }
+  .splash-shove-word { display: inline-block; will-change: transform; }
+  .splash-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 34px; border-radius: 100px;
+    border: 1px solid var(--splash-accent);
+    background: transparent; color: var(--splash-ink);
+    font-family: 'AlibabaPuHuiTi3', 'PingFang SC', sans-serif;
+    font-size: 14px; font-weight: 400; letter-spacing: .06em;
+    opacity: 0; transform: translateY(10px);
+    animation: splashFadeUp .6s 1.22s var(--ease-splash) forwards;
+    transition: border-color .3s, background .3s, color .3s, transform .35s var(--ease-splash);
+  }
+  .splash-btn:hover {
+    border-color: var(--splash-accent);
+    background: var(--splash-accent);
+    color: #fff;
+    transform: translateY(-3px) !important;
+  }
+  .splash-btn .btn-arrow { transition: transform .35s var(--ease-splash); }
+  .splash-btn:hover .btn-arrow { transform: translateX(4px); }
+
+  /* ===== 开屏光标（白球）===== */
+  .cursor-splash {
+    position: fixed; z-index: 9999; pointer-events: none;
+    transform: translate(-50%,-50%);
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 16px rgba(255,255,255,.6),
+                0 0 32px rgba(255,255,255,.35),
+                0 0 64px rgba(255,255,255,.18);
+    transition: width .28s var(--ease-splash), height .28s var(--ease-splash), opacity .4s;
+  }
+  .cursor-splash.hovering { width: 32px; height: 32px; }
+  .cursor-splash.hidden { opacity: 0; }
+
+  @keyframes splashFadeUp { to { opacity: 1; transform: translateY(0); } }
+  </style>
   <style>
     /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,19 +193,18 @@
     ::-webkit-scrollbar-thumb { background: rgba(60,45,20,0.15); border-radius: 2px; }
 
     /* ===== CURSOR ===== */
+    * { cursor: none !important; }
     .cursor-dot {
       position: fixed; width: 10px; height: 10px;
       background: var(--accent); border-radius: 50%;
       pointer-events: none; z-index: 9999;
       transform: translate(-50%,-50%);
-      transition: width .2s var(--ease), height .2s var(--ease);
+      transition: width .25s var(--ease), height .25s var(--ease);
     }
-    .cursor-ring {
-      position: fixed; width: 38px; height: 38px;
-      border: 1.5px solid rgba(232,87,42,0.4);
-      border-radius: 50%; pointer-events: none; z-index: 9998;
-      transform: translate(-50%,-50%);
-      transition: left .09s linear, top .09s linear, width .3s var(--ease), height .3s var(--ease), border-color .3s;
+    .cursor-dot.hovering {
+      width: 22px; height: 22px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(232,87,42,0.18);
     }
 
     /* ===== NAV ===== */
@@ -194,7 +340,7 @@
       font-size: 13px; font-weight: 500; border-radius: 100px;
       transition: background .2s, transform .25s var(--ease), box-shadow .25s;
     }
-    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(var(--accent-rgb),.22); }
+    .btn-primary:hover { background: #c9431a; transform: translateY(-2px); box-shadow: 0 10px 32px rgba(var(--accent-rgb),.22); }
     .btn-ghost {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 14px 28px; border: 1.5px solid var(--border-mid); color: var(--ink-2);
@@ -304,7 +450,7 @@
     }
 
     /* ===== WORK ===== */
-    #work { background: var(--bg); }
+    #work { background: var(--bg); padding-top: 56px; }
     .work-header {
       display: flex; justify-content: space-between; align-items: flex-end;
       margin-bottom: 56px;
@@ -404,7 +550,7 @@
     .tag.ai       { border-color: rgba(var(--accent-rgb),.3); color: var(--accent); }
     .tag.research { border-color: rgba(62,207,160,.3); color: #2baa80; }
 
-    .card-title { font-family: 'Lora',serif; font-size: 17px; font-weight: 600; letter-spacing: -.01em; line-height: 1.28; margin-bottom: 7px; color: var(--ink); }
+    .card-title { font-family: 'AlibabaPuHuiTi3','PingFang SC',sans-serif; font-size: 17px; font-weight: 500; letter-spacing: -.01em; line-height: 1.28; margin-bottom: 7px; color: var(--ink); }
     .card-desc  { font-size: 12.5px; color: var(--ink-2); line-height: 1.65; flex: 1; }
     .card-footer {
       display: flex; justify-content: space-between; align-items: center;
@@ -613,8 +759,43 @@
 </head>
 <body>
 
-  <div class="cursor-dot"  id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+<!-- ===== 开屏光标 ===== -->
+<div class="cursor-splash" id="splashCursor"></div>
+
+<!-- ===== SPLASH OVERLAY ===== -->
+<div id="splash-overlay">
+
+  <!-- 星空背景 -->
+  <div class="splash-starfield-wrap">
+    <div class="splash-starfield-layer splash-layer--far"  id="splashLayerFar"></div>
+    <div class="splash-starfield-layer splash-layer--mid"  id="splashLayerMid"></div>
+    <div class="splash-starfield-layer splash-layer--near" id="splashLayerNear"></div>
+    <div id="splashShootWrap" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
+  </div>
+
+  <!-- 中心内容 -->
+  <div class="splash-center">
+    <div class="splash-eyebrow">Welcome to</div>
+    <h1 class="splash-title">
+      <span class="splash-shove-word" data-splash-shove>Aileen</span><span class="name-accent"><span class="splash-shove-word" data-splash-shove>'s</span></span>&nbsp;<span class="splash-shove-word" data-splash-shove>World</span>
+    </h1>
+    <p class="splash-sub">
+      <span class="splash-shove-word" data-splash-shove>聚焦产品中的用户行为、</span><span class="splash-shove-word" data-splash-shove>增长策略与业务体验</span>
+    </p>
+    <button class="splash-btn" id="splashEnterBtn">
+      探索
+      <span class="btn-arrow">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <path d="M1.5 6.5h10M6.5 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </button>
+  </div>
+
+</div>
+<!-- ===== END SPLASH ===== -->
+
+<div class="cursor-dot" id="cursorDot"></div>
 
   <!-- NAV -->
   <nav id="mainNav">
@@ -733,8 +914,8 @@
           <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
         </div>
         <div class="card-body">
-          <div class="card-tags"><span class="tag ux">UX Design</span><span class="tag">搜索体验</span><span class="tag">框架设计</span></div>
-          <div class="card-title">美团搜索交易视频化建设</div>
+<div class="card-tags"><span class="tag ux">体验设计</span><span class="tag ai">搜索体验</span><span class="tag" style="border-color:rgba(230,168,23,.35);color:#a07800;">框架设计</span></div>
+<div class="card-title">美团搜索交易视频化建设</div>
           <div class="card-desc">重构信息架构与视频内容呈现策略，基于用户需求分析与竞品研究。</div>
           <div class="card-footer"><span class="card-meta">2024 · Meituan搜索</span><div class="card-arrow">&nearr;</div></div>
         </div>
@@ -768,8 +949,8 @@
           <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
         </div>
         <div class="card-body">
-          <div class="card-tags"><span class="tag ux">UX Design</span><span class="tag research">搜索体验</span><span class="tag">信息设计</span></div>
-          <div class="card-title">搜索结果页信息简化与优化</div>
+<div class="card-tags"><span class="tag ux">体验设计</span><span class="tag research">搜索体验</span><span class="tag" style="border-color:rgba(230,168,23,.35);color:#a07800;">信息设计</span></div>
+<div class="card-title">搜索结果页信息简化与优化</div>
           <div class="card-desc">建立准入与展示原则，系统性削减冗余字段，提升屏效与转化。</div>
           <div class="card-footer"><span class="card-meta">2024 · Meituan搜索</span><div class="card-arrow">&nearr;</div></div>
         </div>
@@ -797,8 +978,8 @@
           <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
         </div>
         <div class="card-body">
-          <div class="card-tags"><span class="tag ai">AI</span><span class="tag ux">UX</span></div>
-          <div class="card-title">AI 在搜索链路的探索</div>
+<div class="card-tags"><span class="tag ai">AI应用</span><span class="tag ux">体验设计</span></div>
+<div class="card-title">AI 在搜索链路的探索</div>
           <div class="card-desc">明确对话式交互的适用边界与产品形态。</div>
           <div class="card-footer"><span class="card-meta">2024 · Meituan搜索</span><div class="card-arrow">&nearr;</div></div>
         </div>
@@ -921,7 +1102,7 @@
               <div class="exp-header">
                 <span class="exp-company">美团</span>
                 <span class="exp-role">资深体验设计师</span>
-                <span class="exp-direction">本地生活搜索直播产品方向</span>
+                <span class="exp-direction">本地生活首页搜索、直播产品方向</span>
               </div>
               <div class="exp-meta">2020.12 – 至今 · 北京，中国</div>
             </div>
@@ -932,7 +1113,7 @@
               <div class="exp-header">
                 <span class="exp-company">亚马逊</span>
                 <span class="exp-role">UX设计师</span>
-                <span class="exp-direction">医疗与账户系统</span>
+                <span class="exp-direction">C端买药与B端账户系统体验</span>
               </div>
               <div class="exp-meta">2019.07 – 2020.10 · 波士顿，美国</div>
             </div>
@@ -1002,26 +1183,145 @@
   </footer>
 
   <script>
+    // ===== SPLASH LOGIC =====
+    (function() {
+      // 初始化：主体禁止滚动
+      document.body.classList.add('splash-active');
+      const overlay    = document.getElementById('splash-overlay');
+      const splashCur  = document.getElementById('splashCursor');
+      const mainCur    = document.getElementById('cursorDot');
+      mainCur.style.opacity = '0';
+
+      // --- 开屏光标 ---
+      let smx = 0, smy = 0, scx = 0, scy = 0;
+      splashCur.style.opacity = '0';
+      document.addEventListener('pointermove', e => {
+        smx = e.clientX; smy = e.clientY;
+        splashCur.style.opacity = '1';
+        window._splashPointerX = scx;
+        window._splashPointerY = scy;
+      });
+      (function lerpSplashCursor() {
+        if (overlay.classList.contains('leaving')) return;
+        scx += (smx - scx) * 0.35;
+        scy += (smy - scy) * 0.35;
+        splashCur.style.left = scx + 'px';
+        splashCur.style.top  = scy + 'px';
+        window._splashPointerX = scx;
+        window._splashPointerY = scy;
+        requestAnimationFrame(lerpSplashCursor);
+      })();
+      overlay.querySelector('.splash-btn').addEventListener('mouseenter', () => splashCur.classList.add('hovering'));
+      overlay.querySelector('.splash-btn').addEventListener('mouseleave', () => splashCur.classList.remove('hovering'));
+
+      // --- 星空 ---
+      function makeSplashStar(sizeRange, opacityRange) {
+        const el = document.createElement('span');
+        el.className = 'splash-star';
+        const size    = sizeRange[0]    + Math.random() * (sizeRange[1]    - sizeRange[0]);
+        const opacity = opacityRange[0] + Math.random() * (opacityRange[1] - opacityRange[0]);
+        el.style.cssText = [
+          'left:'   + (Math.random() * 100) + '%',
+          'top:'    + (Math.random() * 100) + '%',
+          'width:'  + size + 'px',
+          'height:' + size + 'px',
+          'opacity:' + opacity,
+          'animation-delay:' + (Math.random() * 14) + 's',
+        ].join(';');
+        return el;
+      }
+      const lFar  = document.getElementById('splashLayerFar');
+      const lMid  = document.getElementById('splashLayerMid');
+      const lNear = document.getElementById('splashLayerNear');
+      for (let i = 0; i < 180; i++) lFar.appendChild(makeSplashStar([0.8,1.2],[0.2,0.5]));
+      for (let i = 0; i < 90;  i++) lMid.appendChild(makeSplashStar([1,1.8],[0.28,0.56]));
+      for (let i = 0; i < 40;  i++) lNear.appendChild(makeSplashStar([1.8,2.8],[0.6,0.95]));
+
+      // --- 流星 ---
+      const symbols   = ['✦', '✧', '·', '+', '×', '✳'];
+      const shootWrap = document.getElementById('splashShootWrap');
+      function launchSplashStar() {
+        const el = document.createElement('span');
+        el.className = 'splash-shooting-star';
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        const startX = window.innerWidth  * (0.5 + Math.random() * 0.45);
+        const startY = window.innerHeight * (Math.random() * 0.55);
+        const dx = -(window.innerWidth  * (0.45 + Math.random() * 0.35));
+        const dy =   window.innerHeight * (0.25 + Math.random() * 0.35);
+        const dur  = (1.4 + Math.random() * 0.9).toFixed(2) + 's';
+        const ang  = (Math.atan2(dy, dx) * 180 / Math.PI).toFixed(1) + 'deg';
+        el.style.left = startX + 'px';
+        el.style.top  = startY + 'px';
+        el.style.setProperty('--dx',  dx  + 'px');
+        el.style.setProperty('--dy',  dy  + 'px');
+        el.style.setProperty('--dur', dur);
+        el.style.setProperty('--ang', ang);
+        shootWrap.appendChild(el);
+        el.addEventListener('animationend', () => el.remove());
+      }
+      (function scheduleShoot() {
+        if (overlay.classList.contains('leaving')) return;
+        launchSplashStar();
+        setTimeout(scheduleShoot, 2500 + Math.random() * 2500);
+      })();
+
+      // --- Shove ---
+      const shoveEls    = Array.from(overlay.querySelectorAll('[data-splash-shove]'));
+      const shoveTarget  = new WeakMap();
+      const shoveCurrent = new WeakMap();
+      shoveEls.forEach(el => {
+        shoveTarget.set(el,  { x: 0, y: 0 });
+        shoveCurrent.set(el, { x: 0, y: 0 });
+      });
+      const SHOVE_RADIUS   = 100;
+      const SHOVE_STRENGTH = 28;
+      (function shoveLoop() {
+        if (overlay.classList.contains('leaving')) return;
+        const px = window._splashPointerX || -9999;
+        const py = window._splashPointerY || -9999;
+        for (const el of shoveEls) {
+          const rect  = el.getBoundingClientRect();
+          const ex    = rect.left + rect.width  / 2;
+          const ey    = rect.top  + rect.height / 2;
+          const dx    = ex - px;
+          const dy    = ey - py;
+          const dist  = Math.hypot(dx, dy) || 1;
+          const target = shoveTarget.get(el);
+          if (dist < SHOVE_RADIUS) {
+            const force = Math.pow(1 - dist / SHOVE_RADIUS, 1.4);
+            target.x = (dx / dist) * force * SHOVE_STRENGTH;
+            target.y = (dy / dist) * force * SHOVE_STRENGTH;
+          } else {
+            target.x = 0; target.y = 0;
+          }
+          const cur = shoveCurrent.get(el);
+          cur.x += (target.x - cur.x) * 0.18;
+          cur.y += (target.y - cur.y) * 0.18;
+          el.style.transform = `translate3d(${cur.x.toFixed(2)}px,${cur.y.toFixed(2)}px,0)`;
+        }
+        requestAnimationFrame(shoveLoop);
+      })();
+
+      // --- 进入主站 ---
+      document.getElementById('splashEnterBtn').addEventListener('click', () => {
+        overlay.classList.add('leaving');
+        splashCur.classList.add('hidden');
+        document.body.classList.remove('splash-active');
+        // 切换到主站橘色光标
+        mainCur.style.opacity = '1';
+        setTimeout(() => { overlay.remove(); splashCur.remove(); }, 1100);
+      });
+    })();
+
     // ===== CURSOR =====
-    const dot  = document.getElementById('cursorDot');
-    const ring = document.getElementById('cursorRing');
+    const dot = document.getElementById('cursorDot');
     document.addEventListener('mousemove', e => {
-      dot.style.left  = e.clientX + 'px';
-      dot.style.top   = e.clientY + 'px';
-      ring.style.left = e.clientX + 'px';
-      ring.style.top  = e.clientY + 'px';
+      dot.style.left = e.clientX + 'px';
+      dot.style.top  = e.clientY + 'px';
     });
     document.querySelectorAll('a, button, .project-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        dot.style.width = dot.style.height = '16px';
-        ring.style.width = ring.style.height = '58px';
-        ring.style.borderColor = 'rgba(232,87,42,.55)';
-      });
-      el.addEventListener('mouseleave', () => {
-        dot.style.width = dot.style.height = '10px';
-        ring.style.width = ring.style.height = '38px';
-        ring.style.borderColor = 'rgba(232,87,42,.4)';
-      });
+      el.addEventListener('mouseenter', () => dot.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => dot.classList.remove('hovering'));
     });
 
     // ===== HERO CANVAS – warm dot grid =====
