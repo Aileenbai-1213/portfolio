@@ -462,6 +462,32 @@
     }
     .insight-section p + p { margin-top: 12px; }
 
+    /* ===== SUB-HEADING-SM ===== */
+    .sub-heading-sm {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.01em;
+      margin-bottom: 16px;
+      margin-top: 28px;
+    }
+
+    /* ===== QUOTE GROUP ===== */
+    .quote-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .quote-item {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.04);
+      border-radius: 6px;
+      border-left: 2px solid rgba(184,92,0,0.3);
+    }
+
     /* ===== COMPARE TABLE ===== */
     .compare-table {
       width: 100%;
@@ -977,48 +1003,78 @@
       <div class="section-label">02 · Design Analysis</div>
       <div class="section-heading">设计分析</div>
 
-      <div class="sub-heading">用户洞察：直播 PMF 升级</div>
+      <!-- 1. 用户洞察 -->
+      <div class="sub-heading">1. 用户洞察</div>
+      <p class="prose">基于<a href="https://km.sankuai.com/collabpage/2727527302" target="_blank" style="color:var(--accent);">直播高频正餐用户</a>的调研，我们发现：</p>
+
+      <!-- 1.1 下单动机 -->
+      <div class="sub-heading-sm">1.1 用户在直播下单的动机是什么？</div>
       <div class="highlight-box">
-        <div class="label">核心判断</div>
-        <p>直播的核心 PMF 已从<strong>「逛直播买低价」</strong>升级为<strong>「逛直播买品质大牌深折品」</strong>。用户的消费预期和信任基础发生了质变，广场需要匹配这一心智升级，而非继续强化低价外卖的单一感知。</p>
+        <div class="label">价格优势 + 固定时间节点的发券机制为主要动机</div>
+        <p>用户在直播场景下的下单动机，主要来自于明确的<strong>价格优势预期</strong>，包括更低到手价、直播间优惠活动，以及<strong>固定时间节点的发券机制</strong>。</p>
+        <p style="margin-top:10px;">这意味着，当前直播对用户而言，更多是一种「低价渠道」。</p>
       </div>
 
-      <p class="prose">通过对近期直播用户行为数据的分析，我们发现高价值用户的购买动机正在从「随手薅一单」转变为「主动寻找特定品牌的限时好价」。这意味着广场需要更清晰的品牌精选心智，而不仅仅是海量内容的信息流。</p>
-
-      <div class="sub-heading">竞品调研</div>
-      <p class="prose">我们重点调研了具有代表性的直播广场类产品，从导航结构、内容分层、价格心智建立、用户资产承载四个维度进行对比分析。</p>
-
-      <!-- 竞品图占位 -->
-      <div class="img-placeholder" style="height: 260px;">
-        <div class="ph-icon">🔍</div>
-        <div>竞品分析图</div>
-        <div class="ph-label">待补充配图（竞品截图及对比分析）</div>
-      </div>
-
-      <div class="sub-heading">数据结论</div>
+      <!-- 1.2 体验痛点 -->
+      <div class="sub-heading-sm">1.2 当前直播广场的主要体验痛点是什么？</div>
 
       <div class="insight-section">
-        <div class="insight-num">洞察 01</div>
-        <h3>底部框架可行，但导航层级需优化</h3>
-        <p>改版 2 实验数据显示，底部 Tab 框架能有效承载广场的多类型内容需求，广场整体停留时长和人均停留时长均有正向提升。然而附近 Tab 因入口下移导致 CTR 明显下滑，说明一级导航的可达性设计需要针对性优化，不能简单地将所有功能平铺在底部。</p>
+        <div class="insight-num">痛点 01</div>
+        <h3>用户不知道怎么逛、不知道进哪个直播间</h3>
+        <p>用户普遍认为广场杂乱、无分类；卡片同质化严重、核心信息缺失（实质想看到商品信息——名称、价格）。</p>
+        <p style="margin-top:8px;">优质直播往往难以呈现，广场中未高效透传与推送。</p>
+        <div class="quote-group" style="margin-top:12px;">
+          <div class="quote-item">「直播广场乱，难找东西」</div>
+          <div class="quote-item">「广场不怎么用，很难找到自己想看的，要一个个翻着看」</div>
+          <div class="quote-item">「希望有分类，比如吃喝玩乐那些」</div>
+        </div>
       </div>
 
       <div class="insight-section">
-        <div class="insight-num">洞察 02</div>
-        <h3>订单 Tab 具有强再购转化潜力</h3>
-        <p>订单 Tab 的「再来一单」功能点击数据远超预期，推全后预计将带来可观的订单增量。这验证了「资产驱动回访」逻辑的可行性——用户愿意为了查看订单、管理权益而回到广场，广场需要把这个动线做得更顺畅。</p>
+        <div class="insight-num">痛点 02</div>
+        <h3>难找到主播和意向商品，常看主播缺乏快速触达路径</h3>
+        <p><strong>难搜</strong>：高频用户往往带着明确的主播或商品意图进入直播，但搜索体验不佳——想看的主播或商品经常搜不到；主播下播后，更难以被找到。</p>
+        <p style="margin-top:8px;"><strong>难筛</strong>：广场缺少帮助用户快速聚焦意图的筛选项，用户无法高效找到目标内容。用户高频提及的筛选维度有：距离、品类、品牌。</p>
+      </div>
+
+      <!-- 2. 竞品调研与数据分析 -->
+      <div class="sub-heading">2. 竞品调研与数据分析</div>
+      <div class="highlight-box">
+        <div class="label">核心结论</div>
+        <p>竞品调研得出：在广场顶部承担运营心智塑造是趋势；数据分析得出：增加底 tab 并保留「订单」有助于提升交易指标。</p>
+      </div>
+
+      <div class="sub-heading-sm">2.1 竞品在广场顶部承担运营心智塑造的职责</div>
+      <p class="prose">通过对淘宝、京东直播广场的调研，可以看到：他们的广场顶部在承担<strong>丰富多样的运营场心智塑造</strong>的职责，而非单纯内容展示。</p>
+
+      <div class="sub-heading-sm">2.2 数据结论显示增加底 tab 有助于提升交易指标</div>
+      <p class="prose">历史数据显示，<strong>当广场结构明确承载交易与复购路径时（加底 tab 并保留「订单」）</strong>，与交易相关的数据指标（点击、转化、复购）均有明显提升。</p>
+
+      <div class="insight-section">
+        <div class="insight-num">数据 01</div>
+        <h3>看播与停留全面正向</h3>
+        <p>大盘人均观看直播数 <strong style="color:#2d9a6a;">+0.58%</strong>（1.73→1.74），人均直播间观看时长 <strong style="color:#2d9a6a;">+0.88%</strong>（45.6s→46s）。广场 DAU <strong style="color:#2d9a6a;">+0.1%</strong>，日均 +2660；新回用户 <strong style="color:#2d9a6a;">+0.02%</strong>，日均 +280。</p>
       </div>
 
       <div class="insight-section">
-        <div class="insight-num">洞察 03</div>
-        <h3>精选页曝光损耗在可接受范围，但需关注支付转化</h3>
-        <p>底部框架导致用户注意力分散，精选页曝光有轻微下滑，点击有所减少，属于预期内的结构性损耗。但精选页支付 UV 呈正增长，说明留下来的用户质量更高，消费意愿更强。后续需在流量分配上精细化运营，避免过度分散核心转化页面的流量。</p>
+        <div class="insight-num">数据 02</div>
+        <h3>精选页支付 UV 正增长，订单 Tab 再购潜力强</h3>
+        <p>精选页支付 UV <strong style="color:#2d9a6a;">+0.57%</strong>，日均 +1260；整体用户次日留存 <strong style="color:#2d9a6a;">+0.03pp</strong>。订单 Tab「再来一单」点击 UV 日均 102 单，推全后预估有明显订单增长。</p>
       </div>
 
-      <div class="sub-heading">业务 OP 与设计方向</div>
-      <div class="info-box">
-        <div class="label">26 年 OP 核心目标</div>
-        <p>将直播广场打造为<strong>承载差异化高价值用户的稳定心智入口</strong>，通过大牌好价、整点秒杀、品牌与 IP 活动的持续运营，培养用户「看直播，逛品牌限量优质好货」的心智。同时完善资产体系，提升用户回访意愿，形成「找直播消费及互动记录，就回直播广场」的稳定回访路径。</p>
+      <!-- 3. 业务 PMF 与 OP -->
+      <div class="sub-heading">3. 业务 PMF 与 OP</div>
+
+      <div class="insight-section">
+        <div class="insight-num">PMF</div>
+        <h3>直播角色定位需升级：重交易 → 建心智</h3>
+        <p>直播的核心 PMF 已从「逛直播买低价」升级为<strong>「逛直播买品质大牌深折品」</strong>。26 年 OP 的重点是将直播广场打造为承载差异化高价值用户的稳定心智入口，通过大牌好价、整点秒杀、品牌与 IP 活动的持续运营，培养<strong>「看直播，逛品牌限量优质好货」</strong>的用户心智。</p>
+      </div>
+
+      <div class="insight-section">
+        <div class="insight-num">OP</div>
+        <h3>广场需完善资产，提升用户回访意愿</h3>
+        <p>OP 提出要完善资产、提升回访意愿，包括「订单 &amp; 券 &amp; 抽奖 list」及互动记录等，让用户形成「找直播消费及互动记录，就回直播广场」的稳定心智。</p>
       </div>
     </div>
 
