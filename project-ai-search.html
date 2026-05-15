@@ -347,7 +347,7 @@
   <!-- NAV -->
   <nav>
     <div class="nav-logo">ailin<span>.</span></div>
-    <a href="index.html#work" class="nav-back">
+    <a href="index.html#work" class="nav-back" onclick="location.replace('index.html#work');return false;">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -472,10 +472,6 @@
   </a>
 
   <script>
-    // 确保浏览器后退落到首页 #work，而非开屏
-    history.replaceState(null, '', 'index.html#work');
-    history.pushState(null, '', window.location.href);
-
     const bar = document.getElementById('readingProgress');
     window.addEventListener('scroll', () => {
       const total = document.body.scrollHeight - window.innerHeight;
