@@ -461,6 +461,15 @@
       line-height: 1.75;
     }
     .insight-section p + p { margin-top: 12px; }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .pain-grid .insight-section {
+      margin-bottom: 0;
+    }
 
     /* ===== SUB-HEADING-SM ===== */
     .sub-heading-sm {
@@ -1018,23 +1027,25 @@
       <!-- 1.2 体验痛点 -->
       <div class="sub-heading-sm">1.2 当前直播广场的主要体验痛点是什么？</div>
 
-      <div class="insight-section">
-        <div class="insight-num">痛点 01</div>
-        <h3>用户不知道怎么逛、不知道进哪个直播间</h3>
-        <p>用户普遍认为广场杂乱、无分类；卡片同质化严重、核心信息缺失（实质想看到商品信息——名称、价格）。</p>
-        <p style="margin-top:8px;">优质直播往往难以呈现，广场中未高效透传与推送。</p>
-        <div class="quote-group" style="margin-top:12px;">
-          <div class="quote-item">「直播广场乱，难找东西」</div>
-          <div class="quote-item">「广场不怎么用，很难找到自己想看的，要一个个翻着看」</div>
-          <div class="quote-item">「希望有分类，比如吃喝玩乐那些」</div>
+      <div class="pain-grid">
+        <div class="insight-section">
+          <div class="insight-num">痛点 01</div>
+          <h3>用户不知道怎么逛、不知道进哪个直播间</h3>
+          <p>用户普遍认为广场杂乱、无分类；卡片同质化严重、核心信息缺失（实质想看到商品信息——名称、价格）。</p>
+          <p style="margin-top:8px;">优质直播往往难以呈现，广场中未高效透传与推送。</p>
+          <ul class="pp-list" style="margin-top:12px;">
+            <li>「直播广场乱，难找东西」</li>
+            <li>「广场不怎么用，很难找到自己想看的，要一个个翻着看」</li>
+            <li>「希望有分类，比如吃喝玩乐那些」</li>
+          </ul>
         </div>
-      </div>
 
-      <div class="insight-section">
-        <div class="insight-num">痛点 02</div>
-        <h3>难找到主播和意向商品，常看主播缺乏快速触达路径</h3>
-        <p><strong>难搜</strong>：高频用户往往带着明确的主播或商品意图进入直播，但搜索体验不佳——想看的主播或商品经常搜不到；主播下播后，更难以被找到。</p>
-        <p style="margin-top:8px;"><strong>难筛</strong>：广场缺少帮助用户快速聚焦意图的筛选项，用户无法高效找到目标内容。用户高频提及的筛选维度有：距离、品类、品牌。</p>
+        <div class="insight-section">
+          <div class="insight-num">痛点 02</div>
+          <h3>难找到主播和意向商品，常看主播缺乏快速触达路径</h3>
+          <p><strong>难搜</strong>：高频用户往往带着明确的主播或商品意图进入直播，但搜索体验不佳——想看的主播或商品经常搜不到；主播下播后，更难以被找到。</p>
+          <p style="margin-top:8px;"><strong>难筛</strong>：广场缺少帮助用户快速聚焦意图的筛选项，用户无法高效找到目标内容。用户高频提及的筛选维度有：距离、品类、品牌。</p>
+        </div>
       </div>
 
       <!-- 2. 竞品调研与数据分析 -->
