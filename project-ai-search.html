@@ -472,6 +472,10 @@
   </a>
 
   <script>
+    // 确保浏览器后退落到首页 #work，而非开屏
+    history.replaceState(null, '', 'index.html#work');
+    history.pushState(null, '', window.location.href);
+
     const bar = document.getElementById('readingProgress');
     window.addEventListener('scroll', () => {
       const total = document.body.scrollHeight - window.innerHeight;
