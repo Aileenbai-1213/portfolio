@@ -1191,6 +1191,17 @@
         const splashCur = document.getElementById('splashCursor');
         overlay.remove();
         splashCur.remove();
+        document.body.classList.remove('splash-active');
+        // 等 DOM 渲染完再滚动到锚点
+        window.addEventListener('DOMContentLoaded', function() {
+          const target = document.querySelector(window.location.hash);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+        // 兼容已加载完的情况
+        if (document.readyState !== 'loading') {
+          const target = document.querySelector(window.location.hash);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }
         return;
       }
 
