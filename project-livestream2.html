@@ -322,14 +322,20 @@
       color: #a0291a;
       border: none;
       border-radius: 100px;
-      padding: 4px 12px;
-      margin-bottom: 12px;
+      padding: 3px 10px;
+      margin-right: 8px;
+      vertical-align: middle;
+      flex-shrink: 0;
     }
     .problem-card h4 {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
       font-size: 15px;
       font-weight: 600;
       color: var(--text-primary);
       margin-bottom: 10px;
+      line-height: 1.4;
     }
     .problem-card p {
       font-size: 13px;
@@ -912,15 +918,13 @@
       <p class="prose">根据各方反馈与用户洞察，当前直播广场的核心困境如下：</p>
 
       <div class="problem-grid">
-        <div class="problem-card">
-          <div class="p-tag">困境 1</div>
-          <h4>广场分发了流量，但没有承载心智</h4>
+          <div class="problem-card">
+          <h4><span class="p-tag">困境 1</span>广场分发了流量，但没有承载心智</h4>
           <p>用户进入直播广场，完成了消费意图的承接，但未对广场形成明确的认知。尤其在直播新 PMF 建立后，目前直播广场在「本地生活品质品牌的中心市集」的呈现上不够显性。</p>
         </div>
-        <div class="problem-card">
-          <div class="p-tag">困境 2</div>
-          <h4>用户有需求，但广场未能满足好</h4>
-          <ul class="pp-list" style="margin-top: 8px;">
+          <div class="problem-card">
+          <h4><span class="p-tag">困境 2</span>用户有需求，但广场未能满足好</h4>
+          <ul class="pp-list" style="margin-top: 0;">
             <li>有意图用户：想找主播、商品、品牌，但难搜、难找、难触达；</li>
             <li>无意图用户：想随便逛逛看看，但难逛。</li>
           </ul>
