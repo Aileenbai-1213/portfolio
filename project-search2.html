@@ -56,12 +56,19 @@
     .nav-back {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-size: 13px;
+      gap: 7px;
+      font-size: 12px;
       color: var(--text-secondary);
-      transition: color 0.2s;
+      padding: 7px 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 100px;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
-    .nav-back:hover { color: var(--text-primary); }
+    .nav-back:hover {
+      color: var(--text-primary);
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.06);
+    }
     .nav-back svg { transition: transform 0.2s; }
     .nav-back:hover svg { transform: translateX(-3px); }
 
@@ -362,7 +369,7 @@
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      Back to Work
+      回到项目列表
     </a>
   </nav>
 
