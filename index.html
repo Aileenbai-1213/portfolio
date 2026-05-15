@@ -1185,6 +1185,15 @@
   <script>
     // ===== SPLASH LOGIC =====
     (function() {
+      // 如果 URL 带有 hash（如 #work），说明是从详情页返回，直接跳过开屏
+      if (window.location.hash) {
+        const overlay   = document.getElementById('splash-overlay');
+        const splashCur = document.getElementById('splashCursor');
+        overlay.remove();
+        splashCur.remove();
+        return;
+      }
+
       // 初始化：主体禁止滚动
       document.body.classList.add('splash-active');
       const overlay    = document.getElementById('splash-overlay');
