@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>开播工具AI封面制作 — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f0e8;
+      --surface: #ede8de;
+      --surface2: #e4ddd0;
+      --border: rgba(0,0,0,0.09);
+      --text-primary: #1a1a1a;
+      --text-secondary: #4a4a4a;
+      --text-muted: #8a8278;
+      --accent: #b85c00;
+      --accent2: #5a3fc0;
+      --accent3: #c0392b;
+      --accent-ai: #925c31;
+      --font-sans: 'Inter', 'PingFang SC', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --radius: 16px;
+      --radius-sm: 8px;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --content-width: 1200px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 2px; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(245,240,232,0.88);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; text-decoration: none; color: var(--text-primary); cursor: pointer; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: rgba(26,26,26,0.7);
+      padding: 7px 16px;
+      border: 1px solid rgba(26,26,26,0.2);
+      border-radius: 100px;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .nav-back:hover {
+      color: var(--text-primary);
+      border-color: rgba(26,26,26,0.5);
+      background: rgba(26,26,26,0.06);
+    }
+    .nav-back svg { transition: transform 0.2s; }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    /* ===== HERO ===== */
+    .project-hero {
+      padding: 140px 32px 80px;
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .project-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .project-eyebrow::before {
+      content: '';
+      width: 16px; height: 1px;
+      background: #925c31;
+    }
+    .project-title {
+      font-size: clamp(32px, 4.5vw, 60px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .project-meta-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .meta-label {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .meta-value { font-size: 14px; color: var(--text-secondary); }
+    .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+    }
+    .tag.ai { border-color: rgba(146,92,49,0.3); color: #925c31; }
+    .tag.ux { border-color: rgba(90,63,192,0.3); color: #5a3fc0; }
+    .tag.biz { border-color: rgba(184,92,0,0.3); color: #b85c00; }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+    }
+
+    /* ===== CONTENT ===== */
+    .project-content {
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      padding: 0 32px 120px;
+    }
+
+    /* Section block */
+    .content-section {
+      padding: 64px 0 0;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .content-section.visible { opacity: 1; transform: translateY(0); }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      width: 12px; height: 1px;
+      background: #925c31;
+    }
+    .section-heading {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    /* ===== PROSE TEXT ===== */
+    .prose {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+    .prose strong { color: var(--text-primary); font-weight: 600; }
+    .prose em { color: #925c31; font-style: normal; }
+
+    /* ===== HIGHLIGHT BOX ===== */
+    .highlight-box {
+      background: #fff8f0;
+      border: none;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .highlight-box .label {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .highlight-box p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #3a3a3a;
+    }
+    .highlight-box p strong { color: var(--text-primary); }
+
+    /* ===== AI BOX (blue) ===== */
+    .ai-box {
+      background: rgba(146,92,49,0.07);
+      border: none;
+      border-left: 3px solid #925c31;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .ai-box .label {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7a4a20;
+      margin-bottom: 8px;
+    }
+    .ai-box p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #4a2e14;
+    }
+    .ai-box p strong { color: #3b2210; }
+
+    /* ===== INFO BOX (purple) ===== */
+    .info-box {
+      background: rgba(90,63,192,0.05);
+      border: none;
+      border-left: 3px solid #5a3fc0;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .info-box .label {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9b7fff;
+      margin-bottom: 8px;
+    }
+    .info-box p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #2e2060;
+    }
+    .info-box p strong { color: #1a1060; }
+
+    /* ===== STAT CARDS ===== */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-row-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: none;
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .stat-card.blue { border-color: rgba(146,92,49,0.2); background: rgba(146,92,49,0.05); }
+    .stat-card .stat-num {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #b85c00;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-card.blue .stat-num { color: #925c31; }
+    .stat-card .stat-num span { font-size: 20px; }
+    .stat-card .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .stat-card .stat-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* ===== PROBLEM CARDS ===== */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .problem-card {
+      background: var(--surface);
+      border: none;
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .problem-card .p-tag {
+      display: inline-block;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(192,57,43,0.1);
+      color: #a0291a;
+      border: none;
+      border-radius: 100px;
+      padding: 4px 12px;
+      margin-bottom: 12px;
+    }
+    .problem-card h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    .problem-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== COMPETITOR TABLE ===== */
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+    .comp-table th {
+      background: var(--surface2);
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .comp-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table tr:hover td { background: rgba(0,0,0,0.02); }
+    .badge {
+      display: inline-block;
+      font-size: 13px;
+      padding: 2px 10px;
+      border-radius: 100px;
+      font-weight: 500;
+    }
+    .badge-yes { background: rgba(22,163,74,0.12); color: #15803d; }
+    .badge-low { background: rgba(234,179,8,0.12); color: #92400e; }
+    .badge-no  { background: rgba(107,114,128,0.1); color: #6b7280; }
+
+    /* ===== DECISION CARDS ===== */
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .decision-card {
+      background: var(--surface);
+      border: none;
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: border-color 0.3s;
+    }
+    .decision-card:hover { border-color: rgba(146,92,49,0.3); }
+    .decision-num {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: #925c31;
+      margin-bottom: 12px;
+      font-family: var(--font-mono);
+    }
+    .decision-card h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .decision-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .decision-card .decision-q {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+    .decision-card .decision-arrow {
+      font-size: 12px;
+      color: #925c31;
+      margin: 8px 0;
+    }
+
+    /* ===== FLOW STAGES ===== */
+    .flow-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-bottom: 32px;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .flow-stage {
+      background: var(--surface);
+      padding: 28px 24px;
+      position: relative;
+    }
+    .flow-stage-num {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #7a4a20;
+      margin-bottom: 10px;
+      font-family: var(--font-mono);
+    }
+    .flow-stage h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+    }
+    .flow-stage ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .flow-stage ul li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      padding-left: 16px;
+      position: relative;
+    }
+    .flow-stage ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+
+    /* ===== OUTCOME CARDS ===== */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .outcome-card {
+      background: var(--surface);
+      border: none;
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .o-tag {
+      display: inline-block;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(146,92,49,0.08);
+      color: #7a4a20;
+      border: 1px solid rgba(146,92,49,0.2);
+      border-radius: 100px;
+      padding: 3px 10px;
+      margin-bottom: 12px;
+    }
+    .outcome-card h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .outcome-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== IMAGE PLACEHOLDER ===== */
+    .img-placeholder {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px dashed rgba(0,0,0,0.12);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      margin-bottom: 24px;
+    }
+    .img-placeholder .ph-icon { font-size: 28px; opacity: 0.4; }
+    .img-placeholder .ph-label { font-size: 13px; color: var(--text-muted); }
+
+    /* ===== IMG BLOCK ===== */
+    .img-block {
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 24px;
+      cursor: zoom-in;
+      position: relative;
+    }
+    .img-block img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .img-block:hover img { transform: scale(1.02); }
+    .img-caption {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: -16px;
+      margin-bottom: 24px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ===== IMG GRID ===== */
+    .img-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .img-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    /* ===== READING PROGRESS ===== */
+    .reading-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: #925c31;
+      z-index: 200;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* ===== LIGHTBOX ===== */
+    .content-section img, .comp-table img, figure img, .img-block img {
+      cursor: zoom-in;
+    }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(20,15,10,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      cursor: zoom-out;
+      backdrop-filter: blur(8px);
+    }
+    .lightbox.active { opacity: 1; pointer-events: all; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      transform: scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .lightbox.active img { transform: scale(1); }
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 32px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: rgba(255,255,255,0.8); }
+
+    /* ===== NEXT PROJECT ===== */
+    .next-project {
+      border-top: 1px solid var(--border);
+      padding: 64px 32px;
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .next-label {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .next-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .next-project:hover .next-title { color: var(--text-primary); }
+    .next-arrow {
+      width: 48px; height: 48px;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 18px;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .next-project:hover .next-arrow {
+      border-color: #925c31;
+      color: #925c31;
+      transform: translateX(4px);
+    }
+
+    /* ===== USER LIST ===== */
+    .user-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 0;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .user-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 10px 24px;
+    }
+    .user-num {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      background: rgba(184,92,0,0.1);
+      color: #b85c00;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .user-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+    .user-body strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    /* ===== BG TWO COL ===== */
+    .bg-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .bg-block {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 28px 28px 24px;
+    }
+    .bg-block-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .bg-block-icon { font-size: 17px; }
+    .bg-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      counter-reset: bg-item;
+    }
+    .bg-list li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      padding-left: 0;
+      border-left: none;
+      counter-increment: bg-item;
+    }
+    .bg-list li strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .bg-list li strong::before {
+      content: counter(bg-item) ". ";
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ===== GOAL TABLE ===== */
+    .goal-table {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
+    .goal-table-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+    }
+    .goal-table-head > div {
+      padding: 12px 24px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .goal-table-head > div:first-child {
+      border-right: 1px solid var(--border);
+    }
+    .goal-real-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .goal-real-table th {
+      background: var(--surface2);
+      padding: 12px 24px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .goal-real-table th:first-child {
+      border-right: 1px solid var(--border);
+      width: 50%;
+    }
+    .goal-real-table td {
+      padding: 20px 24px;
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--border);
+    }
+    .goal-real-table tr:last-child td {
+      border-bottom: none;
+    }
+    .goal-real-table td:first-child {
+      border-right: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .goal-real-table td strong {
+      display: inline;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .bg-two-col { grid-template-columns: 1fr; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .decision-grid { grid-template-columns: 1fr; }
+      .outcome-grid { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: 1fr; }
+      .stat-row-4 { grid-template-columns: repeat(2, 1fr); }
+      .flow-row { grid-template-columns: 1fr; }
+      .img-grid-2 { grid-template-columns: 1fr; }
+      .img-grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close" id="lightboxClose">ESC to close</div>
+    <img id="lightboxImg" src="" alt="" />
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html#hero" class="nav-logo">ailin<span>.</span></a>
+    <a href="index.html#work" class="nav-back" onclick="location.replace('index.html#work');return false;">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      回到项目列表
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="project-hero">
+    <div class="project-eyebrow">AI Application · Interaction Design · B-end Tool</div>
+    <h1 class="project-title">开播工具AI封面制作</h1>
+    <div class="project-meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value">2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Company</div>
+        <div class="meta-value">美团 直播</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value">交互设计</div>
+      </div>
+    </div>
+    <div class="project-tags">
+      <span class="tag ai">AI 应用</span>
+      <span class="tag ux">体验设计</span>
+      <span class="tag biz">B端工具</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CONTENT -->
+  <div class="project-content">
+
+    <!-- ① 项目背景 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">01 · Background</div>
+      <div class="section-heading">项目背景</div>
+
+      <div class="highlight-box">
+        <div class="label">一句话定位</div>
+        <p>让中小商家和BD告别"手动p图"——通过AI能力一键生成专业直播间封面，降低开播准备门槛，提升封面质量与开播效率。</p>
+      </div>
+
+      <div class="section-heading" style="font-size: 17px; margin-top: 32px; margin-bottom: 16px;">核心痛点</div>
+
+      <div class="bg-two-col">
+        <div class="bg-block">
+          <div class="bg-block-title">
+            <span class="bg-block-icon">📦</span>供给问题
+          </div>
+          <ul class="bg-list">
+            <li>
+              <strong>素材设计成本高</strong>
+              官播等大规模商播依赖外部设计，单场成本达 200 元，令中小商播却步；
+            </li>
+            <li>
+              <strong>操作复杂</strong>
+              超 95% 开播主播为商播，近 7 成为中小商播，其直播间装修操作时长比大规模商播多 0.98 分钟，部分主播因"不会用""不易用"影响开播。
+            </li>
+          </ul>
+        </div>
+        <div class="bg-block">
+          <div class="bg-block-title">
+            <span class="bg-block-icon">📡</span>流量问题
+          </div>
+          <ul class="bg-list">
+            <li>
+              <strong>内容质量差异大</strong>
+              直播物料质量官播 ＞ 达播 ＞ 商播，对应观众停留时间递减。
+            </li>
+            <li>
+              <strong>同质化严重</strong>
+              装修模板虽简化操作，但导致大量相似直播间涌入，节庆期间尤为明显，引发用户"审美疲劳"。
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-heading" style="font-size: 17px; margin-top: 32px; margin-bottom: 16px;">目标用户</div>
+      <div class="user-list" style="width: calc(66% + 100px);">
+        <div class="user-item">
+          <div class="user-num">1</div>
+          <div class="user-body">
+            <strong>中小商播老板</strong>
+            多数无AI工具使用经验，对技术操作陌生，需要门槛极低的生成方式。
+          </div>
+        </div>
+        <div class="user-item">
+          <div class="user-num">2</div>
+          <div class="user-body">
+            <strong>BD（商务拓展）人员</strong>
+            负责协助多个商家开播，需要能快速批量处理封面的高效工具。
+          </div>
+        </div>
+      </div>
+
+      <div class="section-heading" style="font-size: 17px; margin-top: 32px; margin-bottom: 16px;">项目目标</div>
+
+      <div class="goal-table" style="width: calc(66% + 100px);">
+        <table class="goal-real-table">
+          <thead>
+            <tr>
+              <th>达成目标</th>
+              <th>机会点洞察</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2"><strong>目标 1：</strong>从主播和工具角度出发，提升真人开播工具和数字人平台装修功能使用率</td>
+              <td style="border-right: none;">降低主播在装修过程中的操作时长</td>
+            </tr>
+            <tr>
+              <td style="border-right: none;">解决中小商播不会用 / 不易用装修功能的问题</td>
+            </tr>
+            <tr>
+              <td><strong>目标 2：</strong>从看播体验角度出发，提升 C 端看播用户直播间内的停留时长</td>
+              <td style="border-right: none;">解决直播间同质化明显的问题</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- ② 我的挑战 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">02 · Design Challenge</div>
+      <div class="section-heading">核心设计挑战</div>
+
+      <div class="prose">
+        这个项目的根本矛盾在于：<strong>目标用户完全没有AI工具使用经验</strong>，但我们又需要借助AI能力帮他们生成专业内容。普通AI产品的设计范式（自由输入框、prompt引导）在这里行不通。
+      </div>
+
+      <div class="challenge-grid">
+        <div class="problem-card">
+          <div class="p-tag">挑战 1</div>
+          <h4>如何让不会写 prompt 的用户也能驱动 AI？</h4>
+          <p>商播老板对“提示词”没有概念，让他描述想要的封面风格几乎是一道送命题。输入门槛决定了整个功能的采纳率上限。</p>
+        </div>
+        <div class="problem-card">
+          <div class="p-tag">挑战 2</div>
+          <h4>有时需要10多秒，如何保证主流程不断路？</h4>
+          <p>封面生成时用户可能点击“发布预告”，此时必须有明确的决策引导——不能让 AI 等待阻塞开播主流程，否则用户会直接放弃 AI 功能。</p>
+        </div>
+        <div class="problem-card">
+          <div class="p-tag">挑战 3</div>
+          <h4>生成结果不满意时，怎么改？</h4>
+          <p>AI 生成内容不可能 100% 符合预期。如何在“接受”和“全部重来”之间提供更细粒度的编辑能力，直接影响用户最终的采纳率。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ③ 竞品调研 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">03 · Research</div>
+      <div class="section-heading">竞品调研：AI 输入交互模式</div>
+
+      <div class="ai-box">
+        <div class="label">调研核心结论</div>
+        <p>针对<strong>完全无AI经验的外行用户</strong>，最友好的方式是<strong>"一键生成"</strong>——完全不需要用户输入任何内容，后台基于商家已有数据（商品信息、业务线、历史开播记录）自动构建 prompt，用户只需点击一个按钮。这是我们方案的核心设计原则。</p>
+      </div>
+
+      <div class="prose">
+        针对"外行用户如何驱动 AI 生图"这一核心问题，调研了抖音直播伴侣、豆包、可灵、淘宝商家工具、闲鱼、剪映、美镜等 8 款产品，梳理出 5 种主要输入模式及其适用场景。
+      </div>
+
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>输入方式</th>
+            <th>典型产品</th>
+            <th>核心逻辑</th>
+            <th>是否借鉴</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>智能扩写</strong></td>
+            <td>可灵</td>
+            <td>输入简短关键词，系统自动扩写为专业 prompt。示例："火锅" → "火锅店热闹场景，暖光氛围"<br><img src="assets/competitor/keling-expand.png" alt="可灵智能扩写" style="max-height:110px;max-width:100%;border-radius:6px;margin-top:8px;display:block;"></td>
+            <td><span class="badge badge-yes">✓ 借鉴</span></td>
+          </tr>
+          <tr>
+            <td><strong>表单选择填空</strong></td>
+            <td>豆包、剪映、抖音直播伴侣</td>
+            <td>将复杂需求拆解为主题、风格、促销信息等简单选项，避免用户从零描述<br><img src="assets/competitor/douyin-form.png" alt="抖音直播伴侣表单" style="max-height:110px;max-width:100%;border-radius:6px;margin-top:8px;display:block;"></td>
+            <td><span class="badge badge-yes">✓ 借鉴</span></td>
+          </tr>
+          <tr>
+            <td><strong>场景化模板预设</strong></td>
+            <td>淘宝商家工具</td>
+            <td>按行业/身份（美妆主播 vs 家电商家）推荐常见模板，快速生成<br><img src="assets/competitor/scene-preset.png" alt="场景化模板预设" style="max-height:110px;max-width:100%;border-radius:6px;margin-top:8px;display:block;"></td>
+            <td><span class="badge badge-yes">✓ 借鉴</span></td>
+          </tr>
+          <tr>
+            <td><strong>多模态输入</strong></td>
+            <td>可灵、美镜</td>
+            <td>允许上传参考图/视频，AI 解析后生成类似设计<br><div style="display:flex;gap:6px;margin-top:8px;"><img src="assets/competitor/keling-reference.png" alt="可灵参考生图" style="max-height:100px;max-width:48%;border-radius:6px;object-fit:cover;"><img src="assets/competitor/jimeng-multimodal.jpg" alt="即梦多模态" style="max-height:100px;max-width:48%;border-radius:6px;object-fit:cover;"></div></td>
+            <td><span class="badge badge-low">低优，暂缓</span></td>
+          </tr>
+          <tr>
+            <td><strong>可视化编辑</strong></td>
+            <td>Recraft</td>
+            <td>生成后通过属性面板调整细节，操作自动转为 prompt 文本<br><img src="assets/competitor/recraft-visual.png" alt="Recraft 可视化编辑" style="max-height:110px;max-width:100%;border-radius:6px;margin-top:8px;display:block;"></td>
+            <td><span class="badge badge-low">低优，暂缓</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <!-- ④ 设计方案 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">04 · Design Solution</div>
+      <div class="section-heading">设计方案</div>
+
+      <div class="prose">
+        方案按 AI 使用的三个阶段展开：<strong>生成前（如何触发）→ 生成中（如何等待）→ 生成后（如何采纳）</strong>。每个阶段都有对应的关键设计决策。
+      </div>
+
+      <div class="flow-row">
+        <div class="flow-stage">
+          <div class="flow-stage-num">Stage 01 · 生成前</div>
+          <h4>触发与输入设计</h4>
+          <ul>
+            <li>封面入口新增"AI生成"，最小侵入主流程</li>
+            <li><strong>零输入直接生成</strong>：自动读取爆品、环境图、业务线、节庆时间</li>
+            <li>高阶用户可展开编辑 prompt 字段</li>
+          </ul>
+        </div>
+        <div class="flow-stage">
+          <div class="flow-stage-num">Stage 02 · 生成中</div>
+          <h4>等待体验设计</h4>
+          <ul>
+            <li>框选动效 + 倒计时，降低等待焦虑</li>
+            <li>超时自动转后台生成，不阻断其他操作</li>
+            <li>生成中点击"发布"弹出二次确认，主流程可走通</li>
+          </ul>
+        </div>
+        <div class="flow-stage">
+          <div class="flow-stage-num">Stage 03 · 生成后</div>
+          <h4>编辑与采纳设计</h4>
+          <ul>
+            <li><strong>局部重绘</strong>：涂抹区域 + 改图指令，精准修改</li>
+            <li><strong>重新编辑</strong>：修改 prompt 后整图重生成</li>
+            <li>历史记录三端互通，可回溯复用</li>
+          </ul>
+        </div>
+      </div>
+
+      <figure style="margin: 0 0 32px; background: rgba(146,92,49,0.06); border-radius: var(--radius); padding: 20px;">
+        <img src="assets/solution-overview.png" alt="设计方案全览（Web 端 + App 端）" style="width:100%;border-radius:var(--radius-sm);display:block;">
+        <figcaption style="font-size:13px;color:var(--text-muted);margin-top:10px;text-align:center;letter-spacing:0.03em;">Web 端 · App 端 设计方案全览</figcaption>
+      </figure>
+
+      <div class="section-heading" style="font-size: 17px; margin-top: 8px;">生成中发布的分支处理</div>
+
+      <div class="prose">
+        生成期间用户点击"发布预告"是最复杂的边界场景，需要同时处理标题生成状态与封面生成状态的博弈：
+      </div>
+
+      <div class="img-placeholder" style="height: 280px;">
+        <div class="ph-icon">🔀</div>
+        <div class="ph-label">生成中发布的状态判断逻辑图（有/无旧封面 × 标题/封面生成进度）</div>
+      </div>
+
+      <div class="ai-box">
+        <div class="label">状态判断规则</div>
+        <p>若标题还在生成、封面已完成 → 展示标题的二次确认弹窗；若标题已完成、封面还在生成 → 展示封面弹窗；若两者都在进程中 → 展示<strong>耗时较长的封面弹窗</strong>。当生成成功后，弹窗自动关闭。</p>
+      </div>
+
+      <div class="section-heading" style="font-size: 17px; margin-top: 8px;">Web / PC 端差异适配</div>
+
+      <div class="prose">
+        Web 和 PC 端基于多窗口操作习惯，将 App 的全屏跳转改为<strong>右侧弹入半屏</strong>，三个区域从左到右平铺：封面内容描述区 → 封面预览区 → 历史图片区，支持同屏对比与快速切换。
+      </div>
+
+      <!-- 占位：Web/PC 端设计稿 -->
+      <div class="img-grid-2">
+        <div class="img-placeholder" style="height: 240px;">
+          <div class="ph-icon">💻</div>
+          <div class="ph-label">Web 端：右侧半屏布局（描述 / 预览 / 历史）</div>
+        </div>
+        <div class="img-placeholder" style="height: 240px;">
+          <div class="ph-icon">🖥</div>
+          <div class="ph-label">PC 端：局部重绘交互（涂抹 + 画笔大小 + 撤回）</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ⑤ 设计决策亮点 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">05 · Key Decisions</div>
+      <div class="section-heading">三个关键设计决策</div>
+
+      <div class="decision-grid">
+        <div class="decision-card">
+          <div class="decision-num">Decision 01</div>
+          <div class="decision-q">问题：用户不会写 prompt，怎么办？</div>
+          <div class="decision-arrow">↓</div>
+          <h4>"零输入"方案的诞生</h4>
+          <p>调研确认目标用户完全不具备 prompt 能力后，放弃传统 AI 工具的输入框设计范式。后台自动解析商家爆品信息、业务线标签、节庆日历等数据拼装 prompt，用户感知不到 AI 输入的存在——点击即生成。</p>
+        </div>
+        <div class="decision-card">
+          <div class="decision-num">Decision 02</div>
+          <div class="decision-q">问题：20s 等待期怎么不阻塞开播？</div>
+          <div class="decision-arrow">↓</div>
+          <h4>等待期不断路设计</h4>
+          <p>梳理"有无旧封面 × 生成状态"四种边界组合，设计差异化弹窗策略：有旧封面时允许用旧封面先发布，无旧封面时引导再等等或停止生成。始终保障发布主流程在任何状态下都可走通。</p>
+        </div>
+        <div class="decision-card">
+          <div class="decision-num">Decision 03</div>
+          <div class="decision-q">问题：结果不满意，重新生成成本太高？</div>
+          <div class="decision-arrow">↓</div>
+          <h4>局部重绘降低改图成本</h4>
+          <p>不做"全量重新生成"作为唯一出口（成本高、用户挫败感强），而是提供"局部重绘 + prompt 精细编辑"的组合：涂抹特定区域后输入改图指令，只改需要改的部分，保留满意内容，降低修改门槛，提升最终采纳率。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ⑥ 数据验证 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">06 · Outcome</div>
+      <div class="section-heading">效果验证</div>
+
+      <div class="highlight-box">
+        <div class="label">灰度测试结论</div>
+        <p>50% 灰度用户中，16 个业务单元共计 <strong>1,121 个主播</strong>使用过 AI 封面能力，整体数据验证了设计方向的有效性。</p>
+      </div>
+
+      <div class="stat-row-4">
+        <div class="stat-card blue">
+          <div class="stat-num">9.69<span>%</span></div>
+          <div class="stat-label">活跃主播覆盖率</div>
+          <div class="stat-desc">灰度范围内的渗透率</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-num">44.25<span>%</span></div>
+          <div class="stat-label">主播采纳率</div>
+          <div class="stat-desc">整体平均采纳率</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-num">33<span>s</span></div>
+          <div class="stat-label">平均生产耗时</div>
+          <div class="stat-desc">从触发到生成完成</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-num">1,121<span>个</span></div>
+          <div class="stat-label">使用主播数</div>
+          <div class="stat-desc">16 个 bu 累计</div>
+        </div>
+      </div>
+
+      <div class="outcome-grid">
+        <div class="outcome-card">
+          <div class="o-tag">模型对比</div>
+          <h4>豆包模型表现最优</h4>
+          <p>豆包总体采纳率 34.11%、单次采纳率 70.09%，整体优于即梦（美境拉停率 24.65%，生成时间 59s）。数据支持后续优先推进豆包模型的规模化部署。</p>
+        </div>
+        <div class="outcome-card">
+          <div class="o-tag">平台差异</div>
+          <h4>App 端采纳率最高</h4>
+          <p>三端中 App 端主播更愿意使用 AI 封面能力，占比 64.50%，整体采纳率也相对更高（63.10%），验证了 App 端触发设计的有效性。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ⑦ 复盘与沉淀 -->
+    <div class="content-section" data-reveal>
+      <div class="section-label">07 · Reflection</div>
+      <div class="section-heading">设计经验沉淀</div>
+
+      <div class="prose">
+        此项目将 AIGC 能力融入工具类 B 端产品，项目完成后沉淀了一套在工具类产品中接入 AI 能力的交互经验。
+      </div>
+
+      <div class="outcome-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 16px;">
+        <div class="outcome-card">
+          <div class="o-tag">生成前</div>
+          <h4>输入设计要匹配用户能力</h4>
+          <p>普通用户用"填空/选择"或"智能扩词"降低描述难度；外行用户优先"一键生成"，省去输入 prompt 的过程，生成后再允许调整编辑。</p>
+        </div>
+        <div class="outcome-card">
+          <div class="o-tag">生成中</div>
+          <h4>等待反馈要"看得见进度"</h4>
+          <p>时间较短：展示加载动效或进度倒计时；时间较长：自动转后台生成，让用户可并行操作，生成后推送通知，避免"等待焦虑"变成"直接放弃"。</p>
+        </div>
+        <div class="outcome-card">
+          <div class="o-tag">生成后</div>
+          <h4>提供多种编辑出口</h4>
+          <p>不能只有"接受"和"全部重来"。局部重绘、prompt 精细编辑、历史记录回溯，组合提供不同颗粒度的修改能力，让用户更容易找到满意结果。</p>
+        </div>
+      </div>
+
+      <div style="background: rgba(146,92,49,0.07); border-radius: var(--radius); padding: 24px;">
+        <div class="o-tag" style="margin-bottom:12px;">核心原则</div>
+        <div style="font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:8px;">AI 是提效工具，不是卡点</div>
+        <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin:0;">若 AI 能力拖累开播主流程，用户会直接放弃使用。在技术有限时，尽可能提供高效的备用手段（旧封面、本地上传），并始终允许用户绕过 AI 用原方式上传素材。</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <a class="next-project" href="index.html#work">
+    <div>
+      <div class="next-label">Back to</div>
+      <div class="next-title">All Projects</div>
+    </div>
+    <div class="next-arrow">→</div>
+  </a>
+
+  <script>
+    // Reading progress
+    const bar = document.getElementById('readingProgress');
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      bar.style.width = (window.scrollY / total * 100) + '%';
+    });
+
+    // Scroll reveal
+    const sections = document.querySelectorAll('[data-reveal]');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.06 });
+    sections.forEach(el => revealObs.observe(el));
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    const lightboxTriggers = document.querySelectorAll(
+      '.content-section img, .comp-table img, figure img, .img-block img'
+    );
+    lightboxTriggers.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    lightbox.addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>

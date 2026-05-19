@@ -281,10 +281,10 @@
     }
     .hero-right {
       position: absolute;
-      right: 5%; top: 50%;
+      right: 10%; top: 50%;
       transform: translateY(-50%);
-      width: 38vw; max-width: 460px; height: 38vw; max-height: 460px;
-      min-width: 280px; min-height: 280px;
+      width: 44vw; max-width: 520px; height: 44vw; max-height: 520px;
+      min-width: 320px; min-height: 320px;
       z-index: 0;
       display: flex; align-items: center; justify-content: center;
       pointer-events: none;
@@ -811,7 +811,7 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="hero">
     <canvas id="heroCanvas"></canvas>
 
     <div class="hero-left">
@@ -879,10 +879,10 @@
         <h2 class="section-title">Projects that matter</h2>
       </div>
       <div class="work-filter">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="ux">UX</button>
-        <button class="filter-btn" data-filter="ai">AI</button>
-        <button class="filter-btn" data-filter="research">Research</button>
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="design">体验设计</button>
+        <button class="filter-btn" data-filter="research">用户研究</button>
+        <button class="filter-btn" data-filter="ai">AI应用</button>
       </div>
     </div>
     <div class="section-line reveal"></div>
@@ -890,7 +890,7 @@
     <div class="projects-grid">
 
       <!-- Card 1 – wide -->
-      <a class="project-card wide reveal" href="project-search.html" data-tags="ux">
+      <a class="project-card wide reveal" href="project-search.html" data-tags="design">
         <div class="card-img">
           <div class="card-img-inner" style="background:linear-gradient(135deg,#e8f4f0 0%,#c8e8e0 50%,#a8d8cc 100%);">
             <div class="mock-ui">
@@ -922,7 +922,34 @@
       </a>
 
       <!-- Card 2 -->
-      <a class="project-card reveal reveal-delay-1" href="project-search2.html" data-tags="ux research">
+      <a class="project-card reveal reveal-delay-1" href="project-livestream.html" data-tags="research">
+        <div class="card-img">
+          <div class="card-img-inner" style="background:linear-gradient(135deg,#fff0ec 0%,#ffe0d4 50%,#ffc8b0 100%);">
+            <div class="mock-ui">
+              <div style="display:flex;flex-direction:column;gap:8px;width:150px;">
+                <div style="background:rgba(232,87,42,.1);border:1.5px solid rgba(232,87,42,.25);border-radius:10px;padding:10px 12px;font-size:10px;color:rgba(200,60,20,.9);font-weight:500;">⏺ 直播中</div>
+                <div style="background:rgba(255,255,255,.6);border:1.5px solid rgba(60,45,20,.1);border-radius:10px;padding:10px;">
+                  <div style="font-size:9px;color:rgba(60,45,20,.45);margin-bottom:7px;">购买动机分析</div>
+                  <div style="height:4px;background:rgba(60,45,20,.08);border-radius:2px;overflow:hidden;">
+                    <div style="width:75%;height:100%;background:linear-gradient(90deg,#e8572a,#ff8a5c);border-radius:2px;"></div>
+                  </div>
+                  <div style="font-size:9px;color:rgba(232,87,42,.55);margin-top:6px;">12人访谈 · 40个Session</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag research">用户调研</span><span class="tag ai">直播交易体验</span></div>
+          <div class="card-title">直播用户购买动机与体验洞察专项</div>
+          <div class="card-desc">深度访谈 + Session 分析，揭示购买决策机制与体验断点。</div>
+          <div class="card-footer"><span class="card-meta">2025 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a class="project-card reveal reveal-delay-2" href="project-search2.html" data-tags="design research">
         <div class="card-img">
           <div class="card-img-inner" style="background:linear-gradient(135deg,#fef5e8 0%,#fce8cc 50%,#f8d4a8 100%);">
             <div class="mock-ui">
@@ -956,8 +983,8 @@
         </div>
       </a>
 
-      <!-- Card 3 – narrow -->
-      <a class="project-card narrow reveal reveal-delay-2" href="project-ai-search.html" data-tags="ai ux">
+      <!-- Card 4 – narrow -->
+      <a class="project-card narrow reveal reveal-delay-1" href="project-ai-search.html" data-tags="ai design">
         <div class="card-img">
           <div class="card-img-inner" style="background:linear-gradient(135deg,#f0eeff 0%,#e0d8ff 50%,#ccc0ff 100%);">
             <div class="mock-ui">
@@ -985,59 +1012,8 @@
         </div>
       </a>
 
-      <!-- Card 4 -->
-      <a class="project-card reveal reveal-delay-1" href="project-livestream.html" data-tags="research">
-        <div class="card-img">
-          <div class="card-img-inner" style="background:linear-gradient(135deg,#fff0ec 0%,#ffe0d4 50%,#ffc8b0 100%);">
-            <div class="mock-ui">
-              <div style="display:flex;flex-direction:column;gap:8px;width:150px;">
-                <div style="background:rgba(232,87,42,.1);border:1.5px solid rgba(232,87,42,.25);border-radius:10px;padding:10px 12px;font-size:10px;color:rgba(200,60,20,.9);font-weight:500;">⏺ 直播中</div>
-                <div style="background:rgba(255,255,255,.6);border:1.5px solid rgba(60,45,20,.1);border-radius:10px;padding:10px;">
-                  <div style="font-size:9px;color:rgba(60,45,20,.45);margin-bottom:7px;">购买动机分析</div>
-                  <div style="height:4px;background:rgba(60,45,20,.08);border-radius:2px;overflow:hidden;">
-                    <div style="width:75%;height:100%;background:linear-gradient(90deg,#e8572a,#ff8a5c);border-radius:2px;"></div>
-                  </div>
-                  <div style="font-size:9px;color:rgba(232,87,42,.55);margin-top:6px;">12人访谈 · 40个Session</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
-        </div>
-        <div class="card-body">
-          <div class="card-tags"><span class="tag research">用户调研</span><span class="tag ai">直播交易体验</span></div>
-          <div class="card-title">直播用户购买动机与体验洞察专项</div>
-          <div class="card-desc">深度访谈 + Session 分析，揭示购买决策机制与体验断点。</div>
-          <div class="card-footer"><span class="card-meta">2025 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
-        </div>
-      </a>
-
-      <!-- Card 5 -->
-      <div class="project-card reveal reveal-delay-2" data-tags="ai">
-        <div class="card-img">
-          <div class="card-img-inner" style="background:linear-gradient(135deg,#eef8f4 0%,#d4f0e6 50%,#b8e4d4 100%);">
-            <div class="mock-ui">
-              <div class="mock-phone">
-                <div class="mock-screen-lines">
-                  <div class="mock-line accent"></div>
-                  <div class="mock-line short"></div>
-                  <div class="mock-line shorter"></div>
-                  <div class="mock-line short"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-tags"><span class="tag ai">AI</span><span class="tag">Mobile</span></div>
-          <div class="card-title">智能推荐 · 个性化体验</div>
-          <div class="card-desc">基于行为数据的推荐系统 UI 设计与 A/B 测试。</div>
-          <div class="card-footer"><span class="card-meta">2024 · Growth</span><div class="card-arrow">&nearr;</div></div>
-        </div>
-      </div>
-
-      <!-- Card 6 – wide -->
-      <a href="project-livestream2.html" class="project-card wide reveal reveal-delay-3" data-tags="ux">
+      <!-- Card 5 – wide -->
+      <a href="project-livestream2.html" class="project-card wide reveal reveal-delay-2" data-tags="design">
         <div class="card-img">
           <div class="card-img-inner" style="background:linear-gradient(135deg,#fdf8e8 0%,#f8ecc8 50%,#f0dca0 100%);">
             <div class="mock-ui">
@@ -1067,6 +1043,38 @@
           <div class="card-title">直播广场改版探索</div>
           <div class="card-desc">从 PMF 升级出发，探索框架改版与交互方案，构建「好买 + 好逛」双体验。</div>
           <div class="card-footer"><span class="card-meta">2026 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
+        </div>
+      </a>
+
+      <!-- Card 6 -->
+      <a class="project-card reveal reveal-delay-1" href="project-ai-cover.html" data-tags="ai design">
+        <div class="card-img">
+          <div class="card-img-inner" style="background:linear-gradient(135deg,#f5ede4 0%,#ecdcc8 50%,#dfc9a8 100%);">
+            <div class="mock-ui">
+              <div style="display:flex;flex-direction:column;gap:7px;width:168px;">
+                <div style="background:rgba(255,255,255,.75);border-radius:10px;padding:9px 12px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(146,92,49,.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;">✦</div>
+                  <div style="flex:1;">
+                    <div style="height:4px;background:rgba(100,60,20,.15);border-radius:3px;width:75%;"></div>
+                    <div style="height:3px;background:rgba(100,60,20,.08);border-radius:2px;width:48%;margin-top:5px;"></div>
+                  </div>
+                </div>
+                <div style="background:rgba(255,255,255,.75);border-radius:10px;padding:9px 12px;display:flex;gap:5px;">
+                  <div style="width:44px;height:38px;border-radius:6px;background:rgba(146,92,49,.15);flex-shrink:0;"></div>
+                  <div style="width:44px;height:38px;border-radius:6px;background:rgba(146,92,49,.1);flex-shrink:0;"></div>
+                  <div style="width:44px;height:38px;border-radius:6px;background:rgba(146,92,49,.06);flex-shrink:0;"></div>
+                </div>
+                <div style="background:rgba(146,92,49,.12);border:1.5px solid rgba(146,92,49,.25);border-radius:8px;padding:7px 12px;text-align:center;font-size:9px;color:rgba(120,70,20,.75);letter-spacing:.06em;">AI 封面生成</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag ai">AI 应用</span><span class="tag ux">B端工具</span></div>
+          <div class="card-title">开播工具 AI 封面生成</div>
+          <div class="card-desc">将 AIGC 能力融入工具类 B 端产品，为外行用户设计零门槛的 AI 生图交互体验。</div>
+          <div class="card-footer"><span class="card-meta">2025 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
         </div>
       </a>
 
