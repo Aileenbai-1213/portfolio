@@ -53,7 +53,7 @@
       background: rgba(245,240,232,0.88);
       border-bottom: 1px solid var(--border);
     }
-    .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; }
+    .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; text-decoration: none; color: var(--text-primary); cursor: pointer; }
     .nav-logo span { color: var(--accent); }
     .nav-back {
       display: inline-flex;
@@ -193,7 +193,7 @@
       margin-bottom: 32px;
     }
     .pp-item {
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
     .pp-item:last-child { margin-bottom: 0; }
     .pp-num {
@@ -208,12 +208,12 @@
       margin: 0;
     }
     .pp-list li {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.75;
+      line-height: 1.6;
       position: relative;
       padding-left: 14px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .pp-list li::before {
       content: '•';
@@ -225,9 +225,9 @@
     /* ===== PROSE TEXT ===== */
     .prose {
       font-size: 15px;
-      line-height: 1.8;
+      line-height: 1.65;
       color: var(--text-secondary);
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
     .prose strong { color: var(--text-primary); font-weight: 600; }
     .prose em { color: #b85c00; font-style: normal; }
@@ -250,7 +250,7 @@
     }
     .highlight-box p {
       font-size: 14px;
-      line-height: 1.75;
+      line-height: 1.6;
       color: #3a3a3a;
     }
     .highlight-box p strong { color: var(--text-primary); }
@@ -273,7 +273,7 @@
     }
     .insight-box p {
       font-size: 14px;
-      line-height: 1.75;
+      line-height: 1.6;
       color: #1a4a30;
     }
 
@@ -295,7 +295,7 @@
     }
     .info-box p {
       font-size: 14px;
-      line-height: 1.75;
+      line-height: 1.6;
       color: #2e2060;
     }
     .info-box p strong { color: #1a1060; }
@@ -315,7 +315,7 @@
     }
     .problem-card .p-tag {
       display: inline-block;
-      font-size: 13.5px;
+      font-size: 11px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       background: rgba(192,57,43,0.1);
@@ -323,14 +323,9 @@
       border: none;
       border-radius: 100px;
       padding: 3px 10px;
-      margin-right: 8px;
-      vertical-align: middle;
-      flex-shrink: 0;
+      margin-bottom: 10px;
     }
     .problem-card h4 {
-      display: flex;
-      align-items: center;
-      flex-wrap: nowrap;
       font-size: 15px;
       font-weight: 600;
       color: var(--text-primary);
@@ -338,9 +333,9 @@
       line-height: 1.4;
     }
     .problem-card p {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.7;
+      line-height: 1.6;
     }
 
     /* ===== TIMELINE ===== */
@@ -387,9 +382,9 @@
       margin-bottom: 8px;
     }
     .timeline-item p {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.7;
+      line-height: 1.6;
     }
 
     /* ===== STAT CARDS ===== */
@@ -416,12 +411,12 @@
     }
     .stat-card .stat-num span { font-size: 20px; }
     .stat-card .stat-label {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
       letter-spacing: 0.04em;
     }
     .stat-card .stat-desc {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-secondary);
       margin-top: 6px;
       line-height: 1.5;
@@ -436,7 +431,7 @@
       margin-bottom: 24px;
     }
     .insight-section .insight-num {
-      font-size: 13px;
+      font-size: 14px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #b85c00;
@@ -451,16 +446,16 @@
       line-height: 1.4;
     }
     .insight-section .insight-sub {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
     .insight-section p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.75;
+      line-height: 1.6;
     }
-    .insight-section p + p { margin-top: 12px; }
+    .insight-section p + p { margin-top: 8px; }
     .pain-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -488,7 +483,7 @@
       gap: 8px;
     }
     .quote-item {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
       line-height: 1.6;
       padding: 8px 12px;
@@ -502,23 +497,24 @@
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 24px;
-      font-size: 13px;
+      font-size: 14px;
     }
     .compare-table th {
       background: var(--surface2);
-      padding: 12px 16px;
+      padding: 10px 16px;
       text-align: left;
       font-size: 11px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--text-primary);
+      font-weight: 700;
       border-bottom: 1px solid var(--border);
     }
     .compare-table td {
-      padding: 14px 16px;
+      padding: 12px 16px;
       border-bottom: 1px solid var(--border);
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.55;
       vertical-align: top;
     }
     .compare-table tr:last-child td { border-bottom: none; }
@@ -540,6 +536,7 @@
     /* ===== SCENARIO LIST ===== */
     .scenario-list {
       margin-bottom: 32px;
+      max-width: calc(75% + 50px);
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -548,8 +545,8 @@
     .sl-item {
       display: flex;
       align-items: baseline;
-      gap: 20px;
-      padding: 18px 24px;
+      gap: 16px;
+      padding: 14px 20px;
       border-bottom: 1px solid var(--border);
     }
     .sl-item:last-child { border-bottom: none; }
@@ -571,13 +568,29 @@
     }
     .sl-title {
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--text-primary);
       line-height: 1.4;
       flex-shrink: 0;
     }
+    .kw-underline {
+      position: relative;
+      display: inline-block;
+      white-space: nowrap;
+      padding-bottom: 4px;
+    }
+    .kw-underline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 5px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='5' viewBox='0 0 60 5' preserveAspectRatio='none'%3E%3Cpath d='M0.5 3.8 C8 1, 16 4.8, 24 2.8 C32 1, 40 4.5, 48 2.8 C54 1.5, 58 3.8, 59.5 4.2' stroke='%23b85c00' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") repeat-x left bottom / auto 5px;
+      pointer-events: none;
+    }
     .sl-desc {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
       line-height: 1.6;
     }
@@ -593,7 +606,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px 24px;
+      padding: 22px 22px;
       transition: border-color 0.3s;
     }
     .strategy-card:hover { border-color: rgba(184,92,0,0.25); }
@@ -616,9 +629,9 @@
       line-height: 1.4;
     }
     .strategy-card p {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.75;
+      line-height: 1.6;
     }
     .strategy-card .detail-list {
       margin-top: 14px;
@@ -626,9 +639,9 @@
       padding-top: 14px;
     }
     .strategy-card .detail-list li {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.7;
+      line-height: 1.55;
       padding-left: 12px;
       position: relative;
       list-style: none;
@@ -681,7 +694,7 @@
       border-radius: 8px;
     }
     .vc-desc {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
       line-height: 1.6;
       padding: 10px 14px 14px;
@@ -706,12 +719,12 @@
       justify-content: center;
       gap: 8px;
       color: var(--text-muted);
-      font-size: 13px;
+      font-size: 14px;
       letter-spacing: 0.04em;
       margin-bottom: 24px;
     }
     .img-placeholder .ph-icon { font-size: 28px; opacity: 0.4; }
-    .img-placeholder .ph-label { font-size: 13px; color: var(--text-muted); }
+    .img-placeholder .ph-label { font-size: 14px; color: var(--text-muted); }
 
     /* ===== IMG BLOCK ===== */
     .img-block {
@@ -729,7 +742,7 @@
     }
     .img-block:hover img { transform: scale(1.02); }
     .img-caption {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
       text-align: center;
       margin-top: -16px;
@@ -750,7 +763,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px 32px;
+      padding: 22px 28px;
       margin-bottom: 24px;
     }
     .outcome-strip h4 {
@@ -760,9 +773,9 @@
       margin-bottom: 12px;
     }
     .outcome-strip p {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.75;
+      line-height: 1.6;
     }
     .outcome-strip .metric-row {
       display: flex;
@@ -827,7 +840,7 @@
     .lightbox-close {
       position: absolute;
       top: 24px; right: 32px;
-      font-size: 13px;
+      font-size: 14px;
       color: rgba(255,255,255,0.4);
       letter-spacing: 0.08em;
       cursor: pointer;
@@ -902,7 +915,7 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">ailin<span>.</span></div>
+    <a href="index.html#hero" class="nav-logo">ailin<span>.</span></a>
     <a href="index.html#work" class="nav-back" onclick="location.replace('index.html#work');return false;">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1049,7 +1062,7 @@
       </div>
 
       <!-- 2. 竞品调研与数据分析 -->
-      <div class="sub-heading">2. 竞品调研与数据分析</div>
+      <div class="sub-heading" style="margin-top: 48px;">2. 竞品调研与数据分析</div>
       <div class="highlight-box">
         <div class="label">核心结论</div>
         <p>竞品调研得出：在广场顶部承担运营心智塑造是趋势；</p>
@@ -1059,11 +1072,15 @@
       <div class="sub-heading-sm">2.1 竞品在广场顶部承担运营心智塑造的职责</div>
       <p class="prose">通过对淘宝、京东直播广场的调研，可以看到：他们的广场顶部在承担<strong>丰富多样的运营场心智塑造</strong>的职责，而非单纯内容展示。</p>
 
+      <div style="margin:20px 0 28px;">
+        <img src="images/competitor-2.png" alt="竞品分析" style="width:100%; border-radius:8px; border:1px solid var(--border); display:block;">
+      </div>
+
       <div class="sub-heading-sm">2.2 数据结论显示增加底 tab 有助于提升交易指标</div>
       <p class="prose">历史数据显示，<strong>当广场结构明确承载交易与复购路径时（加底 tab 并保留「订单」）</strong>，与交易相关的数据指标（点击、转化、复购）均有明显提升。</p>
 
       <!-- 3. 业务 PMF 与 OP -->
-      <div class="sub-heading">3. 业务 PMF 与 OP</div>
+      <div class="sub-heading" style="margin-top:48px;">3. 业务 PMF 与 OP</div>
 
       <div class="pain-grid">
         <div class="insight-section">
@@ -1092,42 +1109,42 @@
         <div class="sl-item">
           <div class="sl-num">场景1</div>
           <div class="sl-body">
-            <div class="sl-title">主动访问 × 明确低价意图 × 消费用户</div>
+            <div class="sl-title"><span class="kw-underline">主动访问</span> × 明确低价意图 × 消费用户</div>
             <div class="sl-desc">饭点或晚间主动进入，快速确认大牌好价 / 整点秒杀，尽快下单。</div>
           </div>
         </div>
         <div class="sl-item">
           <div class="sl-num">场景2</div>
           <div class="sl-body">
-            <div class="sl-title">主动访问 × 明确主播 / 商品意图 × 熟练用户</div>
+            <div class="sl-title"><span class="kw-underline">主动访问</span> × 明确主播 / 商品意图 × 熟练用户</div>
             <div class="sl-desc">带着明确目标进入，想找某主播、品牌或商品，希望快速定位，不愿反复翻找。</div>
           </div>
         </div>
         <div class="sl-item">
           <div class="sl-num">场景3</div>
           <div class="sl-body">
-            <div class="sl-title">主动访问 × 无明确目的 × 随意逛逛</div>
+            <div class="sl-title"><span class="kw-underline">主动访问</span> × 无明确目的 × 随意逛逛</div>
             <div class="sl-desc">碎片时间进入，随便看看，内容有吸引力则停留甚至被激发消费。</div>
           </div>
         </div>
         <div class="sl-item">
           <div class="sl-num">场景4</div>
           <div class="sl-body">
-            <div class="sl-title">被动进入 × 激发交易场景</div>
+            <div class="sl-title"><span class="kw-underline">被动进入</span> × 激发交易场景</div>
             <div class="sl-desc">被直播入口吸引顺带进入广场，快速判断是否有值得顺手点进的优惠。</div>
           </div>
         </div>
         <div class="sl-item">
           <div class="sl-num">场景5</div>
           <div class="sl-body">
-            <div class="sl-title">新人访问 × 新人福利驱动 × 首单转化</div>
+            <div class="sl-title"><span class="kw-underline">新人访问</span> × 新人福利驱动 × 首单转化</div>
             <div class="sl-desc">首次进入，被顶部新人福利吸引，快速感知到优惠，浏览后完成首单。</div>
           </div>
         </div>
         <div class="sl-item">
           <div class="sl-num">场景6</div>
           <div class="sl-body">
-            <div class="sl-title">回访 × 资产驱动 × 历史成交用户</div>
+            <div class="sl-title"><span class="kw-underline">回访</span> × 资产驱动 × 历史成交用户</div>
             <div class="sl-desc">曾在直播下单或领券，再次进入关注可用权益或新好价，感知到则愿意反复来。</div>
           </div>
         </div>
@@ -1319,9 +1336,7 @@
       <div class="outcome-strip">
         <h4>改版框架核心结论</h4>
         <p>推荐采用<strong>「顶 Tab 导航 + 单列直播带品 Feeds」</strong>的整体框架，优先验证思路 1「强化大牌好价心智」与思路 2「丰富运营活动区」的组合方案，通过 A/B 实验逐步推进框架落地。</p>
-      </div>
-
-      <div class="outcome-strip" style="margin-top: 16px;">
+        <div style="border-top: 1px solid var(--border); margin: 16px 0;"></div>
         <h4>下一步方向</h4>
         <p>框架结构层面需优先强化交易与价格心智，同时为长期运营留出灵活空间。资产体系（订单 & 券 & 抽奖 list 及互动记录）需作为独立模块加速建设，以「可感知的用户权益」驱动广场回访率的持续提升。</p>
       </div>

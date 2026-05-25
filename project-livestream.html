@@ -53,7 +53,7 @@
       background: rgba(245,240,232,0.88);
       border-bottom: 1px solid var(--border);
     }
-    .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; }
+    .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; text-decoration: none; color: var(--text-primary); cursor: pointer; }
     .nav-logo span { color: var(--accent); }
     .nav-back {
       display: inline-flex;
@@ -267,7 +267,7 @@
     }
     .stat-card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: none;
       border-radius: var(--radius);
       padding: 28px 24px;
       text-align: center;
@@ -339,7 +339,7 @@
     }
     .method-card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: none;
       border-radius: var(--radius);
       padding: 28px 24px;
     }
@@ -362,8 +362,8 @@
     .method-card .method-detail {
       font-size: 14px;
       color: var(--text-secondary);
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.04);
+      border: none;
       border-radius: var(--radius-sm);
       padding: 12px 16px;
       line-height: 1.75;
@@ -373,7 +373,7 @@
     /* ===== INSIGHT CARDS ===== */
     .insight-section {
       background: #ede8de;
-      border: 1px solid rgba(0,0,0,0.08);
+      border: none;
       border-radius: var(--radius);
       padding: 32px;
       margin-bottom: 24px;
@@ -465,12 +465,10 @@
     }
     .strategy-card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: none;
       border-radius: var(--radius);
       padding: 24px;
-      transition: border-color 0.3s;
     }
-    .strategy-card:hover { border-color: rgba(184,92,0,0.25); }
     .strategy-num {
       font-size: 11px;
       letter-spacing: 0.1em;
@@ -500,7 +498,7 @@
     }
     .outcome-card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: none;
       border-radius: var(--radius);
       padding: 24px;
     }
@@ -511,7 +509,7 @@
       text-transform: uppercase;
       background: rgba(184,92,0,0.08);
       color: #8a4400;
-      border: 1px solid rgba(184,92,0,0.2);
+      border: none;
       border-radius: 100px;
       padding: 3px 10px;
       margin-bottom: 12px;
@@ -644,7 +642,7 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">ailin<span>.</span></div>
+    <a href="index.html#hero" class="nav-logo">ailin<span>.</span></a>
     <a href="index.html#work" class="nav-back" onclick="location.replace('index.html#work');return false;">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -795,7 +793,6 @@
       <div class="insight-section">
         <div class="insight-num">Insight 01</div>
         <h3>用户为什么在直播间购买？</h3>
-        <div class="insight-sub">关键动机1：价格优势是驱动用户持续下单的核心动机</div>
         <div class="img-block">
           <img src="images/livestream/ls-1-1.jpg" alt="关键动机1：价格优势 — 用户旅程与用户原声" />
         </div>
@@ -811,13 +808,8 @@
       <div class="insight-section">
         <div class="insight-num">Insight 02</div>
         <h3>高频用户有哪些行为与场景特征？</h3>
-        <div class="insight-sub">更依赖搜索 · 希望快速直达关注主播 · 更喜欢逛</div>
         <div class="img-block">
           <img src="images/livestream/ls-2.jpg" alt="高频用户行为与场景特征" />
-        </div>
-        <div class="insight-sub" style="margin-top: 32px;">重点问题1：难找到主播和意向商品；靠着主播缺乏快速触达路径</div>
-        <div class="img-block">
-          <img src="images/livestream/ls-3.jpg" alt="重点问题1：找主播和商品路径体验断点" />
         </div>
       </div>
 
@@ -825,19 +817,18 @@
       <div class="insight-section">
         <div class="insight-num">Insight 03</div>
         <h3>高频用户在直播间遇到了哪些重点体验问题？</h3>
-        <div class="insight-sub">重点问题2：选购交易时，套餐详情/价格难对比、使用规则获取成本大</div>
+        <div class="img-block">
+          <img src="images/livestream/ls-3.jpg" alt="重点问题1：找主播和商品路径体验断点" />
+        </div>
         <div class="img-block">
           <img src="images/livestream/ls-4.jpg" alt="重点问题2：选购交易时对比繁琐" />
         </div>
-        <div class="insight-sub" style="margin-top: 32px;">重点问题3：无目的逛时，优质直播不易被发现；数字人/小商家主播频繁出现，影响沉浸式逛的体验</div>
         <div class="img-block">
           <img src="images/livestream/ls-5.jpg" alt="重点问题3：无目的逛时优质直播难发现" />
         </div>
-        <div class="insight-sub" style="margin-top: 32px;">重点问题4：用户刚来直播间时对玩法规则理解有难度、对部分领券规则感到不明确</div>
         <div class="img-block">
           <img src="images/livestream/ls-6.jpg" alt="重点问题4：玩法规则理解难" />
         </div>
-        <div class="insight-sub" style="margin-top: 32px;">重点问题5：用户在广场不知道怎么逛，不知道进哪个</div>
         <div class="img-block">
           <img src="images/livestream/ls-7.jpg" alt="重点问题5：广场不知道怎么逛" />
         </div>
@@ -854,48 +845,39 @@
         <p>本次研究产出的 <strong>12 条设计策略建议全部被设计团队采纳</strong>，其中 7 条已进入设计排期，正在推进落地。研究结论同步沉淀为直播业务的用户洞察基础文档，为后续迭代提供持续参考。</p>
       </div>
 
-      <div class="outcome-grid">
+      <div class="outcome-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="outcome-card">
+          <div class="o-tag">业务输入</div>
+          <h4>在 OP 阶段为业务提供关键的用户侧输入</h4>
+          <p>从真实行为与深度动机出发，为产品侧 OP 的制定提供清晰、可执行的用户洞察输入，使增长策略能够更精准地贴合真实需求。</p>
+        </div>
         <div class="outcome-card">
           <div class="o-tag">研究影响力</div>
-          <h4>12 条策略全部采纳</h4>
-          <p>研究产出的设计策略建议获得设计团队 100% 采纳，其中 7 条已进入设计排期，正在推进落地实施。</p>
+          <h4>获产研高度认可，加速关键方向体验优化</h4>
+          <p>核心洞察与业务目标高度契合，引发交易与流量产品团队深度探讨，被产品与运营团队采纳，推动了直播体验优化方向的关键决策。</p>
         </div>
         <div class="outcome-card">
-          <div class="o-tag">方法创新</div>
-          <h4>混合研究框架沉淀</h4>
-          <p>将深度访谈与 Session 行为分析结合的研究框架，形成可复用的直播场景研究方法论，为团队后续研究提供参考。</p>
-        </div>
-        <div class="outcome-card">
-          <div class="o-tag">用户认知</div>
-          <h4>建立用户分层模型</h4>
-          <p>首次系统性地建立了直播间用户的行为分层模型，填补了业务侧对用户群体认知的空白，为精细化运营提供依据。</p>
-        </div>
-        <div class="outcome-card">
-          <div class="o-tag">知识沉淀</div>
-          <h4>洞察文档持续复用</h4>
-          <p>研究结论沉淀为直播业务用户洞察基础文档，已被多个相关项目引用，成为团队的共享知识资产。</p>
+          <div class="o-tag">方法沉淀</div>
+          <h4>沉淀 AI 提效方法</h4>
+          <p>将 AI 辅助用研的工作流系统化沉淀，覆盖访谈材料整理、洞察提炼与报告撰写，显著缩短研究周期，形成可复用的团队方法资产。</p>
         </div>
       </div>
 
-      <div class="info-box">
-        <div class="label">方法论反思</div>
-        <p>本次研究最大的挑战在于<strong>还原用户在直播间的「当下决策」</strong>——直播购买行为高度依赖实时情境（主播话术、限时优惠、弹幕氛围），事后访谈难以完整还原。Session 录屏分析有效弥补了这一局限，但也带来了行为解读的主观性问题。未来可考虑引入直播间内的实时思维出声或眼动追踪，进一步提升数据的客观性。</p>
+      <div class="section-heading" style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(26,26,26,0.8); margin-top: 6px; margin-bottom: 10px;">业务反馈</div>
+      <div class="img-block" style="width: 66.67%;">
+        <img src="images/livestream/ls-feedback.jpg" alt="业务方反馈截图" />
       </div>
 
-      <div class="section-heading" style="font-size: 17px; margin-top: 8px; margin-bottom: 20px;">优化建议与机会点</div>
-      <div class="img-block">
+      <div class="section-heading" style="font-size: 17px; margin-top: 32px; margin-bottom: 20px;">优化建议与机会点</div>
+      <div class="img-block" style="width: 75%;">
         <img src="images/livestream/ls-8.jpg" alt="优化建议与机会点：3条核心建议与设计方案 Before/After" />
       </div>
 
       <div class="section-heading" style="font-size: 17px; margin-top: 32px; margin-bottom: 20px;">AI 辅助访谈材料整理的方法</div>
-      <div class="img-block">
+      <div class="img-block" style="width: 75%;">
         <img src="images/livestream/ls-9.jpg" alt="AI辅助访谈材料整理方法：3个步骤" />
       </div>
 
-      <div class="section-heading" style="font-size: 17px; margin-top: 32px; margin-bottom: 20px;">业务反馈</div>
-      <div class="img-block">
-        <img src="images/livestream/ls-feedback.jpg" alt="业务方反馈截图" />
-      </div>
     </div>
 
   </div>
