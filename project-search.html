@@ -349,7 +349,7 @@
   <!-- NAV -->
   <nav>
     <a href="index.html#hero" class="nav-logo">ailin<span>.</span></a>
-    <a href="index.html#work" class="nav-back" onclick="location.replace('index.html#work');return false;">
+    <a href="index.html#work" class="nav-back" onclick="event.preventDefault();history.replaceState(null,'',location.href);window.location.href='index.html#work';">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
