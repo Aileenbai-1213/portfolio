@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ailin — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #f4f1ec;
+      --bg2:       #ede9e2;
+      --bg3:       #e6e1d8;
+      --surface:   #ffffff;
+      --surface2:  #f9f7f4;
+      --border:    rgba(60,45,20,0.1);
+      --border-mid:rgba(60,45,20,0.18);
+      --ink:       #1a1510;
+      --ink-2:     rgba(26,21,16,0.55);
+      --ink-3:     rgba(26,21,16,0.32);
+      --accent:    #e8572a;
+      --accent-rgb:232,87,42;
+      --mint:      #3ecfa0;
+      --gold:      #e6a817;
+      --lavender:  #9b8bff;
+      --radius:    20px;
+      --radius-sm: 12px;
+      --ease:      cubic-bezier(0.16,1,0.3,1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter','PingFang SC',-apple-system,sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(60,45,20,0.15); border-radius: 2px; }
+
+    /* ===== CURSOR ===== */
+    .cursor-dot {
+      position: fixed; width: 10px; height: 10px;
+      background: var(--accent); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: width .2s var(--ease), height .2s var(--ease);
+    }
+    .cursor-ring {
+      position: fixed; width: 38px; height: 38px;
+      border: 1.5px solid rgba(232,87,42,0.4);
+      border-radius: 50%; pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: left .09s linear, top .09s linear, width .3s var(--ease), height .3s var(--ease), border-color .3s;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 28px 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+      transition: padding .4s var(--ease), background .4s, box-shadow .4s;
+    }
+    nav.scrolled {
+      padding: 16px 64px;
+      background: rgba(244,241,236,0.88);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-logo {
+      font-family: 'Caveat', cursive;
+      font-size: 22px; font-weight: 700;
+      color: var(--ink); letter-spacing: .01em;
+    }
+    .nav-logo .dot { color: var(--accent); }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px; color: var(--ink-2);
+      letter-spacing: .02em; transition: color .2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1.5px; background: var(--accent);
+      transition: width .3s var(--ease);
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-status {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; color: var(--ink-3);
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #3ecfa0; flex-shrink: 0;
+      animation: statusBlink 2.8s ease-in-out infinite;
+    }
+    @keyframes statusBlink {
+      0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(62,207,160,.4)}
+      50%{opacity:.75;box-shadow:0 0 0 5px rgba(62,207,160,0)}
+    }
+    .nav-cta {
+      font-size: 12px; font-weight: 500;
+      padding: 9px 22px; border-radius: 100px;
+      background: var(--ink); color: var(--bg);
+      transition: background .2s, transform .2s var(--ease);
+    }
+    .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100svh;
+      padding: 0 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    canvas#heroCanvas {
+      position: absolute; inset: 0; z-index: 0; opacity: .22;
+    }
+    .hero-left {
+      position: relative; z-index: 1;
+      padding-top: 100px; padding-bottom: 80px;
+      max-width: 560px;
+    }
+    .hero-right {
+      position: absolute;
+      right: 5%; top: 50%;
+      transform: translateY(-50%);
+      width: 38vw; max-width: 460px; height: 38vw; max-height: 460px;
+      min-width: 280px; min-height: 280px;
+      z-index: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+
+    /* hero text */
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--ink-3); margin-bottom: 28px;
+      opacity: 0; animation: fadeUp .7s .2s var(--ease) forwards;
+    }
+    .hero-tag-dot {
+      width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0;
+    }
+
+    .hero-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(40px, 4.6vw, 70px);
+      font-weight: 600; line-height: 1.08; letter-spacing: -.02em;
+      margin-bottom: 0;
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+    .hero-title-line {
+      display: block; overflow: visible;
+    }
+    .hero-title-inner {
+      display: block;
+      opacity: 0; transform: translateY(105%);
+      animation: titleReveal .9s var(--ease) forwards;
+    }
+    .hero-title-line:nth-child(1) .hero-title-inner { animation-delay: .35s; }
+    .hero-title-line:nth-child(2) .hero-title-inner { animation-delay: .52s; }
+    .hero-title-line:nth-child(3) .hero-title-inner { animation-delay: .68s; }
+    @keyframes titleReveal { to { opacity:1; transform: translateY(0); } }
+
+    .hero-title .italic { font-style: italic; color: var(--accent); }
+    .hero-title .light  { color: var(--ink-2); font-weight: 400; }
+
+    .hero-desc {
+      margin-top: 32px; font-size: 15.5px; color: var(--ink-2);
+      max-width: 400px; line-height: 1.8;
+      opacity: 0; animation: fadeUp .8s .88s var(--ease) forwards;
+    }
+    .hero-actions {
+      margin-top: 44px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp .8s 1.02s var(--ease) forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 14px 28px; background: var(--ink); color: var(--bg);
+      font-size: 13px; font-weight: 500; border-radius: 100px;
+      transition: background .2s, transform .25s var(--ease), box-shadow .25s;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(var(--accent-rgb),.22); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border: 1.5px solid var(--border-mid); color: var(--ink-2);
+      font-size: 13px; border-radius: 100px; transition: all .2s;
+    }
+    .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+
+    /* hero stats */
+    .hero-stats {
+      margin-top: 60px; display: flex; gap: 0; align-items: center;
+      opacity: 0; animation: fadeUp .8s 1.18s var(--ease) forwards;
+    }
+    .stat-item { padding-right: 36px; }
+    .stat-divider { width: 1px; height: 36px; background: var(--border); margin-right: 36px; flex-shrink: 0; }
+    .stat-num {
+      font-family: 'Lora', serif;
+      font-size: 34px; font-weight: 600; letter-spacing: -.02em; line-height: 1;
+      color: var(--ink);
+    }
+    .stat-num span { color: var(--accent); font-size: .65em; font-family: 'Inter',sans-serif; }
+    .stat-label { font-size: 10px; color: var(--ink-3); margin-top: 5px; letter-spacing: .08em; text-transform: uppercase; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ===== IP ILLUSTRATION ===== */
+    .hero-ip {
+      width: min(660px, 96%); position: relative;
+      opacity: 0; animation: fadeUp .9s .6s var(--ease) forwards;
+      pointer-events: auto;
+    }
+    .hero-ip::before { display: none; }
+
+    /* transparent image — no bg, no shadow, no clip */
+    .ip-circle {
+      width: 100%;
+      background: none;
+      border-radius: 0;
+      overflow: visible;
+      box-shadow: none;
+      position: relative;
+    }
+
+    /* actual image */
+    .ip-img {
+      width: 100%; height: auto; display: block;
+      transition: transform .15s ease;
+    }
+    .hero-ip:hover .ip-img {
+      animation: imgWiggle .5s ease forwards;
+    }
+    @keyframes imgWiggle {
+      0%   { transform: rotate(0deg)   translateY(0); }
+      20%  { transform: rotate(-1.2deg) translateY(-3px); }
+      40%  { transform: rotate(1deg)  translateY(-5px); }
+      60%  { transform: rotate(-.7deg) translateY(-3px); }
+      80%  { transform: rotate(.5deg)  translateY(-2px); }
+      100% { transform: rotate(0deg)   translateY(0); }
+    }
+
+    /* floating badges around ip */
+    .ip-badge {
+      position: absolute;
+      background: var(--surface); border-radius: 100px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      font-size: 11px; font-weight: 500; color: var(--ink);
+      padding: 8px 16px; white-space: nowrap;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .ip-badge-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .badge-top { top: -4%; right: -6%; animation: badgeFloat 4s ease-in-out infinite; }
+    .badge-mid { bottom: 16%; right: -10%; animation: badgeFloat 4.8s ease-in-out infinite .5s; }
+    .badge-left { bottom: 4%; left: -4%; animation: badgeFloat 5.2s ease-in-out infinite 1s; }
+    @keyframes badgeFloat {
+      0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}
+    }
+
+    /* ===== MARQUEE ===== */
+    .marquee-section {
+      background: var(--ink); overflow: hidden;
+    }
+    .marquee-inner { display: flex; height: 48px; align-items: center; }
+    .marquee-track { display: flex; animation: marquee 28s linear infinite; flex-shrink: 0; }
+    .marquee-inner:hover .marquee-track { animation-play-state: paused; }
+    .marquee-item {
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 13px; color: rgba(244,241,236,0.45);
+      padding: 0 32px; border-right: 1px solid rgba(244,241,236,0.1);
+      flex-shrink: 0; white-space: nowrap;
+    }
+    .marquee-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--accent); margin: 0 28px; flex-shrink: 0;
+    }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ===== SECTION COMMON ===== */
+    section { padding: 128px 64px; }
+    .section-label {
+      font-family: 'Caveat', cursive;
+      font-size: 22px; color: var(--accent);
+      margin-bottom: 10px; display: block;
+    }
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(30px, 3.8vw, 50px);
+      font-weight: 600; letter-spacing: -.02em; line-height: 1.1;
+    }
+
+    /* ===== WORK ===== */
+    #work { background: var(--bg); }
+    .work-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 56px;
+    }
+    .work-filter { display: flex; gap: 6px; }
+    .filter-btn {
+      padding: 8px 18px; border-radius: 100px;
+      font-size: 12px; letter-spacing: .04em;
+      border: 1.5px solid var(--border); color: var(--ink-3);
+      background: transparent; cursor: pointer;
+      font-family: 'Inter',sans-serif;
+      transition: all .2s; pointer-events: auto;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--ink); color: var(--ink); background: var(--ink);
+      color: var(--bg);
+    }
+
+    /* 3-col uniform grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .project-card {
+      grid-column: span 1;
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      display: flex; flex-direction: column;
+      cursor: pointer;
+      transition: border-color .35s, box-shadow .4s var(--ease), transform .45s var(--ease);
+      position: relative;
+    }
+    .project-card.wide   { grid-column: span 1; }
+    .project-card.narrow { grid-column: span 1; }
+    .project-card:hover {
+      border-color: var(--border-mid);
+      box-shadow: 0 16px 56px rgba(60,45,20,0.12);
+      transform: translateY(-4px);
+    }
+    .project-card:hover .card-img-inner { transform: scale(1.05); }
+    .project-card:hover .card-img-overlay { opacity: 1; }
+    .project-card:hover .card-arrow { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    .card-img { height: 210px; overflow: hidden; flex-shrink: 0; position: relative; }
+    .card-img-inner { width: 100%; height: 100%; transition: transform .65s var(--ease); }
+    .card-img-overlay {
+      position: absolute; inset: 0;
+      background: rgba(26,21,16,0.38);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .3s;
+    }
+    .card-cta { font-size: 13px; font-weight: 500; color: #fff; letter-spacing: .04em; }
+
+    /* mock UIs — warm palette */
+    .mock-ui { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .mock-browser {
+      width: 190px; border: 1.5px solid rgba(60,45,20,0.12);
+      border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.7);
+    }
+    .mock-browser-bar {
+      height: 22px; background: rgba(60,45,20,0.05);
+      border-bottom: 1px solid rgba(60,45,20,0.07);
+      display: flex; align-items: center; padding: 0 8px; gap: 4px;
+    }
+    .mock-dot { width: 5px; height: 5px; border-radius: 50%; }
+    .mock-content { padding: 10px; display: flex; flex-direction: column; gap: 5px; }
+    .mock-block { height: 7px; border-radius: 3px; background: rgba(60,45,20,0.08); }
+    .mock-phone {
+      width: 76px; height: 138px;
+      border: 1.5px solid rgba(60,45,20,0.14);
+      border-radius: 16px; background: rgba(255,255,255,0.65);
+      position: relative; overflow: hidden;
+    }
+    .mock-phone::after {
+      content: ''; position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
+      width: 22px; height: 3px; background: rgba(60,45,20,0.2); border-radius: 2px;
+    }
+    .mock-screen-lines {
+      position: absolute; top: 22px; left: 8px; right: 8px;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .mock-line { height: 3px; border-radius: 2px; background: rgba(60,45,20,0.1); }
+    .mock-line.accent { background: rgba(var(--accent-rgb),0.5); width: 60%; }
+    .mock-line.short  { width: 72%; }
+    .mock-line.shorter{ width: 44%; }
+
+    /* card body */
+    .card-body { padding: 22px 22px 18px; flex: 1; display: flex; flex-direction: column; }
+    .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .tag {
+      font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 100px;
+      border: 1px solid var(--border); color: var(--ink-3);
+    }
+    .tag.ux       { border-color: rgba(155,139,255,.35); color: #6b58f0; }
+    .tag.ai       { border-color: rgba(var(--accent-rgb),.3); color: var(--accent); }
+    .tag.research { border-color: rgba(62,207,160,.3); color: #2baa80; }
+
+    .card-title { font-family: 'Lora',serif; font-size: 17px; font-weight: 600; letter-spacing: -.01em; line-height: 1.28; margin-bottom: 7px; color: var(--ink); }
+    .card-desc  { font-size: 12.5px; color: var(--ink-2); line-height: 1.65; flex: 1; }
+    .card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border);
+    }
+    .card-meta { font-size: 10px; color: var(--ink-3); letter-spacing: .04em; }
+    .card-arrow {
+      width: 26px; height: 26px; border: 1.5px solid var(--border-mid); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: var(--ink-3);
+      transition: all .25s var(--ease);
+    }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--bg2); }
+    .about-grid { display: grid; grid-template-columns: 0.67fr 1.4fr; gap: 88px; align-items: start; }
+    .about-visual { position: relative; }
+    .about-avatar {
+      aspect-ratio: 4/5; border-radius: 24px;
+      background: linear-gradient(150deg,#fdf0e6 0%,#f2d9c0 100%);
+      border: 2px solid var(--border);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-avatar-inner {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(60,45,20,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(60,45,20,0.04) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .about-avatar-face {
+      position: relative; z-index: 1; font-size: 110px; line-height: 1;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,.06));
+    }
+    .about-badge {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 16px 20px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+    }
+    .badge-num {
+      font-family: 'Lora',serif; font-size: 28px; font-weight: 600;
+      letter-spacing: -.02em; color: var(--accent);
+    }
+    .badge-label { font-size: 11px; color: var(--ink-3); margin-top: 3px; }
+
+    .about-content .section-title { margin-bottom: 20px; }
+    .about-bio { font-size: 15px; color: var(--ink-2); line-height: 1.88; margin-bottom: 36px; }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+    .skill-chip {
+      padding: 7px 16px; background: var(--bg3);
+      border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      font-size: 12px; color: var(--ink-2);
+    }
+    .experience-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 16px;
+      align-items: stretch;
+      padding: 7px 0;
+    }
+    .exp-timeline {
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 4px;
+    }
+    .exp-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .exp-line {
+      width: 1px; flex: 1; background: var(--border);
+      margin-top: 5px;
+    }
+    .exp-item:last-child .exp-line { display: none; }
+    .exp-body { padding-bottom: 2px; }
+    .exp-header {
+      display: flex; align-items: baseline;
+      flex-wrap: wrap; gap: 6px 10px;
+      margin-bottom: 3px;
+    }
+    .exp-company { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .exp-role { font-size: 13px; color: var(--ink-2); }
+    .exp-direction { font-size: 12px; color: var(--ink-3); }
+    .exp-meta { font-size: 12px; color: var(--ink-3); letter-spacing: .02em; margin-top: 2px; }
+
+    /* ===== PROCESS ===== */
+    #process { background: var(--ink); }
+    #process .section-label { color: var(--gold); }
+    #process .section-title { color: rgba(244,241,236,0.95); }
+    .process-head { max-width: 520px; margin-bottom: 72px; }
+    .process-head p { font-size: 15px; color: rgba(244,241,236,0.45); line-height: 1.8; margin-top: 16px; }
+    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+    .process-cell {
+      background: rgba(244,241,236,0.03);
+      border: 1px solid rgba(244,241,236,0.07);
+      padding: 44px 32px; transition: background .25s; position: relative; overflow: hidden;
+    }
+    .process-cell::after {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 0; height: 3px; background: var(--gold);
+      transition: width .5s var(--ease);
+    }
+    .process-cell:hover { background: rgba(244,241,236,0.06); }
+    .process-cell:hover::after { width: 100%; }
+    .process-num { font-size: 11px; color: rgba(244,241,236,0.25); letter-spacing: .1em; margin-bottom: 28px; }
+    .process-icon { font-size: 32px; margin-bottom: 16px; }
+    .process-name { font-family: 'Lora',serif; font-size: 18px; font-weight: 600; margin-bottom: 10px; color: rgba(244,241,236,0.9); }
+    .process-desc { font-size: 13px; color: rgba(244,241,236,0.42); line-height: 1.72; }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--bg); text-align: center; position: relative; overflow: hidden; padding: 160px 64px; }
+    .contact-bg-word {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: 'Lora',serif; font-style: italic;
+      font-size: clamp(90px,18vw,240px); font-weight: 600;
+      letter-spacing: -.06em; color: rgba(26,21,16,0.025);
+      white-space: nowrap; pointer-events: none; user-select: none;
+    }
+    .contact-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+    .contact-title {
+      font-family: 'Lora',serif;
+      font-size: clamp(38px,5.8vw,72px); font-weight: 600;
+      letter-spacing: -.03em; line-height: 1.05; margin-bottom: 22px;
+    }
+    .contact-title em { font-style: italic; color: var(--accent); }
+    .contact-sub { font-size: 16px; color: var(--ink-2); line-height: 1.8; margin-bottom: 44px; }
+    .contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border: 1.5px solid var(--border-mid); border-radius: 100px;
+      font-size: 14px; color: var(--ink-2); transition: all .25s;
+    }
+    .contact-link:hover { border-color: var(--ink); color: var(--ink); transform: translateY(-2px); }
+    .contact-link.primary {
+      background: var(--ink); border-color: var(--ink); color: var(--bg); font-weight: 500;
+    }
+    .contact-link.primary:hover {
+      background: var(--accent); border-color: var(--accent);
+      box-shadow: 0 10px 36px rgba(var(--accent-rgb),.25);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 28px 64px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--bg);
+    }
+    .footer-copy { font-size: 12px; color: var(--ink-3); }
+    .footer-copy .heart { color: var(--accent); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 12px; color: var(--ink-3); transition: color .2s; }
+    .footer-links a:hover { color: var(--ink); }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0; transform: translateY(36px);
+      transition: opacity .85s var(--ease), transform .85s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .22s; }
+    .reveal-delay-3 { transition-delay: .34s; }
+    .reveal-delay-4 { transition-delay: .46s; }
+
+    /* section divider line */
+    .section-line {
+      height: 1px; background: var(--accent);
+      width: 0; transition: width 1.4s var(--ease); margin-bottom: 56px;
+    }
+    .section-line.visible { width: 100%; }
+
+    /* ===== SCROLL HINT ===== */
+    .scroll-hint {
+      position: absolute; bottom: 44px; right: 64px; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      opacity: 0; animation: fadeUp .8s 1.35s var(--ease) forwards;
+    }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, transparent, var(--accent));
+      overflow: hidden; position: relative;
+    }
+    .scroll-line::after {
+      content: ''; position: absolute; top: -100%; left: 0;
+      width: 100%; height: 100%; background: var(--accent);
+      animation: scrollDrop 1.9s ease-in-out infinite 1.5s;
+    }
+    @keyframes scrollDrop { 0%{top:-100%} 100%{top:100%} }
+    .scroll-hint span { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); writing-mode: vertical-rl; }
+
+    /* ===== HAND-DRAWN UNDERLINE ===== */
+    .squiggle {
+      position: relative; display: inline-block;
+      padding-bottom: 10px;
+    }
+    .squiggle::after {
+      content: '';
+      position: absolute; bottom: 2px; left: -2px; right: -2px;
+      height: 8px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8'%3E%3Cpath d='M0,4 C10,0 20,8 30,4 C40,0 50,8 60,4 C70,0 80,8 90,4 C95,2 98,3 100,4' stroke='%23e8572a' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+      opacity: .7;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-dot"  id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <div class="nav-logo">ailin<span class="dot">.</span></div>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+            <a href="#contact" class="nav-cta">Say hello &rarr;</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <canvas id="heroCanvas"></canvas>
+
+    <div class="hero-left">
+      <div class="hero-tag"><div class="hero-tag-dot"></div>Product Designer &amp; UX Researcher</div>
+
+      <h1 class="hero-title">
+        <span class="hero-title-line"><span class="hero-title-inner">Designing from <span class="squiggle italic">insight,</span></span></span>
+        <span class="hero-title-line"><span class="hero-title-inner"><span class="light">not assumption.</span></span></span>
+      </h1>
+
+      <p class="hero-desc">资深产品与体验设计经验，聚焦复杂产品中的用户行为、增长策略与业务驱动体验</p>
+
+      <div class="hero-actions">
+        <a href="#work" class="btn-primary">
+          查看作品
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1.5 6.5h10M6.5 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#about" class="btn-ghost">关于我</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num" data-target="5">0<span>+</span></div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="20">0<span>+</span></div>
+          <div class="stat-label">Projects Shipped</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num" data-target="4">0</div>
+          <div class="stat-label">Design Types</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IP Illustration -->
+    <div class="hero-right">
+      <div class="hero-ip">
+        <div class="ip-circle">
+          <img
+            class="ip-img"
+            src="avatar_透明.png"
+            alt="ailin — Product Designer"
+          />
+        </div>
+
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="work-header reveal">
+      <div>
+        <span class="section-label">Selected Work</span>
+        <h2 class="section-title">Projects that matter</h2>
+      </div>
+      <div class="work-filter">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="ux">UX</button>
+        <button class="filter-btn" data-filter="ai">AI</button>
+        <button class="filter-btn" data-filter="research">Research</button>
+      </div>
+    </div>
+    <div class="section-line reveal"></div>
+
+    <div class="projects-grid">
+
+      <!-- Card 1 – wide -->
+      <a class="project-card wide reveal" href="project-search.html" data-tags="ux">
+        <div class="card-img">
+          <div class="card-img-inner" style="background:linear-gradient(135deg,#e8f4f0 0%,#c8e8e0 50%,#a8d8cc 100%);">
+            <div class="mock-ui">
+              <div class="mock-browser">
+                <div class="mock-browser-bar">
+                  <div class="mock-dot" style="background:#ff6058;"></div>
+                  <div class="mock-dot" style="background:#ffbb2c;"></div>
+                  <div class="mock-dot" style="background:#28ca41;"></div>
+                </div>
+                <div class="mock-content">
+                  <div class="mock-block" style="background:rgba(62,207,160,.45);width:38%;"></div>
+                  <div class="mock-block"></div>
+                  <div class="mock-block" style="width:62%;"></div>
+                  <div class="mock-block" style="width:34%;"></div>
+                  <div class="mock-block"></div>
+                  <div class="mock-block" style="width:55%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag ux">UX Design</span><span class="tag">搜索体验</span><span class="tag">框架设计</span></div>
+          <div class="card-title">美团搜索交易视频化建设</div>
+          <div class="card-desc">重构信息架构与视频内容呈现策略，基于用户需求分析与竞品研究。</div>
+          <div class="card-footer"><span class="card-meta">2024 · Meituan搜索</span><div class="card-arrow">&nearr;</div></div>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a class="project-card reveal reveal-delay-1" href="project-search2.html" data-tags="ux research">
+        <div class="card-img">
+          <div class="card-img-inner" style="background:linear-gradient(135deg,#fef5e8 0%,#fce8cc 50%,#f8d4a8 100%);">
+            <div class="mock-ui">
+              <div style="display:flex;flex-direction:column;gap:8px;width:158px;">
+                <div style="background:rgba(232,87,42,.08);border:1.5px solid rgba(232,87,42,.2);border-radius:10px;padding:12px;">
+                  <div style="font-size:9px;color:rgba(232,87,42,.5);margin-bottom:7px;letter-spacing:.07em;">BEFORE</div>
+                  <div style="display:flex;flex-direction:column;gap:4px;">
+                    <div style="height:3px;background:rgba(60,45,20,.15);border-radius:2px;"></div>
+                    <div style="height:3px;background:rgba(60,45,20,.1);border-radius:2px;width:80%;"></div>
+                    <div style="height:3px;background:rgba(60,45,20,.08);border-radius:2px;width:90%;"></div>
+                    <div style="height:3px;background:rgba(60,45,20,.06);border-radius:2px;width:65%;"></div>
+                  </div>
+                </div>
+                <div style="background:rgba(232,87,42,.14);border:1.5px solid rgba(232,87,42,.35);border-radius:10px;padding:12px;">
+                  <div style="font-size:9px;color:rgba(232,87,42,.9);margin-bottom:7px;letter-spacing:.07em;">AFTER ✓</div>
+                  <div style="display:flex;flex-direction:column;gap:5px;">
+                    <div style="height:4px;background:rgba(232,87,42,.5);border-radius:2px;width:68%;"></div>
+                    <div style="height:3px;background:rgba(60,45,20,.12);border-radius:2px;width:48%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag ux">UX Design</span><span class="tag research">搜索体验</span><span class="tag">信息设计</span></div>
+          <div class="card-title">搜索结果页信息简化与优化</div>
+          <div class="card-desc">建立准入与展示原则，系统性削减冗余字段，提升屏效与转化。</div>
+          <div class="card-footer"><span class="card-meta">2024 · Meituan搜索</span><div class="card-arrow">&nearr;</div></div>
+        </div>
+      </a>
+
+      <!-- Card 3 – narrow -->
+      <a class="project-card narrow reveal reveal-delay-2" href="project-ai-search.html" data-tags="ai ux">
+        <div class="card-img">
+          <div class="card-img-inner" style="background:linear-gradient(135deg,#f0eeff 0%,#e0d8ff 50%,#ccc0ff 100%);">
+            <div class="mock-ui">
+              <div style="display:flex;flex-direction:column;gap:7px;width:140px;">
+                <div style="background:rgba(155,139,255,.12);border:1.5px solid rgba(155,139,255,.3);border-radius:10px;padding:10px;">
+                  <div style="font-size:9px;color:rgba(107,88,240,.8);margin-bottom:6px;">搜索 · AI</div>
+                  <div style="height:3px;background:rgba(107,88,240,.4);border-radius:2px;width:82%;margin-bottom:4px;"></div>
+                  <div style="height:3px;background:rgba(60,45,20,.1);border-radius:2px;width:62%;"></div>
+                </div>
+                <div style="background:rgba(232,87,42,.08);border:1.5px solid rgba(232,87,42,.22);border-radius:10px;padding:10px;">
+                  <div style="font-size:9px;color:rgba(232,87,42,.8);margin-bottom:6px;">AI 回复中…</div>
+                  <div style="height:3px;background:rgba(232,87,42,.35);border-radius:2px;width:88%;margin-bottom:4px;"></div>
+                  <div style="height:3px;background:rgba(232,87,42,.18);border-radius:2px;width:64%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag ai">AI</span><span class="tag ux">UX</span></div>
+          <div class="card-title">AI 在搜索链路的探索</div>
+          <div class="card-desc">明确对话式交互的适用边界与产品形态。</div>
+          <div class="card-footer"><span class="card-meta">2024 · Meituan搜索</span><div class="card-arrow">&nearr;</div></div>
+        </div>
+      </a>
+
+      <!-- Card 4 -->
+      <a class="project-card reveal reveal-delay-1" href="project-livestream.html" data-tags="research">
+        <div class="card-img">
+          <div class="card-img-inner" style="background:linear-gradient(135deg,#fff0ec 0%,#ffe0d4 50%,#ffc8b0 100%);">
+            <div class="mock-ui">
+              <div style="display:flex;flex-direction:column;gap:8px;width:150px;">
+                <div style="background:rgba(232,87,42,.1);border:1.5px solid rgba(232,87,42,.25);border-radius:10px;padding:10px 12px;font-size:10px;color:rgba(200,60,20,.9);font-weight:500;">⏺ 直播中</div>
+                <div style="background:rgba(255,255,255,.6);border:1.5px solid rgba(60,45,20,.1);border-radius:10px;padding:10px;">
+                  <div style="font-size:9px;color:rgba(60,45,20,.45);margin-bottom:7px;">购买动机分析</div>
+                  <div style="height:4px;background:rgba(60,45,20,.08);border-radius:2px;overflow:hidden;">
+                    <div style="width:75%;height:100%;background:linear-gradient(90deg,#e8572a,#ff8a5c);border-radius:2px;"></div>
+                  </div>
+                  <div style="font-size:9px;color:rgba(232,87,42,.55);margin-top:6px;">12人访谈 · 40个Session</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag research">用户调研</span><span class="tag ai">直播交易体验</span></div>
+          <div class="card-title">直播用户购买动机与体验洞察专项</div>
+          <div class="card-desc">深度访谈 + Session 分析，揭示购买决策机制与体验断点。</div>
+          <div class="card-footer"><span class="card-meta">2025 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
+        </div>
+      </a>
+
+      <!-- Card 5 -->
+      <div class="project-card reveal reveal-delay-2" data-tags="ai">
+        <div class="card-img">
+          <div class="card-img-inner" style="background:linear-gradient(135deg,#eef8f4 0%,#d4f0e6 50%,#b8e4d4 100%);">
+            <div class="mock-ui">
+              <div class="mock-phone">
+                <div class="mock-screen-lines">
+                  <div class="mock-line accent"></div>
+                  <div class="mock-line short"></div>
+                  <div class="mock-line shorter"></div>
+                  <div class="mock-line short"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag ai">AI</span><span class="tag">Mobile</span></div>
+          <div class="card-title">智能推荐 · 个性化体验</div>
+          <div class="card-desc">基于行为数据的推荐系统 UI 设计与 A/B 测试。</div>
+          <div class="card-footer"><span class="card-meta">2024 · Growth</span><div class="card-arrow">&nearr;</div></div>
+        </div>
+      </div>
+
+      <!-- Card 6 – wide -->
+      <a href="project-livestream2.html" class="project-card wide reveal reveal-delay-3" data-tags="ux">
+        <div class="card-img">
+          <div class="card-img-inner" style="background:linear-gradient(135deg,#fdf8e8 0%,#f8ecc8 50%,#f0dca0 100%);">
+            <div class="mock-ui">
+              <div style="display:flex;flex-direction:column;gap:7px;width:168px;">
+                <div style="background:rgba(255,255,255,.7);border:1.5px solid rgba(60,45,20,.1);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(230,168,23,.25);flex-shrink:0;"></div>
+                  <div style="flex:1;">
+                    <div style="height:4px;background:rgba(60,45,20,.15);border-radius:3px;width:70%;"></div>
+                    <div style="height:3px;background:rgba(60,45,20,.07);border-radius:2px;width:44%;margin-top:5px;"></div>
+                  </div>
+                </div>
+                <div style="background:rgba(255,255,255,.7);border:1.5px solid rgba(60,45,20,.1);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(232,87,42,.2);flex-shrink:0;"></div>
+                  <div style="flex:1;">
+                    <div style="height:4px;background:rgba(60,45,20,.15);border-radius:3px;width:60%;"></div>
+                    <div style="height:3px;background:rgba(60,45,20,.07);border-radius:2px;width:40%;margin-top:5px;"></div>
+                  </div>
+                </div>
+                <div style="background:rgba(230,168,23,.12);border:1.5px solid rgba(230,168,23,.3);border-radius:8px;padding:7px 12px;text-align:center;font-size:9px;color:rgba(180,120,0,.75);letter-spacing:.06em;">直播广场 · 改版探索</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag ux">直播频道页建设</span><span class="tag" style="border-color:rgba(230,168,23,.35);color:#a07800;">框架设计</span></div>
+          <div class="card-title">直播广场改版探索</div>
+          <div class="card-desc">从 PMF 升级出发，探索框架改版与交互方案，构建「好买 + 好逛」双体验。</div>
+          <div class="card-footer"><span class="card-meta">2026 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-avatar">
+          <div class="about-avatar-inner"></div>
+          <div class="about-avatar-face">🌸</div>
+        </div>
+      </div>
+      <div class="about-content reveal reveal-delay-2">
+        <span class="section-label">About Me</span>
+        <h2 class="section-title">Designer who<br>thinks in <em class="squiggle" style="font-style:italic;color:var(--accent);">systems</em></h2>
+        <p class="about-bio">我是一名专注于 C 端体验与 AI 产品的设计师，同时具备扎实的用户研究能力。相信好的设计来自对用户的深度理解——用数据验证直觉，用洞察驱动创新，让每一个设计决策都有意义。</p>
+        <div class="skills-list">
+          <span class="skill-chip">UX Design</span>
+          <span class="skill-chip">User Research</span>
+          <span class="skill-chip">AI Interaction</span>
+
+          <span class="skill-chip">Data Analysis</span>
+          <span class="skill-chip">Design Systems</span>
+          <span class="skill-chip">A/B Testing</span>
+        </div>
+        <div class="experience-list">
+          <div class="exp-item">
+            <div class="exp-timeline"><div class="exp-dot"></div><div class="exp-line"></div></div>
+            <div class="exp-body">
+              <div class="exp-header">
+                <span class="exp-company">美团</span>
+                <span class="exp-role">资深体验设计师</span>
+                <span class="exp-direction">本地生活搜索直播产品方向</span>
+              </div>
+              <div class="exp-meta">2020.12 – 至今 · 北京，中国</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-timeline"><div class="exp-dot" style="background:var(--lavender);"></div><div class="exp-line"></div></div>
+            <div class="exp-body">
+              <div class="exp-header">
+                <span class="exp-company">亚马逊</span>
+                <span class="exp-role">UX设计师</span>
+                <span class="exp-direction">医疗与账户系统</span>
+              </div>
+              <div class="exp-meta">2019.07 – 2020.10 · 波士顿，美国</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-timeline"><div class="exp-dot" style="background:var(--mint);"></div><div class="exp-line"></div></div>
+            <div class="exp-body">
+              <div class="exp-header">
+                <span class="exp-company">Syllable Corporation</span>
+                <span class="exp-role">UX设计师</span>
+                <span class="exp-direction">智能医疗AI产品</span>
+              </div>
+              <div class="exp-meta">2017.06 – 2019.06 · 旧金山湾区，美国</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-timeline"><div class="exp-dot" style="background:var(--gold);"></div><div class="exp-line"></div></div>
+            <div class="exp-body">
+              <div class="exp-header">
+                <span class="exp-company">John Deere (约翰·迪尔)</span>
+                <span class="exp-role">交互设计实习生</span>
+                <span class="exp-direction">智慧农业</span>
+              </div>
+              <div class="exp-meta">2016.04 – 2016.08 · 芝加哥地区，美国</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-timeline"><div class="exp-dot" style="background:var(--ink-3);"></div><div class="exp-line"></div></div>
+            <div class="exp-body">
+              <div class="exp-header">
+                <span class="exp-company">伊利诺伊大学</span>
+                <span class="exp-role">课程讲师</span>
+                <span class="exp-direction">视觉设计</span>
+              </div>
+              <div class="exp-meta">2016.08 – 2017.05 · 芝加哥地区，美国</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-bg-word">Hello</div>
+    <div class="contact-inner reveal">
+      <span class="section-label" style="display:block;margin-bottom:12px;">Get In Touch</span>
+      <h2 class="contact-title">Let's create<br><em>something great</em></h2>
+      <p class="contact-sub">对新机会、合作项目或只是聊聊设计都感兴趣，欢迎随时联系。</p>
+      <div class="contact-links">
+        <a href="mailto:hello@example.com" class="contact-link primary">✉ Send Email</a>
+        <a href="#" class="contact-link">💼 LinkedIn</a>
+        <a href="#" class="contact-link">📄 Resume</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-copy">&copy; 2026 ailin · Designed with <span class="heart">♥</span></div>
+    <div class="footer-links">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ===== CURSOR =====
+    const dot  = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    document.addEventListener('mousemove', e => {
+      dot.style.left  = e.clientX + 'px';
+      dot.style.top   = e.clientY + 'px';
+      ring.style.left = e.clientX + 'px';
+      ring.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .project-card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        dot.style.width = dot.style.height = '16px';
+        ring.style.width = ring.style.height = '58px';
+        ring.style.borderColor = 'rgba(232,87,42,.55)';
+      });
+      el.addEventListener('mouseleave', () => {
+        dot.style.width = dot.style.height = '10px';
+        ring.style.width = ring.style.height = '38px';
+        ring.style.borderColor = 'rgba(232,87,42,.4)';
+      });
+    });
+
+    // ===== HERO CANVAS – warm dot grid =====
+    const canvas = document.getElementById('heroCanvas');
+    const ctx    = canvas.getContext('2d');
+    let pts = [];
+    const SPACING = 68;
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+      pts = [];
+      for (let x = 0; x < canvas.width + SPACING; x += SPACING) {
+        for (let y = 0; y < canvas.height + SPACING; y += SPACING) {
+          pts.push({ x, y, ox: x, oy: y, vx: 0, vy: 0 });
+        }
+      }
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    let mx = -999, my = -999;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function loop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pts.forEach(p => {
+        const dx = mx - p.x, dy = my - p.y;
+        const d  = Math.sqrt(dx*dx + dy*dy);
+        const f  = Math.max(0, 88 - d) / 88;
+        p.vx += (p.ox - p.x) * 0.05 - dx * f * 0.017;
+        p.vy += (p.oy - p.y) * 0.05 - dy * f * 0.017;
+        p.vx *= 0.86; p.vy *= 0.86;
+        p.x += p.vx; p.y += p.vy;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.2 + f * 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(60,45,20,${0.08 + f * 0.3})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(loop);
+    })();
+
+    // ===== SCROLL REVEAL =====
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    // section-line
+    const lineObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.style.width = '100%';
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.section-line').forEach(el => lineObs.observe(el));
+
+    // ===== NAV COMPACT =====
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ===== COUNT UP =====
+    let counted = false;
+    function countUp(el, target) {
+      const suffix = el.querySelector('span') ? el.querySelector('span').outerHTML : '';
+      let n = 0;
+      const step = target / 40;
+      const t = setInterval(() => {
+        n = Math.min(n + step, target);
+        el.innerHTML = Math.floor(n) + suffix;
+        if (n >= target) clearInterval(t);
+      }, 28);
+    }
+    const statsObs = new IntersectionObserver(entries => {
+      if (counted || !entries[0].isIntersecting) return;
+      counted = true;
+      document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+        countUp(el, +el.dataset.target);
+      });
+    }, { threshold: 0.5 });
+    const statsEl = document.querySelector('.hero-stats');
+    if (statsEl) statsObs.observe(statsEl);
+
+    // ===== FILTER =====
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('.project-card[data-tags]').forEach(card => {
+          const match = f === 'all' || (card.dataset.tags || '').includes(f);
+          card.style.opacity       = match ? '1' : '0.22';
+          card.style.transform     = match ? '' : 'scale(0.97)';
+          card.style.pointerEvents = match ? '' : 'none';
+          card.style.transition    = 'opacity .4s, transform .4s';
+        });
+      });
+    });
+
+    // ===== IP badge hover parallax =====
+    const ipEl = document.querySelector('.hero-ip');
+    if (ipEl) {
+      document.addEventListener('mousemove', e => {
+        const rect = ipEl.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top  + rect.height / 2;
+        const dx = (e.clientX - cx) / window.innerWidth  * 10;
+        const dy = (e.clientY - cy) / window.innerHeight * 10;
+        ipEl.querySelector('.ip-circle').style.transform = `translate(${dx*0.4}px,${dy*0.4}px)`;
+      });
+    }
+  </script>
+</body>
+</html>

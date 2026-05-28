@@ -33,6 +33,11 @@
     }
     a { color: inherit; text-decoration: none; }
 
+    /* ===== HISTORY FIX ===== */
+    if (location.href.indexOf('project-search.html') > -1) {
+      history.replaceState(null, '', location.href);
+    }
+
     /* ===== SCROLLBAR ===== */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aileen's World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'AlibabaPuHuiTi3';src:url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff2') format('woff2');font-weight:400;font-display:swap;}@font-face{font-family:'AlibabaPuHuiTi3';src:url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-65-Medium/AlibabaPuHuiTi-3-65-Medium.woff2') format('woff2');font-weight:500 600;font-display:swap;}</style>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:    #22201e;
+  --ink:   rgba(244,241,236,0.92);
+  --dim:   rgba(244,241,236,0.60);
+  --dim2:  rgba(244,241,236,0.18);
+  --accent:#e8572a;
+  --ease:  cubic-bezier(.22,1,.36,1);
+}
+* { cursor: none !important; }
+html, body { width:100%; height:100%; overflow:hidden; background:var(--bg); }
+
+/* ===== STARFIELD ===== */
+.starfield-wrap {
+  position:fixed; inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.starfield-layer {
+  position:absolute;
+  top:50%; left:50%;
+  width:150vmax; height:150vmax;
+  transform:translate(-50%,-50%);
+}
+.starfield-layer--far  { animation: rotateCCW 360s linear infinite; }
+.starfield-layer--mid  { animation: rotateCW  260s linear infinite; }
+.starfield-layer--near { animation: rotateCCW 190s linear infinite; }
+@keyframes rotateCW  { to { transform:translate(-50%,-50%) rotate(360deg); } }
+@keyframes rotateCCW { to { transform:translate(-50%,-50%) rotate(-360deg); } }
+
+.star {
+  position:absolute;
+  border-radius:50%;
+  background:#fff;
+  animation: twinkle 9s ease-in-out infinite;
+}
+.starfield-layer--near .star { box-shadow:0 0 4px rgba(255,255,255,.8); }
+.starfield-layer--mid  .star { box-shadow:0 0 3px rgba(255,255,255,.6); }
+.starfield-layer--far  .star { box-shadow:0 0 2px rgba(255,255,255,.4); }
+@keyframes twinkle {
+  0%,100% { opacity:.7; }
+  50%      { opacity:1; }
+}
+
+/* ===== SHOOTING STARS ===== */
+@keyframes shoot {
+  0%   { transform:translateZ(0) rotate(var(--ang)); opacity:0; }
+  8%   { opacity:1; }
+  90%  { opacity:1; }
+  100% { transform:translate3d(var(--dx),var(--dy),0) rotate(var(--ang)); opacity:0; }
+}
+.shooting-star {
+  position:absolute;
+  font-family:'Inter',monospace;
+  color:rgba(255,255,255,.85);
+  text-shadow:0 0 10px rgba(255,255,255,.5);
+  font-size:12px; letter-spacing:.1em;
+  white-space:nowrap; pointer-events:none;
+  transform-origin:left center;
+  animation:shoot var(--dur) cubic-bezier(.16,.84,.44,1) forwards;
+}
+
+/* ===== SPLASH ===== */
+#splash {
+  position: fixed; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  z-index: 10;
+  transition: opacity 1s var(--ease);
+}
+#splash.leaving { opacity: 0; pointer-events: none; }
+
+/* ===== CENTER CONTENT ===== */
+.splash-center {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+}
+
+/* Welcome to 小标 */
+.splash-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 12px;
+  opacity: 0; transform: translateY(8px);
+  animation: fadeUp .6s .4s var(--ease) forwards;
+}
+
+/* 主标题 */
+.splash-title {
+  font-family: 'Lora', serif;
+  font-size: 34px;
+  font-weight: 400; letter-spacing: -.02em; line-height: 1.1;
+  color: var(--ink);
+  white-space: nowrap;
+  margin-bottom: 16px;
+  opacity: 0; transform: translateY(14px);
+  animation: fadeUp .75s .62s var(--ease) forwards;
+}
+.splash-title .name-accent { color: var(--accent); font-style: italic; }
+
+/* 副标题 */
+.splash-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 300; letter-spacing: .03em; line-height: 1.75;
+  color: var(--dim);
+  max-width: 420px;
+  margin-bottom: 48px;
+  opacity: 0; transform: translateY(10px);
+  animation: fadeUp .65s 1s var(--ease) forwards;
+}
+
+/* shove 包裹 */
+.shove-word { display: inline-block; will-change: transform; }
+
+/* ===== EXPLORE 按钮 ===== */
+.splash-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 34px; border-radius: 100px;
+  border: 1px solid var(--accent);
+  background: transparent; color: var(--ink);
+  font-family: 'AlibabaPuHuiTi3', 'PingFang SC', sans-serif;
+  font-size: 14px; font-weight: 400; letter-spacing: .06em;
+  opacity: 0; transform: translateY(10px);
+  animation: fadeUp .6s 1.22s var(--ease) forwards;
+  transition: border-color .3s, background .3s, color .3s, transform .35s var(--ease);
+}
+.splash-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-3px) !important;
+}
+.splash-btn .btn-arrow { transition: transform .35s var(--ease); }
+.splash-btn:hover .btn-arrow { transform: translateX(4px); }
+
+/* ===== CURSOR ===== */
+.cursor-dot {
+  position: fixed; z-index: 9999; pointer-events: none;
+  transform: translate(-50%,-50%);
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 16px rgba(255,255,255,.6),
+              0 0 32px rgba(255,255,255,.35),
+              0 0 64px rgba(255,255,255,.18);
+  transition: width .28s var(--ease), height .28s var(--ease);
+}
+.cursor-dot.hovering {
+  width: 32px; height: 32px;
+}
+
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- 星空背景 -->
+<div class="starfield-wrap">
+  <div class="starfield-layer starfield-layer--far"  id="layerFar"></div>
+  <div class="starfield-layer starfield-layer--mid"  id="layerMid"></div>
+  <div class="starfield-layer starfield-layer--near" id="layerNear"></div>
+  <div id="shootingWrap" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
+</div>
+
+<!-- 主内容 -->
+<div id="splash">
+  <div class="splash-center">
+    <div class="splash-eyebrow">Welcome to</div>
+
+    <h1 class="splash-title">
+      <span class="shove-word" data-shove>Aileen</span><span class="name-accent"><span class="shove-word" data-shove>'s</span></span>&nbsp;<span class="shove-word" data-shove>World</span>
+    </h1>
+
+    <p class="splash-sub">
+      <span class="shove-word" data-shove>聚焦产品中的用户行为、</span><span class="shove-word" data-shove>增长策略与业务体验</span>
+    </p>
+
+    <button class="splash-btn" id="enterBtn">
+      探索
+      <span class="btn-arrow">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <path d="M1.5 6.5h10M6.5 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+
+<script>
+// ===== CURSOR =====
+const dot = document.getElementById('cursorDot');
+let mx = 0, my = 0, cx = 0, cy = 0;
+dot.style.opacity = '0';
+document.addEventListener('pointermove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.opacity = '1';
+});
+(function lerpCursor() {
+  cx += (mx - cx) * 0.35;
+  cy += (my - cy) * 0.35;
+  dot.style.left = cx + 'px';
+  dot.style.top  = cy + 'px';
+  window.dispatchEvent(new CustomEvent('welcome:pointer', { detail: { x: cx, y: cy } }));
+  requestAnimationFrame(lerpCursor);
+})();
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => dot.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => dot.classList.remove('hovering'));
+});
+
+// ===== STARFIELD =====
+function makeStar(sizeRange, opacityRange) {
+  const el = document.createElement('span');
+  el.className = 'star';
+  const size = sizeRange[0] + Math.random() * (sizeRange[1] - sizeRange[0]);
+  const opacity = opacityRange[0] + Math.random() * (opacityRange[1] - opacityRange[0]);
+  el.style.cssText = [
+    'left:'   + (Math.random() * 100) + '%',
+    'top:'    + (Math.random() * 100) + '%',
+    'width:'  + size + 'px',
+    'height:' + size + 'px',
+    'opacity:' + opacity,
+    'animation-delay:' + (Math.random() * 14) + 's',
+  ].join(';');
+  return el;
+}
+
+const layerFar  = document.getElementById('layerFar');
+const layerMid  = document.getElementById('layerMid');
+const layerNear = document.getElementById('layerNear');
+
+for (let i = 0; i < 180; i++) layerFar.appendChild(makeStar([0.8,1.2],[0.2,0.5]));
+for (let i = 0; i < 90;  i++) layerMid.appendChild(makeStar([1,1.8],[0.28,0.56]));
+for (let i = 0; i < 40;  i++) layerNear.appendChild(makeStar([1.8,2.8],[0.6,0.95]));
+
+// ===== SHOOTING STARS =====
+const symbols = ['✦', '✧', '·', '+', '×', '✳'];
+const shootWrap = document.getElementById('shootingWrap');
+
+function launchStar() {
+  const el = document.createElement('span');
+  el.className = 'shooting-star';
+  el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+  const startX = window.innerWidth  * (0.5 + Math.random() * 0.45);
+  const startY = window.innerHeight * (Math.random() * 0.55);
+  const dx = -(window.innerWidth  * (0.45 + Math.random() * 0.35));
+  const dy =   window.innerHeight * (0.25 + Math.random() * 0.35);
+  const dur  = (1.4 + Math.random() * 0.9).toFixed(2) + 's';
+  const ang  = (Math.atan2(dy, dx) * 180 / Math.PI).toFixed(1) + 'deg';
+  el.style.left = startX + 'px';
+  el.style.top  = startY + 'px';
+  el.style.setProperty('--dx', dx + 'px');
+  el.style.setProperty('--dy', dy + 'px');
+  el.style.setProperty('--dur', dur);
+  el.style.setProperty('--ang', ang);
+  shootWrap.appendChild(el);
+  el.addEventListener('animationend', () => el.remove());
+}
+
+(function scheduleShoot() {
+  launchStar();
+  setTimeout(scheduleShoot, 2500 + Math.random() * 2500);
+})();
+
+// ===== SHOVE EFFECT =====
+const shoveEls = Array.from(document.querySelectorAll('[data-shove]'));
+const shoveTarget  = new WeakMap();
+const shoveCurrent = new WeakMap();
+shoveEls.forEach(el => {
+  shoveTarget.set(el,  { x: 0, y: 0 });
+  shoveCurrent.set(el, { x: 0, y: 0 });
+});
+
+const SHOVE_RADIUS   = 100;
+const SHOVE_STRENGTH = 28;
+let pointerX = -9999, pointerY = -9999;
+
+window.addEventListener('welcome:pointer', e => {
+  pointerX = e.detail.x;
+  pointerY = e.detail.y;
+});
+
+(function shoveLoop() {
+  for (const el of shoveEls) {
+    const rect = el.getBoundingClientRect();
+    const ex = rect.left + rect.width  / 2;
+    const ey = rect.top  + rect.height / 2;
+    const dx = ex - pointerX;
+    const dy = ey - pointerY;
+    const dist = Math.hypot(dx, dy) || 1;
+    const target = shoveTarget.get(el);
+    if (dist < SHOVE_RADIUS) {
+      const force = Math.pow(1 - dist / SHOVE_RADIUS, 1.4);
+      target.x = (dx / dist) * force * SHOVE_STRENGTH;
+      target.y = (dy / dist) * force * SHOVE_STRENGTH;
+    } else {
+      target.x = 0;
+      target.y = 0;
+    }
+    const cur = shoveCurrent.get(el);
+    cur.x += (target.x - cur.x) * 0.18;
+    cur.y += (target.y - cur.y) * 0.18;
+    el.style.transform = `translate3d(${cur.x.toFixed(2)}px,${cur.y.toFixed(2)}px,0)`;
+  }
+  requestAnimationFrame(shoveLoop);
+})();
+
+// ===== ENTER =====
+document.getElementById('enterBtn').addEventListener('click', () => {
+  document.getElementById('splash').classList.add('leaving');
+  setTimeout(() => { window.location.href = 'index-v2.html'; }, 1000);
+});
+</script>
+</body>
+</html>
