@@ -178,7 +178,10 @@
     }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--bg);
+      background:
+        radial-gradient(ellipse 100% 80% at 10% 0%,   rgba(235,190,120,0.13) 0%, transparent 70%),
+        radial-gradient(ellipse 90%  90% at 95% 95%,   rgba(220,155,70,0.5)   0%, transparent 60%),
+        #f4f1ec;
       color: var(--ink);
       font-family: 'Inter','PingFang SC',-apple-system,sans-serif;
       line-height: 1.6;
@@ -186,6 +189,9 @@
       -webkit-font-smoothing: antialiased;
       cursor: none;
     }
+
+    /* 中部额外一个淡金光晕，用 div 实现 */
+    #bg-glow-mid { display: none; }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
     ::-webkit-scrollbar { width: 4px; }
@@ -218,7 +224,6 @@
       padding: 16px 64px;
       background: rgba(244,241,236,0.88);
       backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 1px 0 var(--border);
     }
     .nav-logo {
       font-family: 'Caveat', cursive;
@@ -760,6 +765,9 @@ overflow: hidden;
   </style>
 </head>
 <body>
+
+<!-- ===== 弥散背景光晕 ===== -->
+<div id="bg-glow-mid"></div>
 
 <!-- ===== 开屏光标 ===== -->
 <div class="cursor-splash" id="splashCursor"></div>
