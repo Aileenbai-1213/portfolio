@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>开播工具AI封面制作 — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -16,11 +19,11 @@
       --text-primary: #1a1a1a;
       --text-secondary: #555555;
       --text-muted: #999999;
-      --accent: #d97706;
-      --accent-light: rgba(217,119,6,0.08);
+      --accent: #e8572a;
+      --accent-light: rgba(232,87,42,0.08);
       --accent2: #5a3fc0;
       --accent3: #c0392b;
-      --accent-ai: #d97706;
+      --accent-ai: #e8572a;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
       --shadow-md: 0 2px 8px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04);
       --shadow-lg: 0 4px 12px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
@@ -37,8 +40,10 @@
       background: var(--bg);
       color: var(--text-primary);
       font-family: var(--font-sans);
-      line-height: 1.8;
+      line-height: 1.7;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 a { color: inherit; text-decoration: none; }
 
@@ -95,8 +100,8 @@ a { color: inherit; text-decoration: none; }
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 13px;
-      letter-spacing: 0.08em;
+      font-size: 11px;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--text-muted);
       margin-bottom: 24px;
@@ -104,7 +109,7 @@ a { color: inherit; text-decoration: none; }
     .project-eyebrow::before {
       content: '';
       width: 16px; height: 1px;
-      background: #d97706;
+      background: #e8572a;
     }
     .project-title {
       font-size: clamp(32px, 4.5vw, 60px);
@@ -120,7 +125,7 @@ a { color: inherit; text-decoration: none; }
       margin-bottom: 32px;
     }
     .meta-label {
-      font-size: 13px;
+      font-size: 10px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-muted);
@@ -141,9 +146,9 @@ a { color: inherit; text-decoration: none; }
       transition: all 0.2s ease;
     }
     .tag:hover { border-color: var(--accent); color: var(--accent); }
-    .tag.ai { border-color: rgba(217,119,6,0.3); color: #d97706; }
-    .tag.ux { border-color: rgba(90,63,192,0.3); color: #5a3fc0; }
-    .tag.biz { border-color: rgba(184,92,0,0.3); color: #d97706; }
+    .tag.ai { border-color: rgba(232,87,42,0.3); color: #e8572a; background: rgba(232,87,42,0.06); }
+    .tag.ux { border-color: rgba(155,139,255,0.35); color: #6b58f0; background: rgba(155,139,255,0.06); }
+    .tag.biz { border-color: rgba(230,168,23,0.35); color: #a07800; background: rgba(230,168,23,0.06); }
 
     /* ===== DIVIDER ===== */
     .divider {
@@ -162,7 +167,7 @@ a { color: inherit; text-decoration: none; }
 
     /* Section block */
     .content-section {
-      padding: 80px 0 0;
+      padding: 60px 0 0;
       opacity: 0;
       transform: translateY(28px);
       transition: opacity 0.6s ease, transform 0.6s ease;
@@ -182,7 +187,7 @@ a { color: inherit; text-decoration: none; }
     .section-label::before {
       content: '';
       width: 12px; height: 1px;
-      background: #d97706;
+      background: #e8572a;
     }
     .section-heading {
       font-size: 22px;
@@ -221,7 +226,7 @@ a { color: inherit; text-decoration: none; }
     }
     .highlight-box p {
       font-size: 15px;
-      line-height: 1.8;
+      line-height: 1.6;
       color: var(--text-secondary);
     }
     .highlight-box p strong { color: var(--text-primary); }
@@ -244,7 +249,7 @@ a { color: inherit; text-decoration: none; }
     }
     .ai-box p {
       font-size: 15px;
-      line-height: 1.8;
+      line-height: 1.6;
       color: var(--text-secondary);
     }
     .ai-box p strong { color: var(--text-primary); }
@@ -287,7 +292,7 @@ a { color: inherit; text-decoration: none; }
     }
     .stat-card {
       background: var(--surface);
-      border: 1px solid rgba(180,160,140,0.18);
+      border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
       padding: 28px 24px;
       text-align: center;
@@ -306,7 +311,7 @@ a { color: inherit; text-decoration: none; }
       margin-bottom: 10px;
     }
     .stat-card.blue .stat-num { color: var(--accent); }
-    .stat-card .stat-num span { font-size: 22px; }
+    .stat-card .stat-num span { font-size: 14px; }
     .stat-card .stat-label {
       font-size: 12px;
       color: var(--text-muted);
@@ -378,7 +383,7 @@ a { color: inherit; text-decoration: none; }
       background: var(--surface2);
       padding: 14px 20px;
       text-align: left;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--text-primary);
       font-size: 11px;
       letter-spacing: 0.08em;
@@ -428,7 +433,8 @@ a { color: inherit; text-decoration: none; }
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 14px;
-      font-family: var(--font-mono);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
     }
     .decision-card h4 {
       font-size: 15px;
@@ -475,7 +481,8 @@ a { color: inherit; text-decoration: none; }
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 12px;
-      font-family: var(--font-mono);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
     }
     .flow-stage h4 {
       font-size: 15px;
@@ -570,7 +577,6 @@ a { color: inherit; text-decoration: none; }
       margin-bottom: 24px;
       cursor: zoom-in;
       position: relative;
-      border: 1px solid rgba(180,160,140,0.18);
     }
     .img-block img {
       width: 100%;
@@ -606,7 +612,7 @@ a { color: inherit; text-decoration: none; }
       position: fixed;
       top: 0; left: 0;
       height: 2px;
-      background: #d97706;
+      background: #e8572a;
       z-index: 200;
       width: 0%;
       transition: width 0.1s linear;
@@ -830,7 +836,7 @@ a { color: inherit; text-decoration: none; }
       background: var(--surface2);
       padding: 10px 20px;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--text-primary);
@@ -848,6 +854,7 @@ a { color: inherit; text-decoration: none; }
       line-height: 1.65;
       vertical-align: middle;
       border-bottom: 1px solid var(--border);
+      background: var(--surface);
     }
     .goal-real-table tr:last-child td {
       border-bottom: none;
@@ -950,11 +957,11 @@ a { color: inherit; text-decoration: none; }
           <ul class="bg-list">
             <li>
               <strong>素材设计成本高</strong>
-              官播等大规模商播依赖外部设计，单场成本达 200 元，令中小商播却步；
+              官播等大规模商播依赖外部设计，单场成本高，令中小商播却步；
             </li>
             <li>
               <strong>操作复杂</strong>
-              超 95% 开播主播为商播，近 7 成为中小商播，其直播间装修操作时长比大规模商播多 0.98 分钟，部分主播因"不会用""不易用"影响开播。
+              近 7 成为中小商播，其直播间装修操作时长比大规模商播多 0.98 分钟，部分主播因"不会用""不易用"影响开播。
             </li>
           </ul>
         </div>
