@@ -19,8 +19,8 @@
       --text-primary: #1a1a1a;
       --text-secondary: #555555;
       --text-muted: #999999;
-      --accent: #d97706;
-      --accent-light: rgba(217,119,6,0.08);
+      --accent: #e8572a;
+      --accent-light: rgba(232,87,42,0.08);
       --accent2: #5a3fc0;
       --accent3: #c0392b;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
@@ -114,7 +114,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
     .project-eyebrow::before {
       content: '';
       width: 16px; height: 1px;
-      background: #b85c00;
+      background: #e8572a;
     }
     .project-title {
       font-size: clamp(32px, 4.5vw, 60px);
@@ -154,10 +154,10 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       border-color: var(--accent);
       color: var(--accent);
     }
-    .tag.ux { border-color: rgba(90,63,192,0.3); color: #5a3fc0; }
-    .tag.research { border-color: rgba(192,57,43,0.3); color: #c0392b; }
-    .tag.product { border-color: rgba(184,92,0,0.3); color: #b85c00; }
-    .tag.live { border-color: rgba(180,80,0,0.3); color: #b85000; }
+.tag.ux { border-color: rgba(90,63,192,0.3); color: #5a3fc0; background: rgba(90,63,192,0.06); }
+.tag.research { border-color: rgba(192,57,43,0.3); color: #c0392b; background: rgba(192,57,43,0.06); }
+.tag.product { border-color: rgba(184,92,0,0.3); color: #b85c00; background: rgba(184,92,0,0.06); }
+.tag.live { border-color: rgba(180,80,0,0.3); color: #b85000; background: rgba(180,80,0,0.06); }
 
     /* ===== DIVIDER ===== */
     .divider {
@@ -196,7 +196,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
     .section-label::before {
       content: '';
       width: 12px; height: 1px;
-      background: #b85c00;
+      background: #e8572a;
     }
     .section-heading {
       font-size: 22px;
@@ -214,7 +214,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       margin-bottom: 32px;
     }
     .prose strong { color: var(--text-primary); font-weight: 600; }
-    .prose em { color: #b85c00; font-style: normal; }
+    .prose em { color: #e8572a; font-style: normal; }
 
     /* ===== HIGHLIGHT BOX ===== */
     .highlight-box {
@@ -297,12 +297,9 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       border-radius: var(--radius-lg);
       padding: 32px 28px;
       text-align: center;
-      box-shadow: var(--shadow-sm);
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
     .stat-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
+      border-color: rgba(180,160,140,0.28);
     }
     .stat-card .stat-num {
       font-size: 40px;
@@ -337,7 +334,6 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
       padding: 28px 32px;
-      box-shadow: var(--shadow-sm);
     }
     .problem-card .p-tag {
       display: inline-block;
@@ -375,7 +371,6 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
       padding: 32px 28px;
-      box-shadow: var(--shadow-sm);
     }
     .method-card .method-icon {
       font-size: 24px;
@@ -504,7 +499,6 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
       padding: 28px;
-      box-shadow: var(--shadow-sm);
     }
     .strategy-num {
       font-size: 11px;
@@ -539,7 +533,6 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
       padding: 28px 32px;
-      box-shadow: var(--shadow-sm);
     }
     .outcome-card .o-tag {
       display: inline-block;
@@ -572,7 +565,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       position: fixed;
       top: 0; left: 0;
       height: 2px;
-      background: linear-gradient(90deg, var(--accent), #f59e0b);
+      background: linear-gradient(90deg, #e8572a, #e8572a);
       z-index: 200;
       width: 0%;
       transition: width 0.1s linear;
@@ -654,13 +647,11 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       transition: all 0.3s;
       flex-shrink: 0;
       background: var(--surface);
-      box-shadow: var(--shadow-sm);
     }
     .next-project:hover .next-arrow {
       border-color: var(--accent);
       color: var(--accent);
       transform: translateX(4px);
-      box-shadow: var(--shadow-md);
     }
 
     @keyframes fadeUp {
@@ -732,7 +723,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
     </div>
     <div class="project-tags">
       <span class="tag research">用户调研</span>
-      <span class="tag ai">直播交易体验</span>
+      <span class="tag ai">直播体验</span>
     </div>
   </div>
 
@@ -751,7 +742,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
         <p>美团直播业务正处于快速发展阶段，直播间已成为重要的商品销售渠道。然而，<strong>直播间的购买转化率与用户留存表现参差不齐</strong>，业务侧对「用户为什么在直播间买单」以及「哪些体验因素影响了购买决策」缺乏系统性认知，导致设计优化方向不明确。</p>
       </div>
 
-      <div class="section-heading" style="font-size: 17px; margin-top: 8px;">问题分析</div>
+      <div class="section-heading" style="font-size: 13px; margin-top: 8px;">问题分析</div>
 
       <div class="problem-grid">
         <div class="problem-card">
@@ -776,7 +767,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
         </div>
       </div>
 
-      <div class="section-heading" style="font-size: 17px; margin-top: 8px;">调研目标</div>
+      <div class="section-heading" style="font-size: 13px; margin-top: 8px;">调研目标</div>
 
       <div class="highlight-box">
         <div class="label">核心问题</div>
@@ -925,12 +916,12 @@ if (location.href.indexOf('project-livestream.html') > -1) {
         <img src="images/livestream/ls-feedback.jpg" alt="业务方反馈截图" />
       </div>
 
-      <div class="section-heading" style="font-size: 17px; margin-top: 32px; margin-bottom: 20px;">优化建议与机会点</div>
+      <div class="section-heading" style="font-size: 13px; margin-top: 32px; margin-bottom: 20px;">优化建议与机会点</div>
       <div class="img-block" style="width: 75%;">
         <img src="images/livestream/ls-8.jpg" alt="优化建议与机会点：3条核心建议与设计方案 Before/After" />
       </div>
 
-      <div class="section-heading" style="font-size: 17px; margin-top: 32px; margin-bottom: 20px;">AI 辅助访谈材料整理的方法</div>
+      <div class="section-heading" style="font-size: 13px; margin-top: 32px; margin-bottom: 20px;">AI 辅助访谈材料整理的方法</div>
       <div class="img-block" style="width: 75%;">
         <img src="images/livestream/ls-9.jpg" alt="AI辅助访谈材料整理方法：3个步骤" />
       </div>
