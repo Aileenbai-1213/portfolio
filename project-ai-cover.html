@@ -7,11 +7,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-<<<<<<< Updated upstream
-      --bg: #f5f2ed;
-=======
       --bg: #faf9f7;
->>>>>>> Stashed changes
       --surface: #ffffff;
       --surface2: #f5f3f0;
       --surface3: #f0ede8;
@@ -20,18 +16,11 @@
       --text-primary: #1a1a1a;
       --text-secondary: #555555;
       --text-muted: #999999;
-<<<<<<< Updated upstream
-      --accent: #925c31;
-      --accent-light: rgba(146,92,49,0.08);
-      --accent2: #5a3fc0;
-      --accent3: #c0392b;
-      --accent-ai: #925c31;
-=======
       --accent: #d97706;
       --accent-light: rgba(217,119,6,0.08);
       --accent2: #5a3fc0;
       --accent3: #c0392b;
->>>>>>> Stashed changes
+      --accent-ai: #d97706;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
       --shadow-md: 0 2px 8px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04);
       --shadow-lg: 0 4px 12px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
@@ -48,21 +37,11 @@
       background: var(--bg);
       color: var(--text-primary);
       font-family: var(--font-sans);
-      line-height: 1.7;
+      line-height: 1.8;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
-
-<<<<<<< Updated upstream
-=======
-/* ===== HISTORY FIX ===== */
-if (location.href.indexOf('project-ai-cover.html') > -1) {
-  history.replaceState(null, '', location.href);
-}
 a { color: inherit; text-decoration: none; }
 
->>>>>>> Stashed changes
 /* ===== SCROLLBAR ===== */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
@@ -116,13 +95,8 @@ a { color: inherit; text-decoration: none; }
       display: inline-flex;
       align-items: center;
       gap: 8px;
-<<<<<<< Updated upstream
       font-size: 13px;
       letter-spacing: 0.08em;
-=======
-      font-size: 11px;
-      letter-spacing: 0.14em;
->>>>>>> Stashed changes
       text-transform: uppercase;
       color: var(--text-muted);
       margin-bottom: 24px;
@@ -130,7 +104,7 @@ a { color: inherit; text-decoration: none; }
     .project-eyebrow::before {
       content: '';
       width: 16px; height: 1px;
-      background: #b85c00;
+      background: #d97706;
     }
     .project-title {
       font-size: clamp(32px, 4.5vw, 60px);
@@ -146,7 +120,7 @@ a { color: inherit; text-decoration: none; }
       margin-bottom: 32px;
     }
     .meta-label {
-      font-size: 10px;
+      font-size: 13px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-muted);
@@ -166,17 +140,10 @@ a { color: inherit; text-decoration: none; }
       font-weight: 500;
       transition: all 0.2s ease;
     }
-<<<<<<< Updated upstream
     .tag:hover { border-color: var(--accent); color: var(--accent); }
-    .tag.ai { border-color: rgba(146,92,49,0.3); color: #925c31; }
+    .tag.ai { border-color: rgba(217,119,6,0.3); color: #d97706; }
     .tag.ux { border-color: rgba(90,63,192,0.3); color: #5a3fc0; }
-    .tag.biz { border-color: rgba(184,92,0,0.3); color: #b85c00; }
-=======
-.tag:hover { border-color: var(--accent); color: var(--accent); }
-.tag.ai { border-color: rgba(217,119,6,0.3); color: #d97706; background: rgba(217,119,6,0.06); }
-.tag.ux { border-color: rgba(90,63,192,0.3); color: #5a3fc0; background: rgba(90,63,192,0.06); }
-.tag.biz { border-color: rgba(184,92,0,0.3); color: #b85c00; background: rgba(184,92,0,0.06); }
->>>>>>> Stashed changes
+    .tag.biz { border-color: rgba(184,92,0,0.3); color: #d97706; }
 
     /* ===== DIVIDER ===== */
     .divider {
@@ -215,48 +182,31 @@ a { color: inherit; text-decoration: none; }
     .section-label::before {
       content: '';
       width: 12px; height: 1px;
-      background: #b85c00;
+      background: #d97706;
     }
     .section-heading {
       font-size: 22px;
       font-weight: 600;
       letter-spacing: -0.01em;
-<<<<<<< Updated upstream
       line-height: 1.3;
-=======
-      line-height: 1.2;
->>>>>>> Stashed changes
       margin-bottom: 24px;
       color: var(--text-primary);
     }
 
     /* ===== PROSE TEXT ===== */
     .prose {
-<<<<<<< Updated upstream
       font-size: 15px;
       line-height: 1.65;
-=======
-      font-size: 16px;
-      line-height: 1.8;
->>>>>>> Stashed changes
       color: var(--text-secondary);
       margin-bottom: 32px;
     }
     .prose strong { color: var(--text-primary); font-weight: 600; }
-<<<<<<< Updated upstream
     .prose em { color: var(--accent); font-style: normal; }
-=======
-    .prose em { color: #b85c00; font-style: normal; }
->>>>>>> Stashed changes
 
     /* ===== HIGHLIGHT BOX ===== */
     .highlight-box {
       background: var(--accent-light);
-<<<<<<< Updated upstream
       border: none;
-=======
-      border: 1px solid rgba(217,119,6,0.12);
->>>>>>> Stashed changes
       border-radius: var(--radius-lg);
       padding: 28px 32px;
       margin-bottom: 40px;
@@ -279,11 +229,7 @@ a { color: inherit; text-decoration: none; }
     /* ===== AI BOX (blue) ===== */
     .ai-box {
       background: var(--accent-light);
-<<<<<<< Updated upstream
       border: none;
-=======
-      border: 1px solid rgba(217,119,6,0.12);
->>>>>>> Stashed changes
       border-radius: var(--radius-lg);
       padding: 28px 32px;
       margin-bottom: 40px;
@@ -306,11 +252,7 @@ a { color: inherit; text-decoration: none; }
     /* ===== INFO BOX (purple) ===== */
     .info-box {
       background: rgba(90,63,192,0.05);
-<<<<<<< Updated upstream
       border: none;
-=======
-      border: 1px solid rgba(90,63,192,0.12);
->>>>>>> Stashed changes
       border-radius: var(--radius-lg);
       padding: 28px 32px;
       margin-bottom: 40px;
@@ -345,11 +287,7 @@ a { color: inherit; text-decoration: none; }
     }
     .stat-card {
       background: var(--surface);
-<<<<<<< Updated upstream
       border: 1px solid rgba(180,160,140,0.18);
-=======
-      border: 1px solid var(--border-light);
->>>>>>> Stashed changes
       border-radius: var(--radius-lg);
       padding: 28px 24px;
       text-align: center;
@@ -397,11 +335,7 @@ a { color: inherit; text-decoration: none; }
     }
     .problem-card {
       background: var(--surface);
-<<<<<<< Updated upstream
       border: 1px solid rgba(180,160,140,0.18);
-=======
-      border: 1px solid var(--border-light);
->>>>>>> Stashed changes
       border-radius: var(--radius-lg);
       padding: 24px 28px;
     }
@@ -438,11 +372,7 @@ a { color: inherit; text-decoration: none; }
       background: var(--surface);
       border-radius: var(--radius-lg);
       overflow: hidden;
-<<<<<<< Updated upstream
       border: 1px solid rgba(180,160,140,0.18);
-=======
-      border: 1px solid var(--border-light);
->>>>>>> Stashed changes
     }
     .comp-table th {
       background: var(--surface2);
@@ -467,14 +397,9 @@ a { color: inherit; text-decoration: none; }
     .badge {
       display: inline-block;
       font-size: 12px;
-<<<<<<< Updated upstream
       padding: 3px 12px;
-=======
-      padding: 4px 16px;
->>>>>>> Stashed changes
       border-radius: 100px;
       font-weight: 500;
-      white-space: nowrap;
     }
     .badge-yes { background: rgba(22,163,74,0.12); color: #15803d; }
     .badge-low { background: rgba(234,179,8,0.12); color: #92400e; }
@@ -489,11 +414,7 @@ a { color: inherit; text-decoration: none; }
     }
     .decision-card {
       background: var(--surface);
-<<<<<<< Updated upstream
       border: 1px solid rgba(180,160,140,0.18);
-=======
-      border: 1px solid var(--border-light);
->>>>>>> Stashed changes
       border-radius: var(--radius-lg);
       padding: 24px 28px;
       transition: border-color 0.2s;
@@ -543,11 +464,7 @@ a { color: inherit; text-decoration: none; }
     }
     .flow-stage {
       background: var(--surface);
-<<<<<<< Updated upstream
       border: 1px solid rgba(180,160,140,0.18);
-=======
-      border: 1px solid var(--border-light);
->>>>>>> Stashed changes
       border-radius: var(--radius-lg);
       padding: 24px 28px;
       position: relative;
@@ -596,11 +513,7 @@ a { color: inherit; text-decoration: none; }
     }
     .outcome-card {
       background: var(--surface);
-<<<<<<< Updated upstream
       border: 1px solid rgba(180,160,140,0.18);
-=======
-      border: 1px solid var(--border-light);
->>>>>>> Stashed changes
       border-radius: var(--radius-lg);
       padding: 24px 28px;
     }
@@ -609,9 +522,9 @@ a { color: inherit; text-decoration: none; }
       font-size: 10px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      background: rgba(146,92,49,0.08);
+      background: rgba(217,119,6,0.08);
       color: var(--accent);
-      border: 1px solid rgba(146,92,49,0.2);
+      border: 1px solid rgba(217,119,6,0.2);
       border-radius: 100px;
       padding: 4px 12px;
       margin-bottom: 16px;
@@ -657,11 +570,7 @@ a { color: inherit; text-decoration: none; }
       margin-bottom: 24px;
       cursor: zoom-in;
       position: relative;
-<<<<<<< Updated upstream
       border: 1px solid rgba(180,160,140,0.18);
-=======
-      border: 1px solid var(--border-light);
->>>>>>> Stashed changes
     }
     .img-block img {
       width: 100%;
@@ -772,11 +681,7 @@ a { color: inherit; text-decoration: none; }
     .next-project:hover .next-title { color: var(--text-primary); }
     .next-arrow {
       width: 52px; height: 52px;
-<<<<<<< Updated upstream
       border: 1px solid rgba(180,160,140,0.22);
-=======
-      border: 1px solid var(--border-light);
->>>>>>> Stashed changes
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -802,11 +707,7 @@ a { color: inherit; text-decoration: none; }
       background: var(--surface);
       border-radius: var(--radius-lg);
       overflow: hidden;
-<<<<<<< Updated upstream
       border: 1px solid rgba(180,160,140,0.18);
-=======
-      border: 1px solid var(--border-light);
->>>>>>> Stashed changes
     }
     .user-item {
       display: flex;
@@ -823,7 +724,7 @@ a { color: inherit; text-decoration: none; }
       width: 24px;
       height: 24px;
       background: rgba(184,92,0,0.1);
-      color: #b85c00;
+      color: #d97706;
       border-radius: 50%;
       font-size: 13px;
       font-weight: 600;
@@ -854,11 +755,7 @@ a { color: inherit; text-decoration: none; }
     }
     .bg-block {
       background: var(--surface);
-<<<<<<< Updated upstream
       border: 1px solid rgba(180,160,140,0.18);
-=======
-      border: 1px solid var(--border-light);
->>>>>>> Stashed changes
       border-radius: var(--radius-lg);
       padding: 24px 28px;
     }
@@ -902,12 +799,7 @@ a { color: inherit; text-decoration: none; }
 
     /* ===== GOAL TABLE ===== */
     .goal-table {
-<<<<<<< Updated upstream
       border: 1px solid rgba(180,160,140,0.18);
-=======
-      background: var(--surface);
-      border: 1px solid var(--border-light);
->>>>>>> Stashed changes
       border-radius: var(--radius-lg);
       overflow: hidden;
       margin-bottom: 32px;
@@ -963,48 +855,6 @@ a { color: inherit; text-decoration: none; }
     .goal-real-table td:first-child {
       border-right: 1px solid var(--border);
       vertical-align: top;
-    }
-
-    /* ===== GOAL ROW (inline layout) ===== */
-    .goal-row {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-    .goal-item {
-      background: var(--surface);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-lg);
-      padding: 20px 24px;
-      flex: 1;
-    }
-    .goal-item-header {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-    .goal-item p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 14px;
-    }
-    .goal-opportunities {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .opp-tag {
-      font-size: 12px;
-      background: rgba(217,119,6,0.08);
-      color: #d97706;
-      border: 1px solid rgba(217,119,6,0.15);
-      border-radius: 100px;
-      padding: 4px 12px;
     }
     .goal-real-table td strong {
       display: inline;
@@ -1090,11 +940,7 @@ a { color: inherit; text-decoration: none; }
         <p>让中小商家和BD告别"手动p图"——通过AI能力一键生成专业直播间封面，降低开播准备门槛，提升封面质量与开播效率。</p>
       </div>
 
-<<<<<<< Updated upstream
       <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;">核心痛点</div>
-=======
-      <div class="section-heading" style="font-size: 13px; margin-top: 32px; margin-bottom: 16px;">核心痛点</div>
->>>>>>> Stashed changes
 
       <div class="bg-two-col">
         <div class="bg-block">
@@ -1129,11 +975,7 @@ a { color: inherit; text-decoration: none; }
         </div>
       </div>
 
-<<<<<<< Updated upstream
       <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;">目标用户</div>
-=======
-      <div class="section-heading" style="font-size: 13px; margin-top: 32px; margin-bottom: 16px;">目标用户</div>
->>>>>>> Stashed changes
       <div class="user-list" style="width: calc(66% + 100px);">
         <div class="user-item">
           <div class="user-num">1</div>
@@ -1151,28 +993,30 @@ a { color: inherit; text-decoration: none; }
         </div>
       </div>
 
-<<<<<<< Updated upstream
       <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;">项目目标</div>
-=======
-      <div class="section-heading" style="font-size: 13px; margin-top: 32px; margin-bottom: 16px;">项目目标</div>
->>>>>>> Stashed changes
 
-      <div class="goal-row" style="width: calc(66% + 100px);">
-        <div class="goal-item">
-          <div class="goal-item-header">目标 1</div>
-          <p>从主播和工具角度出发，提升真人开播工具和数字人平台装修功能使用率</p>
-          <div class="goal-opportunities">
-            <div class="opp-tag">降低主播在装修过程中的操作时长</div>
-            <div class="opp-tag">解决中小商播不会用 / 不易用装修功能的问题</div>
-          </div>
-        </div>
-        <div class="goal-item">
-          <div class="goal-item-header">目标 2</div>
-          <p>从看播体验角度出发，提升 C 端看播用户直播间内的停留时长</p>
-          <div class="goal-opportunities">
-            <div class="opp-tag">解决直播间同质化明显的问题</div>
-          </div>
-        </div>
+      <div class="goal-table" style="width: calc(66% + 100px);">
+        <table class="goal-real-table">
+          <thead>
+            <tr>
+              <th>达成目标</th>
+              <th>机会点洞察</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2"><strong>目标 1：</strong>从主播和工具角度出发，提升真人开播工具和数字人平台装修功能使用率</td>
+              <td style="border-right: none;">降低主播在装修过程中的操作时长</td>
+            </tr>
+            <tr>
+              <td style="border-right: none;">解决中小商播不会用 / 不易用装修功能的问题</td>
+            </tr>
+            <tr>
+              <td><strong>目标 2：</strong>从看播体验角度出发，提升 C 端看播用户直播间内的停留时长</td>
+              <td style="border-right: none;">解决直播间同质化明显的问题</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
     </div>
@@ -1252,13 +1096,13 @@ a { color: inherit; text-decoration: none; }
             <td><strong>多模态输入</strong></td>
             <td>可灵、美镜</td>
             <td>允许上传参考图/视频，AI 解析后生成类似设计<br><div style="display:flex;gap:6px;margin-top:8px;"><img src="assets/competitor/keling-reference.png" alt="可灵参考生图" style="max-height:100px;max-width:48%;border-radius:6px;object-fit:cover;"><img src="assets/competitor/jimeng-multimodal.jpg" alt="即梦多模态" style="max-height:100px;max-width:48%;border-radius:6px;object-fit:cover;"></div></td>
-            <td><span class="badge badge-low">低优</span></td>
+            <td><span class="badge badge-low">低优，暂缓</span></td>
           </tr>
           <tr>
             <td><strong>可视化编辑</strong></td>
             <td>Recraft</td>
             <td>生成后通过属性面板调整细节，操作自动转为 prompt 文本<br><img src="assets/competitor/recraft-visual.png" alt="Recraft 可视化编辑" style="max-height:110px;max-width:100%;border-radius:6px;margin-top:8px;display:block;"></td>
-            <td><span class="badge badge-low">低优</span></td>
+            <td><span class="badge badge-low">低优，暂缓</span></td>
           </tr>
         </tbody>
       </table>
@@ -1304,7 +1148,7 @@ a { color: inherit; text-decoration: none; }
         </div>
       </div>
 
-      <figure style="margin: 0 0 32px; background: rgba(146,92,49,0.06); border-radius: var(--radius); padding: 20px;">
+      <figure style="margin: 0 0 32px; background: rgba(217,119,6,0.06); border-radius: var(--radius); padding: 20px;">
         <img src="assets/solution-overview.png" alt="设计方案全览（Web 端 + App 端）" style="width:100%;border-radius:var(--radius-sm);display:block;">
         <figcaption style="font-size:13px;color:var(--text-muted);margin-top:10px;text-align:center;letter-spacing:0.03em;">Web 端 · App 端 设计方案全览</figcaption>
       </figure>
