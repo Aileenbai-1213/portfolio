@@ -459,7 +459,6 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     /* ===== INSIGHT CARDS ===== */
     .insight-section {
       background: var(--surface3);
-      border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
       padding: 36px 40px;
       margin-bottom: 24px;
@@ -468,7 +467,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--text-secondary);
       font-family: 'Roboto', sans-serif;
       font-weight: 500;
       margin-bottom: 12px;
@@ -778,6 +777,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
     }
     .img-block:hover img { transform: scale(1.02); }
+    main img { cursor: zoom-in; }
     .img-caption {
       font-size: 14px;
       color: var(--text-muted);
@@ -1012,7 +1012,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       <div class="section-heading">背景</div>
 
       <div class="sub-heading">广场核心困境</div>
-      <p class="prose">根据各方反馈与用户洞察，当前直播广场的核心困境如下：</p>
+      <p class="prose" style="margin-top:-10px;">根据各方反馈与用户洞察，当前直播广场的核心困境如下：</p>
 
       <div class="problem-grid">
           <div class="problem-card" style="display:flex;flex-direction:column;gap:6px;">
@@ -1029,7 +1029,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       </div>
 
       <div class="sub-heading">25 年改版历程</div>
-      <p class="prose">在正式进行 26 年改版探索前，团队已在 25 年进行了两轮核心改版，每轮都带来了阶段性的指标验证，也暴露了下一阶段要解决的新问题。</p>
+      <p class="prose" style="margin-top:-10px;">在正式进行 26 年改版探索前，团队已在 25 年进行了两轮核心改版，每轮都带来了阶段性的指标验证，也暴露了下一阶段要解决的新问题。</p>
 
       <!-- 改版对比图 -->
       <div style="width: 67%;">
@@ -1037,7 +1037,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
           <div class="vc-col">
             <div class="vc-label">最初样式：大卡</div>
             <div class="vc-img-wrap">
-              <img src="广场改版/最初样式.webp" alt="最初样式" />
+              <img src="广场改版/最初样式.webp" alt="最初样式" class="zoomable" style="cursor:zoom-in; border:1px solid var(--border-light);" />
             </div>
             <div class="vc-desc">—</div>
           </div>
@@ -1045,7 +1045,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
           <div class="vc-col">
             <div class="vc-label">改版 1：增加底 tab</div>
             <div class="vc-img-wrap">
-              <img src="广场改版/改版1.webp" alt="改版1" />
+              <img src="广场改版/改版1.webp" alt="改版1" class="zoomable" style="cursor:zoom-in; border:1px solid var(--border-light);" />
             </div>
             <div class="vc-desc">首页框架重构，引入分品类浏览逻辑，广场 CTR 提升，但价格心智尚未建立。</div>
           </div>
@@ -1053,7 +1053,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
           <div class="vc-col">
             <div class="vc-label">改版 2：去掉大卡，改为双列</div>
             <div class="vc-img-wrap">
-              <img src="广场改版/改版2.webp" alt="改版2" />
+              <img src="广场改版/改版2.webp" alt="改版2" class="zoomable" style="cursor:zoom-in; border:1px solid var(--border-light);" />
             </div>
             <div class="vc-desc">引入底部 Tab 框架，停留时长提升，订单 Tab 展现出较强的再购转化潜力。</div>
           </div>
@@ -1076,42 +1076,35 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
 
       <!-- 1. 用户洞察 -->
       <div class="sub-heading">1. 用户洞察</div>
-      <p class="prose">基于<a href="https://km.sankuai.com/collabpage/2727527302" target="_blank" style="color:var(--accent);">直播高频正餐用户</a>的调研，我们发现：</p>
+      <p class="prose">基于直播高频正餐用户的调研，我们发现：</p>
 
       <!-- 1.1 下单动机 -->
       <div class="sub-heading-sm">1.1 用户在直播下单的动机是什么？</div>
       <div class="highlight-box" style="background:var(--surface3);">
-        <div class="label">价格优势 + 固定时间节点的发券机制为主要动机</div>
-        <p>用户在直播场景下的下单动机，主要来自于明确的<strong>价格优势预期</strong>，包括更低到手价、直播间优惠活动，以及<strong>固定时间节点的发券机制</strong>。</p>
-        <p style="margin-top:10px;">这意味着，当前直播对用户而言，更多是一种「低价渠道」。</p>
+        <div class="label" style="font-size:18px; color:var(--text-primary);"><span style="color:var(--accent);">价格优势 + 固定时间节点</span>的发券机制为主要动机</div>
+        <p style="white-space:nowrap; font-size:14px;">用户下单动机主要来自<strong>价格优势预期</strong>（更低到手价、直播间优惠）以及<strong>固定时间节点的发券机制</strong>，当前直播对用户而言更多是低价渠道。</p>
       </div>
 
       <!-- 1.2 体验痛点 -->
-      <div class="sub-heading-sm">1.2 当前直播广场的主要体验痛点是什么？</div>
+      <div class="sub-heading-sm" style="margin-top:12px;">1.2 当前直播广场的主要体验痛点是什么？</div>
 
       <div class="pain-grid">
         <div class="insight-section">
           <div class="insight-num">痛点 01</div>
-          <h3>用户不知道怎么逛、不知道进哪个直播间</h3>
-          <p>用户普遍认为广场杂乱、无分类；卡片同质化严重、核心信息缺失（实质想看到商品信息——名称、价格）。</p>
-          <p style="margin-top:8px;">优质直播往往难以呈现，广场中未高效透传与推送。</p>
-          <ul class="pp-list" style="margin-top:12px;">
-            <li>「直播广场乱，难找东西」</li>
-            <li>「广场不怎么用，很难找到自己想看的，要一个个翻着看」</li>
-            <li>「希望有分类，比如吃喝玩乐那些」</li>
-          </ul>
+          <h3 style="font-size:18px;">用户不知道怎么逛、不知道进哪个直播间</h3>
+          <p>用户普遍认为广场杂乱、无分类；卡片同质化严重、核心信息缺失（实质想看到商品名称、价格）。优质直播往往难以呈现，广场中未高效透传与推送。</p>
         </div>
 
         <div class="insight-section">
           <div class="insight-num">痛点 02</div>
-          <h3>难找到主播和意向商品，常看主播缺乏快速触达路径</h3>
-          <p><strong>难搜</strong>：高频用户往往带着明确的主播或商品意图进入直播，但搜索体验不佳——想看的主播或商品经常搜不到；主播下播后，更难以被找到。</p>
-          <p style="margin-top:8px;"><strong>难筛</strong>：广场缺少帮助用户快速聚焦意图的筛选项，用户无法高效找到目标内容。用户高频提及的筛选维度有：距离、品类、品牌。</p>
+          <h3 style="font-size:18px;">难找到主播和商品，常看主播缺乏快速触达路径</h3>
+          <p><strong>难搜</strong>：带着明确意图进入直播的用户，常遇主播或商品搜不到、下播后更难找到的问题。</p>
+          <p style="margin-top:8px;"><strong>难筛</strong>：广场缺少按距离、品类、品牌等维度快速聚焦的筛选。</p>
         </div>
       </div>
 
       <!-- 2. 竞品调研与数据分析 -->
-      <div class="sub-heading" style="margin-top: 48px;">2. 竞品调研与数据分析</div>
+      <div class="sub-heading" style="margin-top: 72px;">2. 竞品调研与数据分析</div>
       <div class="highlight-box">
         <div class="label">核心结论</div>
         <p>竞品调研得出：在广场顶部承担运营心智塑造是趋势；</p>
@@ -1122,20 +1115,20 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       <p class="prose">通过对淘宝、京东直播广场的调研，可以看到：他们的广场顶部在承担<strong>丰富多样的运营场心智塑造</strong>的职责，而非单纯内容展示。</p>
 
       <div style="margin:20px 0 28px;">
-        <img src="images/competitor-2.png" alt="竞品分析" style="width:100%; border-radius:8px; border:1px solid var(--border); display:block;">
+        <img src="images/competitor-2.png" alt="竞品分析" class="zoomable" style="width:100%; border-radius:8px; border:1px solid var(--border); display:block; cursor:zoom-in;">
       </div>
 
       <div class="sub-heading-sm">2.2 数据结论显示增加底 tab 有助于提升交易指标</div>
-      <p class="prose">历史数据显示，<strong>当广场结构明确承载交易与复购路径时（加底 tab 并保留「订单」）</strong>，与交易相关的数据指标（点击、转化、复购）均有明显提升。</p>
+      <p class="prose">历史数据显示，当广场结构明确承载交易与复购路径时（加底 tab 并保留「订单」），与交易相关的数据指标（点击、转化）均有明显提升。</p>
 
       <!-- 3. 业务 PMF 与 OP -->
-      <div class="sub-heading" style="margin-top:48px;">3. 业务 PMF 与 OP</div>
+      <div class="sub-heading" style="margin-top:72px;">3. 业务 PMF 与 OP</div>
 
       <div class="pain-grid">
         <div class="insight-section">
           <div class="insight-num">PMF</div>
           <h3>直播角色定位需升级：重交易 → 建心智</h3>
-          <p>直播的核心 PMF 已从「逛直播买低价」升级为<strong>「逛直播买品质大牌深折品」</strong>。26 年 OP 的重点是将直播广场打造为承载差异化高价值用户的稳定心智入口，通过大牌好价、整点秒杀、品牌与 IP 活动的持续运营，培养<strong>「看直播，逛品牌限量优质好货」</strong>的用户心智。</p>
+          <p>核心 PMF 已从「逛直播买低价」升级为<strong>「逛直播买品质大牌深折品」</strong>。26 年重点是将广场打造为稳定心智入口，培养<strong>「看直播，逛品牌限量好货」</strong>的用户认知。</p>
         </div>
 
         <div class="insight-section">
@@ -1254,6 +1247,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     <div class="content-section" data-reveal>
       <div class="section-label">04 · Interaction Design</div>
       <div class="section-heading">交互方案</div>
+      <p style="font-size:12px; color:var(--text-muted); margin-top:-16px; margin-bottom:28px; letter-spacing:0.02em;">以下为交互稿，非最终视觉稿</p>
 
       <div class="highlight-box">
         <div class="label">设计主张</div>
@@ -1363,53 +1357,6 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
         </tbody>
       </table>
 
-      <div class="info-box">
-        <div class="label">方案说明</div>
-        <p>明星场置顶展示时：明星场卡片在 Feeds 首位置顶，全局背景随品牌调性联动氛围色，提升稀缺感与事件感；同时支持倒计时预热、预约提醒，引导用户优先进入。</p>
-      </div>
-
-      <div class="strategy-grid">
-        <div class="strategy-card">
-          <div class="strategy-tag">日常页面</div>
-          <h4>顶部可配置运营区 + 常态 Feeds</h4>
-          <p>顶部设置灵活可配置的运营模块，支持品牌活动、主题专区、整点活动等多种内容形态。Feeds 区域保持稳定的直播内容分发。</p>
-          <ul class="detail-list">
-            <li>运营区支持多种卡片形态灵活配置</li>
-            <li>运营区与 Feeds 区视觉层次明确，互不干扰</li>
-            <li>为长期运营留出充足的灵活空间</li>
-          </ul>
-        </div>
-        <div class="strategy-card">
-          <div class="strategy-tag">特殊场景</div>
-          <h4>明星场置顶 + 全局氛围渲染</h4>
-          <p>当有重要品牌或明星直播时，支持置顶展示并进行全局氛围渲染，提升稀缺感和事件感，驱动用户优先进入。</p>
-          <ul class="detail-list">
-            <li>明星场卡片置顶，视觉权重最高</li>
-            <li>背景氛围色与品牌调性联动</li>
-            <li>支持倒计时预热和预约提醒功能</li>
-          </ul>
-        </div>
-        <div class="strategy-card">
-          <div class="strategy-tag">新人引导</div>
-          <h4>新人专属页面 — 首单转化优先</h4>
-          <p>为新人用户提供专属进入页面，强化新人福利感知，降低首次消费决策成本，提升首单转化率。</p>
-          <ul class="detail-list">
-            <li>新人福利前置，价值感知直接</li>
-            <li>简化选择路径，减少新人决策负担</li>
-            <li>引导完成首单后无缝衔接常规页面</li>
-          </ul>
-        </div>
-        <div class="strategy-card">
-          <div class="strategy-tag">资产驱动</div>
-          <h4>底部资产入口 — 订单 / 券 / 抽奖 / 互动记录</h4>
-          <p>在广场底部提供清晰的资产入口，让用户形成「找直播消费及互动记录，就回直播广场」的稳定心智，实现资产驱动回访。</p>
-          <ul class="detail-list">
-            <li>订单 Tab：聚合历史订单与「再来一单」快捷入口</li>
-            <li>我的权益：券包、抽奖资格、积分等统一管理</li>
-            <li>互动记录：关注主播动态、曾互动直播间</li>
-          </ul>
-        </div>
-      </div>
     </div>
 
     <!-- ⑤ 阶段性结论 -->
@@ -1460,7 +1407,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     const lightboxImg = document.getElementById('lightboxImg');
     const lightboxClose = document.getElementById('lightboxClose');
 
-    document.querySelectorAll('.img-block img, .zoomable').forEach(img => {
+    document.querySelectorAll('main img, .zoomable').forEach(img => {
       img.addEventListener('click', () => {
         lightboxImg.src = img.src;
         lightbox.classList.add('active');
