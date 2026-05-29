@@ -154,8 +154,9 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       border-color: var(--accent);
       color: var(--accent);
     }
-.tag.ux { border-color: rgba(90,63,192,0.3); color: #5a3fc0; background: rgba(90,63,192,0.06); }
-.tag.research { border-color: rgba(192,57,43,0.3); color: #c0392b; background: rgba(192,57,43,0.06); }
+.tag.ux { border-color: rgba(155,139,255,0.35); color: #6b58f0; background: rgba(155,139,255,0.06); }
+.tag.research { border-color: rgba(62,207,160,0.3); color: #2baa80; background: rgba(62,207,160,0.06); }
+.tag.ai { border-color: rgba(232,87,42,0.3); color: #e8572a; background: rgba(232,87,42,0.06); }
 .tag.product { border-color: rgba(184,92,0,0.3); color: #b85c00; background: rgba(184,92,0,0.06); }
 .tag.live { border-color: rgba(180,80,0,0.3); color: #b85000; background: rgba(180,80,0,0.06); }
 
@@ -175,8 +176,8 @@ if (location.href.indexOf('project-livestream.html') > -1) {
     }
 
     /* Section block */
-    .content-section {
-      padding: 80px 0 0;
+.content-section {
+padding: 60px 0 0;
       opacity: 0;
       transform: translateY(28px);
       transition: opacity 0.6s ease, transform 0.6s ease;
@@ -219,7 +220,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
     /* ===== HIGHLIGHT BOX ===== */
     .highlight-box {
       background: var(--accent-light);
-      border: 1px solid rgba(217,119,6,0.12);
+      border: none;
       border-radius: var(--radius-lg);
       padding: 28px 32px;
       margin-bottom: 40px;
@@ -232,17 +233,17 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       margin-bottom: 12px;
       font-weight: 600;
     }
-    .highlight-box p {
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--text-secondary);
-    }
+.highlight-box p {
+font-size: 15px;
+line-height: 1.6;
+color: var(--text-secondary);
+}
     .highlight-box p strong { color: var(--text-primary); }
 
     /* ===== RISK BOX ===== */
     .risk-box {
       background: rgba(200,120,0,0.06);
-      border: 1px solid rgba(200,120,0,0.12);
+      border: none;
       border-radius: var(--radius-lg);
       padding: 28px 32px;
       margin-bottom: 40px;
@@ -264,7 +265,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
     /* ===== INFO BOX (purple) ===== */
     .info-box {
       background: rgba(90,63,192,0.05);
-      border: 1px solid rgba(90,63,192,0.12);
+      border: none;
       border-radius: var(--radius-lg);
       padding: 28px 32px;
       margin-bottom: 40px;
@@ -309,7 +310,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       line-height: 1;
       margin-bottom: 10px;
     }
-    .stat-card .stat-num span { font-size: 20px; }
+    .stat-card .stat-num span { font-size: 14px; }
     .stat-card .stat-label {
       font-size: 12px;
       color: var(--text-muted);
@@ -702,7 +703,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
   <!-- HERO -->
   <div class="project-hero">
     <div class="project-eyebrow">Research · Case Study</div>
-    <h1 class="project-title">直播用户购买动机<br>与体验洞察专项</h1>
+    <h1 class="project-title" style="white-space: nowrap; font-size: clamp(24px, 3.2vw, 48px);">直播用户购买动机与体验洞察专项</h1>
     <div class="project-meta-row">
       <div class="meta-item">
         <div class="meta-label">Year</div>
@@ -742,7 +743,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
         <p>美团直播业务正处于快速发展阶段，直播间已成为重要的商品销售渠道。然而，<strong>直播间的购买转化率与用户留存表现参差不齐</strong>，业务侧对「用户为什么在直播间买单」以及「哪些体验因素影响了购买决策」缺乏系统性认知，导致设计优化方向不明确。</p>
       </div>
 
-      <div class="section-heading" style="font-size: 13px; margin-top: 8px;">问题分析</div>
+      <div class="section-heading" style="font-size: 14px; margin-top: 8px; margin-bottom: 12px;">问题分析</div>
 
       <div class="problem-grid">
         <div class="problem-card">
@@ -767,7 +768,7 @@ if (location.href.indexOf('project-livestream.html') > -1) {
         </div>
       </div>
 
-      <div class="section-heading" style="font-size: 13px; margin-top: 8px;">调研目标</div>
+      <div class="section-heading" style="font-size: 14px; margin-top: 8px; margin-bottom: 12px;">调研目标</div>
 
       <div class="highlight-box">
         <div class="label">核心问题</div>
@@ -800,29 +801,29 @@ if (location.href.indexOf('project-livestream.html') > -1) {
       <div class="section-heading">研究方法</div>
 
       <div class="prose">
-        本次研究采用<strong>定性 + 行为数据</strong>的混合研究方法，通过深度访谈还原用户的心理动机与决策过程，通过 Session 录屏分析捕捉真实的行为模式与体验断点，两种方法相互印证，形成完整的用户洞察。
+        采用<strong>深度访谈与 Session 分析</strong>双方法，既理解用户真实行为，也洞察背后动机，实现「用户说」与「用户做」的双重验证，为产品优化提供更可靠的用户依据。
       </div>
 
       <div class="method-grid">
         <div class="method-card">
           <div class="method-icon">🎙</div>
-          <h4>深度访谈</h4>
-          <p>通过半结构化访谈，深入了解用户在直播间的购买动机、决策过程、情感体验与痛点，挖掘数据背后的「为什么」。</p>
+          <h4 style="display:flex; align-items:center; gap:8px;">深度 1v1 访谈 <span style="display:inline-block; padding:3px 10px; border-radius:100px; background:rgba(230,168,23,0.15); color:#a07800; font-size:12px; font-weight:400;">了解用户「所想」🤔</span></h4>
+          <p>挖掘用户「在直播间高频下单」的深层动机、直播链路体验痛点，基于用户表达的关键信息挖掘潜在机会点与优化点。</p>
           <div class="method-detail">
-            <strong>样本：</strong>12 人，覆盖高频购买者（≥3次/月）、低频购买者（&lt;1次/月）、未购买但有观看习惯的用户<br>
-            <strong>时长：</strong>每场 60–90 分钟<br>
-            <strong>形式：</strong>远程视频访谈 + 回溯式思维出声
+            <strong>样本条件：</strong>高频正餐用户（一个月内在直播间下单 ≥3 次）<br>
+            <strong>样本数量：</strong>12 位高频用户<br>
+            <strong>探究重点：</strong>深层购买动机、直播链路体验痛点、潜在机会点与优化点
           </div>
         </div>
         <div class="method-card">
-          <div class="method-icon">📹</div>
-          <h4>Session 录屏分析</h4>
-          <p>通过分析用户在直播间的真实操作录屏，识别行为模式、停留热点、流失节点，将定性洞察与行为数据相互验证。</p>
-          <div class="method-detail">
-            <strong>样本：</strong>40 个 Session，覆盖购买成功、加购未购、直接流失三类路径<br>
-            <strong>分析维度：</strong>停留时长分布、交互热点、流失节点、回看行为<br>
-            <strong>工具：</strong>行为录屏平台 + 自建分析框架
-          </div>
+          <div class="method-icon">📋</div>
+<h4 style="display:flex; align-items:center; gap:8px;">Session 分析 <span style="display:inline-block; padding:3px 10px; border-radius:100px; background:rgba(230,168,23,0.15); color:#a07800; font-size:12px; font-weight:400;">观察用户「所做」💪</span></h4>
+<p>圈定核心转化漏斗的关键渠道页面，结合用户点击、跳出、停留时长等关键信号还原用户行为路径，推测决策原因。</p>
+<div class="method-detail">
+<strong>样本：</strong>40 个 Session（10 个路径 × 4 渠道），高频下单用户<br>
+<strong>渠道维度：</strong>直播广场、大搜结果页、首页猜喜、业务 POI 页<br>
+<strong>探究重点：</strong>典型行为模式、页面跳转、反复进退直播间、多次下单等异常行为标记
+</div>
         </div>
       </div>
 
@@ -911,20 +912,20 @@ if (location.href.indexOf('project-livestream.html') > -1) {
         </div>
       </div>
 
-      <div class="section-heading" style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(26,26,26,0.8); margin-top: 6px; margin-bottom: 10px;">业务反馈</div>
+      <div class="section-heading" style="font-size: 14px; color: var(--text-secondary); margin-top: 6px; margin-bottom: 10px;">业务反馈</div>
       <div class="img-block" style="width: 66.67%;">
         <img src="images/livestream/ls-feedback.jpg" alt="业务方反馈截图" />
       </div>
 
-      <div class="section-heading" style="font-size: 13px; margin-top: 32px; margin-bottom: 20px;">优化建议与机会点</div>
-      <div class="img-block" style="width: 75%;">
-        <img src="images/livestream/ls-8.jpg" alt="优化建议与机会点：3条核心建议与设计方案 Before/After" />
-      </div>
+<div class="section-heading" style="font-size: 14px; color: var(--text-secondary); margin-top: 32px; margin-bottom: 10px;">优化建议与机会点</div>
+<div class="img-block" style="width: 75%;">
+<img src="images/livestream/ls-8.jpg" alt="优化建议与机会点：3条核心建议与设计方案 Before/After" style="border: 1px solid var(--border-light); border-radius: var(--radius);" />
+</div>
 
-      <div class="section-heading" style="font-size: 13px; margin-top: 32px; margin-bottom: 20px;">AI 辅助访谈材料整理的方法</div>
-      <div class="img-block" style="width: 75%;">
-        <img src="images/livestream/ls-9.jpg" alt="AI辅助访谈材料整理方法：3个步骤" />
-      </div>
+<div class="section-heading" style="font-size: 14px; color: var(--text-secondary); margin-top: 32px; margin-bottom: 10px;">AI 辅助访谈材料整理的方法</div>
+<div class="img-block" style="width: 75%;">
+<img src="images/livestream/ls-9.jpg" alt="AI辅助访谈材料整理方法：3个步骤" style="border: 1px solid var(--border-light); border-radius: var(--radius);" />
+</div>
 
     </div>
 
