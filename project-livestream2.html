@@ -4,33 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>直播广场改版探索 — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #f5f0e8;
-      --surface: #ede8de;
-      --surface2: #e4ddd0;
-      --border: rgba(0,0,0,0.09);
+      --bg: #faf9f7;
+      --surface: #ffffff;
+      --surface2: #f5f3f0;
+      --surface3: #f0ede8;
+      --border: rgba(0,0,0,0.06);
+      --border-light: rgba(0,0,0,0.04);
       --text-primary: #1a1a1a;
-      --text-secondary: #4a4a4a;
-      --text-muted: #8a8278;
-      --accent: #b85c00;
+      --text-secondary: #555555;
+      --text-muted: #999999;
+      --accent: #e8572a;
+      --accent-light: rgba(232,87,42,0.08);
       --accent2: #5a3fc0;
       --accent3: #c0392b;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
+      --shadow-md: 0 2px 8px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
       --font-sans: 'Inter', 'PingFang SC', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-      --radius: 16px;
+      --radius: 12px;
       --radius-sm: 8px;
+      --radius-lg: 16px;
       --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      --content-width: 1200px;
+      --content-width: 960px;
     }
     html { scroll-behavior: smooth; }
     body {
       background: var(--bg);
       color: var(--text-primary);
       font-family: var(--font-sans);
-      line-height: 1.6;
+      line-height: 1.7;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 a { color: inherit; text-decoration: none; }
 
@@ -49,14 +61,14 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      padding: 20px 32px;
+      padding: 16px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      background: rgba(245,240,232,0.88);
-      border-bottom: 1px solid var(--border);
+      background: rgba(250,249,247,0.92);
+      border-bottom: 1px solid var(--border-light);
     }
     .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; text-decoration: none; color: var(--text-primary); cursor: pointer; }
     .nav-logo span { color: var(--accent); }
@@ -64,25 +76,27 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      font-size: 13.5px;
-      color: rgba(26,26,26,0.7);
-      padding: 7px 16px;
-      border: 1px solid rgba(26,26,26,0.2);
+      font-size: 12px;
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border: 1px solid var(--border);
       border-radius: 100px;
-      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
     }
     .nav-back:hover {
       color: var(--text-primary);
-      border-color: rgba(26,26,26,0.5);
-      background: rgba(26,26,26,0.06);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
     }
     .nav-back svg { transition: transform 0.2s; }
     .nav-back:hover svg { transform: translateX(-3px); }
 
     /* ===== HERO ===== */
     .project-hero {
-      padding: 140px 32px 80px;
-      max-width: calc(var(--content-width) + 64px);
+      padding: 140px 40px 100px;
+      max-width: calc(var(--content-width) + 80px);
       margin: 0 auto;
       opacity: 0;
       animation: fadeUp 0.7s 0.1s forwards;
@@ -100,7 +114,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     .project-eyebrow::before {
       content: '';
       width: 16px; height: 1px;
-      background: #b85c00;
+      background: #e8572a;
     }
     .project-title {
       font-size: clamp(32px, 4.5vw, 60px);
@@ -129,34 +143,42 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       font-size: 11px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 100px;
       border: 1px solid var(--border);
       color: var(--text-muted);
+      background: var(--surface);
+      font-weight: 500;
+      transition: all 0.2s ease;
     }
-    .tag.ux { border-color: rgba(90,63,192,0.3); color: #5a3fc0; }
-    .tag.research { border-color: rgba(192,57,43,0.3); color: #c0392b; }
-    .tag.product { border-color: rgba(184,92,0,0.3); color: #b85c00; }
-    .tag.live { border-color: rgba(180,80,0,0.3); color: #b85000; }
+    .tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .tag.ux { border-color: rgba(155,139,255,0.35); color: #6b58f0; background: rgba(155,139,255,0.06); }
+    .tag.research { border-color: rgba(62,207,160,0.3); color: #2baa80; background: rgba(62,207,160,0.06); }
+    .tag.ai { border-color: rgba(232,87,42,0.3); color: #e8572a; background: rgba(232,87,42,0.06); }
+    .tag.product { border-color: rgba(184,92,0,0.3); color: #b85c00; background: rgba(184,92,0,0.06); }
+    .tag.live { border-color: rgba(180,80,0,0.3); color: #b85000; background: rgba(180,80,0,0.06); }
 
     /* ===== DIVIDER ===== */
     .divider {
       height: 1px;
       background: var(--border);
-      max-width: calc(var(--content-width) + 64px);
+      max-width: calc(var(--content-width) + 80px);
       margin: 0 auto;
     }
 
     /* ===== CONTENT ===== */
     .project-content {
-      max-width: calc(var(--content-width) + 64px);
+      max-width: calc(var(--content-width) + 80px);
       margin: 0 auto;
-      padding: 0 32px 120px;
+      padding: 0 40px 120px;
     }
 
     /* Section block */
     .content-section {
-      padding: 64px 0 0;
+      padding: 60px 0 0;
       opacity: 0;
       transform: translateY(28px);
       transition: opacity 0.6s ease, transform 0.6s ease;
@@ -176,7 +198,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     .section-label::before {
       content: '';
       width: 12px; height: 1px;
-      background: #b85c00;
+      background: #e8572a;
     }
     .section-heading {
       font-size: 22px;
@@ -230,33 +252,33 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     /* ===== PROSE TEXT ===== */
     .prose {
       font-size: 15px;
-      line-height: 1.65;
+      line-height: 1.75;
       color: var(--text-secondary);
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
     .prose strong { color: var(--text-primary); font-weight: 600; }
-    .prose em { color: #b85c00; font-style: normal; }
+    .prose em { color: #e8572a; font-style: normal; }
 
     /* ===== HIGHLIGHT BOX ===== */
     .highlight-box {
-      background: #fff8f0;
+      background: var(--accent-light);
       border: none;
-      border-left: 3px solid var(--accent);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      padding: 20px 24px;
-      margin-bottom: 24px;
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin-bottom: 32px;
     }
     .highlight-box .label {
-      font-size: 13.5px;
-      letter-spacing: 0.08em;
+      font-size: 11px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      font-weight: 600;
     }
     .highlight-box p {
-      font-size: 14px;
-      line-height: 1.6;
-      color: #3a3a3a;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-secondary);
     }
     .highlight-box p strong { color: var(--text-primary); }
 
@@ -264,60 +286,60 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     .insight-box {
       background: rgba(0,150,80,0.05);
       border: none;
-      border-left: 3px solid #00a060;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      padding: 20px 24px;
-      margin-bottom: 24px;
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin-bottom: 32px;
     }
     .insight-box .label {
-      font-size: 13.5px;
-      letter-spacing: 0.08em;
+      font-size: 11px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #00a060;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      font-weight: 600;
     }
     .insight-box p {
-      font-size: 14px;
-      line-height: 1.6;
-      color: #1a4a30;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-secondary);
     }
+    .insight-box p strong { color: var(--text-primary); }
 
     /* ===== INFO BOX (purple) ===== */
     .info-box {
       background: rgba(90,63,192,0.05);
       border: none;
-      border-left: 3px solid #5a3fc0;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      padding: 20px 24px;
-      margin-bottom: 24px;
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin-bottom: 32px;
     }
     .info-box .label {
-      font-size: 13.5px;
-      letter-spacing: 0.08em;
+      font-size: 11px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #9b7fff;
-      margin-bottom: 8px;
+      color: var(--accent2);
+      margin-bottom: 12px;
+      font-weight: 600;
     }
     .info-box p {
-      font-size: 14px;
-      line-height: 1.6;
-      color: #2e2060;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-secondary);
     }
-    .info-box p strong { color: #1a1060; }
+    .info-box p strong { color: var(--text-primary); }
 
     /* ===== PROBLEM CARDS ===== */
     .problem-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-      max-width: 860px;
+      gap: 20px;
+      margin-bottom: 40px;
     }
     .problem-card {
       background: var(--surface);
-      border: none;
-      border-radius: var(--radius);
-      padding: 24px;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
     }
     .problem-card .p-tag {
       display: inline-block;
@@ -328,9 +350,10 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       color: #a0291a;
       border: none;
       border-radius: 100px;
-      padding: 3px 10px;
+      padding: 4px 12px;
       flex-shrink: 0;
       align-self: flex-start;
+      margin-bottom: 12px;
     }
     .problem-card h4 {
       font-size: 15px;
@@ -338,11 +361,12 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       color: var(--text-primary);
       margin: 0;
       line-height: 1.4;
+      margin-bottom: 10px;
     }
     .problem-card p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     /* ===== TIMELINE ===== */
@@ -358,7 +382,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       top: 6px;
       bottom: 6px;
       width: 1px;
-      background: rgba(184,92,0,0.2);
+      background: rgba(232,87,42,0.2);
     }
     .timeline-item {
       position: relative;
@@ -372,13 +396,13 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       top: 6px;
       width: 8px; height: 8px;
       border-radius: 50%;
-      background: #b85c00;
+      background: var(--accent);
     }
     .timeline-item .t-label {
       font-size: 11px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #b85c00;
+      color: var(--accent);
       font-family: var(--font-mono);
       margin-bottom: 6px;
     }
@@ -391,39 +415,42 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     .timeline-item p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     /* ===== STAT CARDS ===== */
     .stat-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
+      gap: 20px;
+      margin-bottom: 40px;
     }
     .stat-card {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 24px;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
       text-align: center;
     }
+    .stat-card:hover {
+      border-color: rgba(180,160,140,0.28);
+    }
     .stat-card .stat-num {
-      font-size: 36px;
+      font-size: 40px;
       font-weight: 700;
       letter-spacing: -0.03em;
-      color: #b85c00;
+      color: var(--accent);
       line-height: 1;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
-    .stat-card .stat-num span { font-size: 20px; }
+    .stat-card .stat-num span { font-size: 14px; }
     .stat-card .stat-label {
-      font-size: 14px;
+      font-size: 12px;
       color: var(--text-muted);
       letter-spacing: 0.04em;
     }
     .stat-card .stat-desc {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-secondary);
       margin-top: 6px;
       line-height: 1.5;
@@ -431,43 +458,45 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
 
     /* ===== INSIGHT CARDS ===== */
     .insight-section {
-      background: #ede8de;
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: var(--radius);
-      padding: 32px;
+      background: var(--surface3);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
       margin-bottom: 24px;
     }
     .insight-section .insight-num {
-      font-size: 14px;
-      letter-spacing: 0.1em;
+      font-size: 11px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #b85c00;
-      font-family: var(--font-mono);
-      margin-bottom: 10px;
+      color: var(--accent);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      margin-bottom: 12px;
     }
     .insight-section h3 {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 600;
       color: var(--text-primary);
-      margin-bottom: 12px;
-      line-height: 1.4;
+      margin-bottom: 16px;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
     }
     .insight-section .insight-sub {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
-      margin-bottom: 14px;
+      margin-bottom: 20px;
     }
     .insight-section p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.65;
     }
     .insight-section p + p { margin-top: 8px; }
     .pain-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
+      gap: 20px;
+      margin-bottom: 32px;
     }
     .pain-grid .insight-section {
       margin-bottom: 0;
@@ -496,7 +525,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       padding: 8px 12px;
       background: rgba(0,0,0,0.04);
       border-radius: 6px;
-      border-left: 2px solid rgba(184,92,0,0.3);
+      border-left: 2px solid rgba(232,87,42,0.3);
     }
 
     /* ===== COMPARE TABLE ===== */
@@ -545,8 +574,8 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       margin-bottom: 32px;
       max-width: calc(75% + 50px);
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
       overflow: hidden;
     }
     .sl-item {
@@ -554,7 +583,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       align-items: baseline;
       gap: 16px;
       padding: 14px 20px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border-light);
     }
     .sl-item:last-child { border-bottom: none; }
     .sl-num {
@@ -593,7 +622,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       right: 0;
       bottom: 0;
       height: 5px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='5' viewBox='0 0 60 5' preserveAspectRatio='none'%3E%3Cpath d='M0.5 3.8 C8 1, 16 4.8, 24 2.8 C32 1, 40 4.5, 48 2.8 C54 1.5, 58 3.8, 59.5 4.2' stroke='%23b85c00' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") repeat-x left bottom / auto 5px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='5' viewBox='0 0 60 5' preserveAspectRatio='none'%3E%3Cpath d='M0.5 3.8 C8 1, 16 4.8, 24 2.8 C32 1, 40 4.5, 48 2.8 C54 1.5, 58 3.8, 59.5 4.2' stroke='%23e8572a' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") repeat-x left bottom / auto 5px;
       pointer-events: none;
     }
     .sl-desc {
@@ -606,27 +635,28 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     .strategy-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
+      gap: 20px;
+      margin-bottom: 40px;
     }
     .strategy-card {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px 22px;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
       transition: border-color 0.3s;
     }
-    .strategy-card:hover { border-color: rgba(184,92,0,0.25); }
+    .strategy-card:hover { border-color: rgba(232,87,42,0.2); }
     .strategy-tag {
       display: inline-block;
       font-size: 10px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      background: rgba(184,92,0,0.08);
-      color: #8a4400;
+      background: var(--accent-light);
+      color: var(--accent);
       border-radius: 100px;
-      padding: 3px 10px;
+      padding: 4px 12px;
       margin-bottom: 14px;
+      font-weight: 600;
     }
     .strategy-card h4 {
       font-size: 16px;
@@ -638,11 +668,11 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     .strategy-card p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.7;
     }
     .strategy-card .detail-list {
       margin-top: 14px;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-light);
       padding-top: 14px;
     }
     .strategy-card .detail-list li {
@@ -658,7 +688,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       content: '—';
       position: absolute;
       left: 0;
-      color: #b85c00;
+      color: var(--accent);
       font-size: 11px;
     }
 
@@ -668,8 +698,8 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       align-items: flex-start;
       gap: 0;
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
       overflow: hidden;
       margin-bottom: 32px;
     }
@@ -685,7 +715,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       color: var(--text-muted);
       text-align: center;
       padding: 12px 16px 10px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border-light);
       background: var(--surface2);
     }
     .vc-img-wrap {
@@ -701,16 +731,16 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       border-radius: 8px;
     }
     .vc-desc {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
       line-height: 1.6;
       padding: 10px 14px 14px;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-light);
       text-align: left;
     }
     .vc-divider {
       width: 1px;
-      background: var(--border);
+      background: var(--border-light);
       align-self: stretch;
       flex-shrink: 0;
     }
@@ -768,10 +798,10 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     /* ===== OUTCOME STRIP ===== */
     .outcome-strip {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px 28px;
-      margin-bottom: 24px;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin-bottom: 32px;
     }
     .outcome-strip h4 {
       font-size: 15px;
@@ -782,7 +812,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     .outcome-strip p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.65;
     }
     .outcome-strip .metric-row {
       display: flex;
@@ -813,7 +843,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       position: fixed;
       top: 0; left: 0;
       height: 2px;
-      background: #b85c00;
+      background: linear-gradient(90deg, #e8572a, #e8572a);
       z-index: 200;
       width: 0%;
       transition: width 0.1s linear;
@@ -857,43 +887,48 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
 
     /* ===== NEXT PROJECT ===== */
     .next-project {
-      border-top: 1px solid var(--border);
-      padding: 64px 32px;
-      max-width: calc(var(--content-width) + 64px);
+      border-top: 1px solid var(--border-light);
+      padding: 80px 40px;
+      max-width: calc(var(--content-width) + 80px);
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: background 0.3s ease;
+    }
+    .next-project:hover {
+      background: var(--surface2);
     }
     .next-label {
       font-size: 11px;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .next-title {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 600;
       color: var(--text-secondary);
       transition: color 0.2s;
     }
     .next-project:hover .next-title { color: var(--text-primary); }
     .next-arrow {
-      width: 48px; height: 48px;
-      border: 1px solid var(--border);
+      width: 52px; height: 52px;
+      border: 1px solid var(--border-light);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--text-muted);
-      font-size: 18px;
+      font-size: 20px;
       transition: all 0.3s;
       flex-shrink: 0;
+      background: var(--surface);
     }
     .next-project:hover .next-arrow {
-      border-color: #b85c00;
-      color: #b85c00;
+      border-color: var(--accent);
+      color: var(--accent);
       transform: translateX(4px);
     }
 
@@ -903,11 +938,18 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     }
 
     @media (max-width: 768px) {
-      .problem-grid { grid-template-columns: 1fr; }
-      .strategy-grid { grid-template-columns: 1fr; }
-      .scenario-grid { grid-template-columns: 1fr; }
-      .stat-row { grid-template-columns: 1fr; }
-      .img-grid-2 { grid-template-columns: 1fr; }
+      nav { padding: 14px 20px; }
+      .project-hero { padding: 120px 20px 60px; }
+      .project-content { padding: 0 20px 80px; }
+      .content-section { padding: 60px 0 0; }
+      .project-meta-row { gap: 20px; }
+      .problem-grid,
+      .strategy-grid,
+      .pain-grid { grid-template-columns: 1fr; gap: 16px; }
+      .stat-row { grid-template-columns: 1fr; gap: 16px; }
+      .img-grid-2 { grid-template-columns: 1fr; gap: 16px; }
+      .next-project { padding: 60px 20px; }
+      .scenario-list { max-width: 100%; }
     }
   </style>
 </head>
@@ -1163,8 +1205,8 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       <div class="framework-compare" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; width:80%;">
 
         <!-- 方案A：顶 Tab -->
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
-          <div style="padding:14px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px;">
+        <div style="background:var(--surface); border:1px solid var(--border-light); border-radius:var(--radius-lg); overflow:hidden;">
+          <div style="padding:14px 20px; border-bottom:1px solid var(--border-light); display:flex; align-items:center; gap:10px;">
             <span style="font-size:13px; font-weight:600; color:var(--text-primary);">一级导航为「顶 tab」</span>
             <span style="font-size:11px; background:rgba(0,186,115,0.12); color:#007a4a; border-radius:100px; padding:2px 8px; font-weight:500;">推荐方案</span>
           </div>
@@ -1176,8 +1218,8 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
         </div>
 
         <!-- 方案B：底 Tab -->
-        <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
-          <div style="padding:14px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px;">
+        <div style="background:var(--surface); border:1px solid var(--border-light); border-radius:var(--radius-lg); overflow:hidden;">
+          <div style="padding:14px 20px; border-bottom:1px solid var(--border-light); display:flex; align-items:center; gap:10px;">
             <span style="font-size:13px; font-weight:600; color:var(--text-primary);">一级导航为「底 tab」</span>
           </div>
           <img src="广场改版/广场框架2.png" alt="底Tab框架图" style="width:100%; display:block;">
@@ -1222,7 +1264,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       <p class="prose">通过前置「大牌好价」与明确营销入口，并在 Feeds 首位强化高价值直播展示，建立直播广场的「低价心智 + 品牌精选」认知。营销落地页覆盖大牌好价、整点秒杀、福利中心三个场景，形成完整的交易引导链路。</p>
 
       <!-- 思路1 方案图表格 -->
-      <table style="width:auto; border-collapse:collapse; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin-bottom:32px; table-layout:auto;">
+      <table style="width:auto; border-collapse:collapse; border:1px solid var(--border-light); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:32px; table-layout:auto;">
         <colgroup>
           <col style="width:178px;">
           <col style="width:336px;">
@@ -1230,19 +1272,19 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
         </colgroup>
         <thead>
           <tr>
-            <th style="padding:10px 16px; background:var(--surface2); border-bottom:1px solid var(--border); border-right:1px solid var(--border); font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); text-align:left;">框架图</th>
-            <th style="padding:10px 16px; background:var(--surface2); border-bottom:1px solid var(--border); border-right:1px solid var(--border); font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); text-align:left;">广场精选页</th>
-            <th style="padding:10px 16px; background:var(--surface2); border-bottom:1px solid var(--border); font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); text-align:left;">营销落地页</th>
+            <th style="padding:10px 16px; background:var(--surface2); border-bottom:1px solid var(--border-light); border-right:1px solid var(--border-light); font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); text-align:left;">框架图</th>
+            <th style="padding:10px 16px; background:var(--surface2); border-bottom:1px solid var(--border-light); border-right:1px solid var(--border-light); font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); text-align:left;">广场精选页</th>
+            <th style="padding:10px 16px; background:var(--surface2); border-bottom:1px solid var(--border-light); font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); text-align:left;">营销落地页</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <!-- 框架图 -->
-            <td style="padding:20px 16px; background:var(--surface); border-right:1px solid var(--border); vertical-align:middle; text-align:center;">
+            <td style="padding:20px 16px; background:var(--surface); border-right:1px solid var(--border-light); vertical-align:middle; text-align:center;">
               <img src="广场改版/广场-框架b.png" alt="框架图" class="zoomable" style="width:146px; height:316px; object-fit:cover; border-radius:6px; cursor:zoom-in; display:inline-block;">
             </td>
             <!-- 广场精选页：2张图 -->
-            <td style="padding:20px 16px; background:var(--surface); border-right:1px solid var(--border); vertical-align:middle;">
+            <td style="padding:20px 16px; background:var(--surface); border-right:1px solid var(--border-light); vertical-align:middle;">
               <div style="display:flex; gap:12px; justify-content:center;">
                 <div style="text-align:center;">
                   <img src="广场改版/方案1-精选1.png" alt="精选方案1" class="zoomable" style="width:146px; height:316px; object-fit:cover; border-radius:6px; cursor:zoom-in; display:block;">
@@ -1283,21 +1325,21 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       <p class="prose">通过顶部可配置多个运营区与明星场置顶展示，底部提供资产入口，建立心智、增强广场的可逛性与回访意愿。</p>
 
       <!-- 思路2 方案图表格 -->
-      <table style="width:auto; border-collapse:collapse; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin-bottom:32px; table-layout:auto;">
+      <table style="width:auto; border-collapse:collapse; border:1px solid var(--border-light); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:32px; table-layout:auto;">
         <colgroup>
           <col style="width:178px;">
           <col style="">
         </colgroup>
         <thead>
           <tr>
-            <th style="padding:10px 16px; background:var(--surface2); border-bottom:1px solid var(--border); border-right:1px solid var(--border); font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); text-align:left;">框架图</th>
-            <th style="padding:10px 16px; background:var(--surface2); border-bottom:1px solid var(--border); font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); text-align:left;">广场精选页</th>
+            <th style="padding:10px 16px; background:var(--surface2); border-bottom:1px solid var(--border-light); border-right:1px solid var(--border-light); font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); text-align:left;">框架图</th>
+            <th style="padding:10px 16px; background:var(--surface2); border-bottom:1px solid var(--border-light); font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); text-align:left;">广场精选页</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <!-- 框架图 -->
-            <td style="padding:20px 16px; background:var(--surface); border-right:1px solid var(--border); vertical-align:middle; text-align:center;">
+            <td style="padding:20px 16px; background:var(--surface); border-right:1px solid var(--border-light); vertical-align:middle; text-align:center;">
               <img src="广场改版/框架图.webp" alt="框架图" class="zoomable" style="width:146px; height:316px; object-fit:cover; border-radius:6px; cursor:zoom-in; display:inline-block;">
             </td>
             <!-- 广场精选页：日常页面 + 明星场 + 新人页面 -->
@@ -1380,7 +1422,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       <div class="outcome-strip">
         <h4>改版框架核心结论</h4>
         <p>推荐采用<strong>「顶 Tab 导航 + 单列直播带品 Feeds」</strong>的整体框架，优先验证思路 1「强化大牌好价心智」与思路 2「丰富运营活动区」的组合方案，通过 A/B 实验逐步推进框架落地。</p>
-        <div style="border-top: 1px solid var(--border); margin: 16px 0;"></div>
+        <div style="border-top: 1px solid var(--border-light); margin: 16px 0;"></div>
         <h4>下一步方向</h4>
         <p>框架结构层面需优先强化交易与价格心智，同时为长期运营留出灵活空间。资产体系（订单 & 券 & 抽奖 list 及互动记录）需作为独立模块加速建设，以「可感知的用户权益」驱动广场回访率的持续提升。</p>
       </div>
