@@ -8,6 +8,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
+    @font-face {
+      font-family: 'AlibabaPuHuiTi';
+      src: url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'AlibabaPuHuiTi';
+      src: url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-75-SemiBold/AlibabaPuHuiTi-3-75-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'AlibabaPuHuiTi';
+      src: url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-85-Bold/AlibabaPuHuiTi-3-85-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-display: swap;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #faf9f7;
@@ -100,7 +118,7 @@ a { color: inherit; text-decoration: none; }
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--text-muted);
@@ -134,7 +152,7 @@ a { color: inherit; text-decoration: none; }
     .meta-value { font-size: 14px; color: var(--text-secondary); }
     .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
     .tag {
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       padding: 6px 14px;
@@ -156,6 +174,79 @@ a { color: inherit; text-decoration: none; }
       background: var(--border);
       max-width: calc(var(--content-width) + 64px);
       margin: 0 auto;
+    }
+
+    /* ===== TOC SIDEBAR ===== */
+    .toc-sidebar {
+      position: fixed;
+      top: 80px;
+      left: max(16px, calc(50vw - 680px));
+      width: 160px;
+      padding: 24px 0;
+      z-index: 50;
+      transition: top 0s;
+    }
+    @media (max-width: 1280px) {
+      .toc-sidebar { display: none; }
+    }
+    .toc-title {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      padding-left: 12px;
+    }
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .toc-item a {
+      display: block;
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border-radius: 6px;
+      border-left: 2px solid transparent;
+      transition: color 0.2s, background 0.2s, border-color 0.2s;
+      text-decoration: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .toc-item a:hover {
+      color: var(--text-secondary);
+      background: var(--surface2);
+    }
+    .toc-item.active > a {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(232,87,42,0.05);
+      font-weight: 500;
+    }
+    .toc-item.is-parent > a {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .toc-sub {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin-top: 1px;
+    }
+    .toc-sub .toc-item a {
+      font-size: 12px;
+      padding: 4px 12px 4px 20px;
+      color: var(--text-muted);
+    }
+    .toc-sub .toc-item.active > a {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(232,87,42,0.04);
     }
 
     /* ===== CONTENT ===== */
@@ -214,10 +305,10 @@ a { color: inherit; text-decoration: none; }
       border: none;
       border-radius: var(--radius-lg);
       padding: 28px 32px;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
     .highlight-box .label {
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
@@ -240,7 +331,7 @@ a { color: inherit; text-decoration: none; }
       margin-bottom: 40px;
     }
     .ai-box .label {
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
@@ -263,7 +354,7 @@ a { color: inherit; text-decoration: none; }
       margin-bottom: 40px;
     }
     .info-box .label {
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent2);
@@ -303,6 +394,7 @@ a { color: inherit; text-decoration: none; }
     }
     .stat-card.blue { border: none; background: var(--accent-light); }
     .stat-card .stat-num {
+      font-family: 'AlibabaPuHuiTi', 'Roboto', sans-serif;
       font-size: 40px;
       font-weight: 700;
       letter-spacing: -0.03em;
@@ -385,7 +477,7 @@ a { color: inherit; text-decoration: none; }
       text-align: left;
       font-weight: 500;
       color: var(--text-primary);
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       border-bottom: 1px solid var(--border-light);
@@ -405,6 +497,7 @@ a { color: inherit; text-decoration: none; }
       padding: 3px 12px;
       border-radius: 100px;
       font-weight: 500;
+      white-space: nowrap;
     }
     .badge-yes { background: rgba(22,163,74,0.12); color: #15803d; }
     .badge-low { background: rgba(234,179,8,0.12); color: #92400e; }
@@ -428,12 +521,12 @@ a { color: inherit; text-decoration: none; }
       border-color: rgba(180,160,140,0.28);
     }
     .decision-num {
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 14px;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'AlibabaPuHuiTi', 'Roboto', sans-serif;
       font-weight: 500;
     }
     .decision-card h4 {
@@ -476,12 +569,12 @@ a { color: inherit; text-decoration: none; }
       position: relative;
     }
     .flow-stage-num {
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 12px;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'AlibabaPuHuiTi', 'Roboto', sans-serif;
       font-weight: 500;
     }
     .flow-stage h4 {
@@ -508,7 +601,7 @@ a { color: inherit; text-decoration: none; }
       position: absolute;
       left: 0;
       color: var(--text-muted);
-      font-size: 11px;
+      font-size: 13px;
     }
 
     /* ===== OUTCOME CARDS ===== */
@@ -719,11 +812,10 @@ a { color: inherit; text-decoration: none; }
       display: flex;
       align-items: flex-start;
       gap: 16px;
-      padding: 18px 28px;
+      padding: 14px 28px;
     }
     .user-item + .user-item {
-      padding-top: 10px;
-      border-top: 1px solid var(--border);
+      padding-top: 0;
     }
     .user-num {
       flex-shrink: 0;
@@ -746,7 +838,7 @@ a { color: inherit; text-decoration: none; }
     }
     .user-body strong {
       display: block;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--text-primary);
       margin-bottom: 4px;
@@ -819,7 +911,7 @@ a { color: inherit; text-decoration: none; }
     }
     .goal-table-head > div {
       padding: 12px 24px;
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -934,20 +1026,62 @@ a { color: inherit; text-decoration: none; }
 
   <div class="divider"></div>
 
-  <!-- CONTENT -->
+  <!-- TOC SIDEBAR -->
+  <aside class="toc-sidebar">
+
+    <ul class="toc-list">
+      <li class="toc-item is-parent" data-toc="sec-background">
+        <a href="#sec-background">01 · 项目背景</a>
+        <ul class="toc-sub">
+          <li class="toc-item" data-toc="sec-result"><a href="#sec-result">项目成果</a></li>
+          <li class="toc-item" data-toc="sec-painpoint"><a href="#sec-painpoint">核心痛点</a></li>
+          <li class="toc-item" data-toc="sec-users"><a href="#sec-users">目标用户</a></li>
+          <li class="toc-item" data-toc="sec-goals"><a href="#sec-goals">项目目标</a></li>
+        </ul>
+      </li>
+      <li class="toc-item" data-toc="sec-challenge"><a href="#sec-challenge">02 · 核心设计挑战</a></li>
+      <li class="toc-item" data-toc="sec-research"><a href="#sec-research">03 · 竞品调研</a></li>
+      <li class="toc-item" data-toc="sec-solution"><a href="#sec-solution">04 · 设计方案</a></li>
+      <li class="toc-item" data-toc="sec-decisions"><a href="#sec-decisions">05 · 关键设计决策</a></li>
+      <li class="toc-item is-parent" data-toc="sec-model">
+        <a href="#sec-model">06 · 模型训练</a>
+        <ul class="toc-sub">
+          <li class="toc-item" data-toc="sec-layers"><a href="#sec-layers">图层结构</a></li>
+          <li class="toc-item" data-toc="sec-workflow"><a href="#sec-workflow">理想工作流</a></li>
+        </ul>
+      </li>
+      <li class="toc-item" data-toc="sec-outcome"><a href="#sec-outcome">07 · 效果验证</a></li>
+      <li class="toc-item" data-toc="sec-reflection"><a href="#sec-reflection">08 · 设计经验沉淀</a></li>
+    </ul>
+  </aside>
+
   <div class="project-content">
 
     <!-- ① 项目背景 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-background">
       <div class="section-label">01 · Background</div>
       <div class="section-heading">项目背景</div>
 
       <div class="highlight-box">
-        <div class="label">一句话定位</div>
-        <p>让中小商家和BD告别"手动p图"——通过AI能力一键生成专业直播间封面，降低开播准备门槛，提升封面质量与开播效率。</p>
+        <div class="label">一句话描述</div>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 4px;">
+          <div style="display: flex; gap: 10px; align-items: baseline;">
+            <span style="flex-shrink: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: rgba(232,87,42,0.08); border: 1px solid rgba(232,87,42,0.2); border-radius: 4px; padding: 2px 7px;">前端交互</span>
+            <p style="margin: 0;">让中小商家和BD告别"手动p图"——通过AI能力一键生成专业直播间封面，降低开播准备门槛，提升封面质量与开播效率。</p>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: baseline;">
+            <span style="flex-shrink: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #5a7abf; background: rgba(90,122,191,0.08); border: 1px solid rgba(90,122,191,0.2); border-radius: 4px; padding: 2px 7px;">后端模型</span>
+            <p style="margin: 0;">通过商家理解和模型训练以Agent能力创建直播封面的智能化运营工具。</p>
+          </div>
+        </div>
       </div>
 
-      <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;">核心痛点</div>
+      <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;" id="sec-result">项目成果</div>
+      <div class="img-block" style="margin-bottom: 40px;">
+        <img src="images/ai-cover-result.png" alt="项目成果：Before & After">
+      </div>
+
+      <div class="section-heading" style="font-size: 18px; margin-top: 0; margin-bottom: 16px;" id="sec-painpoint">核心痛点</div>
 
       <div class="bg-two-col">
         <div class="bg-block">
@@ -982,7 +1116,7 @@ a { color: inherit; text-decoration: none; }
         </div>
       </div>
 
-      <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;">目标用户</div>
+      <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;" id="sec-users">目标用户</div>
       <div class="user-list" style="width: calc(66% + 100px);">
         <div class="user-item">
           <div class="user-num">1</div>
@@ -1000,14 +1134,14 @@ a { color: inherit; text-decoration: none; }
         </div>
       </div>
 
-      <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;">项目目标</div>
+      <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;" id="sec-goals">项目目标</div>
 
       <div class="goal-table" style="width: calc(66% + 100px);">
         <table class="goal-real-table">
           <thead>
             <tr>
               <th>达成目标</th>
-              <th>机会点洞察</th>
+              <th>描述</th>
             </tr>
           </thead>
           <tbody>
@@ -1029,7 +1163,7 @@ a { color: inherit; text-decoration: none; }
     </div>
 
     <!-- ② 我的挑战 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-challenge">
       <div class="section-label">02 · Design Challenge</div>
       <div class="section-heading">核心设计挑战</div>
 
@@ -1058,7 +1192,7 @@ a { color: inherit; text-decoration: none; }
     </div>
 
     <!-- ③ 竞品调研 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-research">
       <div class="section-label">03 · Research</div>
       <div class="section-heading">竞品调研：AI 输入交互模式</div>
 
@@ -1116,8 +1250,8 @@ a { color: inherit; text-decoration: none; }
 
     </div>
 
-    <!-- ④ 设计方案 -->
-    <div class="content-section" data-reveal>
+        <!-- ④ 设计方案 -->
+    <div class="content-section" data-reveal id="sec-solution">
       <div class="section-label">04 · Design Solution</div>
       <div class="section-heading">设计方案</div>
 
@@ -1155,16 +1289,18 @@ a { color: inherit; text-decoration: none; }
         </div>
       </div>
 
-      <figure style="margin: 0 0 32px; background: rgba(217,119,6,0.06); border-radius: var(--radius); padding: 20px;">
-        <img src="assets/solution-overview.png" alt="设计方案全览（Web 端 + App 端）" style="width:100%;border-radius:var(--radius-sm);display:block;">
-        <figcaption style="font-size:13px;color:var(--text-muted);margin-top:10px;text-align:center;letter-spacing:0.03em;">Web 端 · App 端 设计方案全览</figcaption>
-      </figure>
+      <div class="img-block" style="margin-bottom: 16px;">
+        <img src="images/生成中.png" alt="生成中设计方案">
+      </div>
+      <div class="img-block" style="margin-bottom: 32px;">
+        <img src="images/生成后.png" alt="生成后设计方案">
+      </div>
 
 
     </div>
 
-    <!-- ⑤ 设计决策亮点 -->
-    <div class="content-section" data-reveal>
+        <!-- ⑤ 设计决策亮点 -->
+    <div class="content-section" data-reveal id="sec-decisions">
       <div class="section-label">05 · Key Decisions</div>
       <div class="section-heading">三个关键设计决策</div>
 
@@ -1194,14 +1330,74 @@ a { color: inherit; text-decoration: none; }
 
     </div>
 
+        <!-- ⑥ 模型训练 -->
+    <div class="content-section" data-reveal id="sec-model">
+      <div class="section-label">06 · Model Training</div>
+      <div class="section-heading">模型训练</div>
+
+      <div class="prose">
+        要让 AI 生成符合直播间场景的封面，首先需要让模型"理解"一张好封面的构成。我们对直播封面图进行了系统性的图层拆解，作为训练数据标注和 prompt 构建的基础框架。
+      </div>
+
+      <div class="section-heading" style="font-size: 18px; margin-top: 0; margin-bottom: 16px;" id="sec-layers">直播封面的图层结构</div>
+
+      <div class="prose">
+        一张标准的直播封面图按图层层级可以分成 4 层：背景底图层、主题文案层、商品展示层和装饰性元素层。以下是一个案例：
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 2fr; border: 1px solid rgba(180,160,140,0.18); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 40px;">
+        <!-- 左：图片 -->
+        <div style="background: var(--surface2); display: flex; align-items: center; justify-content: center; padding: 14px 24px;">
+          <img src="images/ai-cover-layers.webp" alt="直播封面图层拆解案例" style="width: 75%; border-radius: var(--radius-sm); display: block;">
+        </div>
+        <!-- 右：4行表格 -->
+        <div style="display: flex; flex-direction: column; border-left: 1px solid rgba(180,160,140,0.18); flex: 1;">
+<div style="display: grid; grid-template-columns: 140px 1fr; border-bottom: 1px solid rgba(180,160,140,0.12); align-items: stretch; flex: 1;">
+<div style="padding: 10px 16px; border-right: 1px solid rgba(180,160,140,0.12); background: var(--surface2); white-space: nowrap; display: flex; flex-direction: column; justify-content: center;">
+<span style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 600;">Layer 01</span>
+              <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-top: 1px;">背景底图层</div>
+            </div>
+            <div style="padding: 10px 16px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; display: flex; align-items: center;">粉色渐变背景，营造温馨节日氛围，是整个画面的基础底色。</div>
+          </div>
+<div style="display: grid; grid-template-columns: 140px 1fr; border-bottom: 1px solid rgba(180,160,140,0.12); align-items: stretch; flex: 1;">
+<div style="padding: 10px 16px; border-right: 1px solid rgba(180,160,140,0.12); background: var(--surface2); white-space: nowrap; display: flex; flex-direction: column; justify-content: center;">
+<span style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 600;">Layer 02</span>
+              <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-top: 1px;">主题文案层</div>
+            </div>
+            <div style="padding: 10px 16px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; display: flex; align-items: center;">标题到副标题的艺术化排版，字体放大彩色、立体效果突出，强化活动主题。</div>
+          </div>
+<div style="display: grid; grid-template-columns: 140px 1fr; border-bottom: 1px solid rgba(180,160,140,0.12); align-items: stretch; flex: 1;">
+<div style="padding: 10px 16px; border-right: 1px solid rgba(180,160,140,0.12); background: var(--surface2); white-space: nowrap; display: flex; flex-direction: column; justify-content: center;">
+<span style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 600;">Layer 03</span>
+              <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-top: 1px;">商品展示层</div>
+            </div>
+            <div style="padding: 10px 16px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; display: flex; align-items: center;">各类商品实物图，按一定构图摆放，呈现商品主体，是画面内容之一。</div>
+          </div>
+<div style="display: grid; grid-template-columns: 140px 1fr; align-items: stretch; flex: 1;">
+<div style="padding: 10px 16px; border-right: 1px solid rgba(180,160,140,0.12); background: var(--surface2); white-space: nowrap; display: flex; flex-direction: column; justify-content: center;">
+              <span style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 600;">Layer 04</span>
+              <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-top: 1px;">装饰性元素层</div>
+            </div>
+            <div style="padding: 10px 16px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; display: flex; align-items: center;">标题下方的粉色丝带装饰，增加画面精致感和节日氛围，辅助烘托视觉感受。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;" id="sec-workflow">理想工作流</div>
+      <div class="img-block" style="margin-bottom: 40px;">
+        <img src="images/ai-cover-workflow.png" alt="模型训练理想工作流" style="width: 80%; border: 1px solid rgba(180,160,140,0.18); border-radius: var(--radius-lg);">
+      </div>
+
+    </div>
+
     <!-- ⑥ 数据验证 -->
-    <div class="content-section" data-reveal>
-      <div class="section-label">06 · Outcome</div>
+    <div class="content-section" data-reveal id="sec-outcome">
+      <div class="section-label">07 · Outcome</div>
       <div class="section-heading">效果验证</div>
 
       <div class="highlight-box">
         <div class="label">灰度测试结论</div>
-        <p>50% 灰度用户中，16 个业务单元共计 <strong>1,121 个主播</strong>使用过 AI 封面能力，整体数据验证了设计方向的有效性。</p>
+        <p>上线 12 天，50% 灰度用户中，16 个业务单元共计 <strong>1,121 个主播</strong>使用过 AI 封面能力，整体数据验证了设计方向的有效性。</p>
       </div>
 
       <div class="stat-row-4">
@@ -1231,8 +1427,8 @@ a { color: inherit; text-decoration: none; }
     </div>
 
     <!-- ⑦ 复盘与沉淀 -->
-    <div class="content-section" data-reveal>
-      <div class="section-label">07 · Reflection</div>
+    <div class="content-section" data-reveal id="sec-reflection">
+      <div class="section-label">08 · Reflection</div>
       <div class="section-heading">设计经验沉淀</div>
 
       <div class="prose">
@@ -1265,7 +1461,7 @@ a { color: inherit; text-decoration: none; }
 
     </div>
 
-  </div>
+  </div><!-- /.project-content -->
 
   <!-- NEXT PROJECT -->
   <a class="next-project" href="index.html#work">
@@ -1294,6 +1490,59 @@ a { color: inherit; text-decoration: none; }
       });
     }, { threshold: 0.06 });
     sections.forEach(el => revealObs.observe(el));
+
+    // TOC: scroll down with page until sticky top (80px)
+    (function() {
+      const toc = document.querySelector('.toc-sidebar');
+      const firstSec = document.getElementById('sec-background');
+      if (!toc || !firstSec) return;
+
+      const STICKY_TOP = 88; // px from viewport top when pinned
+      let initialTop = 0;
+
+      const calcInitialTop = () => {
+        initialTop = firstSec.getBoundingClientRect().top + window.scrollY;
+      };
+      calcInitialTop();
+      window.addEventListener('resize', calcInitialTop);
+
+      const onScroll = () => {
+        const scrolled = window.scrollY;
+        const naturalTop = initialTop - scrolled; // where toc would be if not fixed
+        if (naturalTop <= STICKY_TOP) {
+          toc.style.top = STICKY_TOP + 'px';
+        } else {
+          toc.style.top = naturalTop + 'px';
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // TOC scroll highlight
+    const tocItems = document.querySelectorAll('.toc-item[data-toc]');
+    const tocAnchors = Array.from(tocItems).map(item => {
+      const id = item.getAttribute('data-toc');
+      return { item, el: document.getElementById(id) };
+    }).filter(x => x.el);
+
+    function updateToc() {
+      const scrollY = window.scrollY + 120;
+      let activeId = null;
+      for (let i = tocAnchors.length - 1; i >= 0; i--) {
+        if (tocAnchors[i].el.getBoundingClientRect().top + window.scrollY <= scrollY) {
+          activeId = tocAnchors[i].item.getAttribute('data-toc');
+          break;
+        }
+      }
+      tocItems.forEach(item => item.classList.remove('active'));
+      if (activeId) {
+        const activeItem = document.querySelector(`.toc-item[data-toc="${activeId}"]`);
+        if (activeItem) activeItem.classList.add('active');
+      }
+    }
+    window.addEventListener('scroll', updateToc, { passive: true });
+    updateToc();
 
     // Lightbox
     const lightbox = document.getElementById('lightbox');
