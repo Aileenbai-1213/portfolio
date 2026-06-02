@@ -1,0 +1,2 @@
+.resize-handler{opacity:0;transition:opacity .3s;border-left:2px solid #1c6cdc;padding:0 3px}@media (hover){.resize-handler:hover{opacity:1;transition:opacity .3s}}@media (hover:none){.resize-handler{border-left:none}.resize-handler:after{content:"";position:absolute;top:0;bottom:0;width:3px;left:50%}}
+/*# sourceMappingURL=SideBarControl.8f46d4d2a778f4f7b6a9.css.map */

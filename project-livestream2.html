@@ -181,6 +181,81 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     .tag.product { border-color: rgba(184,92,0,0.3); color: #b85c00; background: rgba(184,92,0,0.06); }
     .tag.live { border-color: rgba(180,80,0,0.3); color: #b85000; background: rgba(180,80,0,0.06); }
 
+    /* ===== TOC SIDEBAR ===== */
+    .toc-sidebar {
+      position: fixed;
+      top: 80px;
+      left: max(16px, calc(50vw - 680px));
+      width: 160px;
+      padding: 24px 0;
+      z-index: 50;
+      will-change: transform;
+    }
+    @media (max-width: 1280px) {
+      .toc-sidebar { display: none; }
+    }
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .toc-item a {
+      display: block;
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border-radius: 6px;
+      border-left: 2px solid transparent;
+      transition: color 0.2s, background 0.2s, border-color 0.2s;
+      text-decoration: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .toc-item a:hover {
+      color: var(--text-secondary);
+      background: var(--surface2);
+    }
+    .toc-item.active > a {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(232,87,42,0.05);
+      font-weight: 500;
+    }
+    .toc-item.is-parent > a {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .toc-item.is-parent.active > a {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(232,87,42,0.05);
+      font-weight: 500;
+    }
+    .toc-item.has-active > a {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .toc-sub {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin-top: 1px;
+    }
+    .toc-sub .toc-item a {
+      font-size: 12px;
+      padding: 4px 12px 4px 20px;
+      color: var(--text-muted);
+    }
+    .toc-sub .toc-item.active > a {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(232,87,42,0.04);
+    }
+
     /* ===== DIVIDER ===== */
     .divider {
       height: 1px;
@@ -1024,11 +1099,41 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
 
   <div class="divider"></div>
 
+  <!-- TOC SIDEBAR -->
+  <aside class="toc-sidebar">
+    <ul class="toc-list">
+      <li class="toc-item" data-toc="sec-background"><a href="#sec-background">01 · 背景</a></li>
+      <li class="toc-item is-parent" data-toc="sec-analysis">
+        <a href="#sec-analysis">02 · 设计分析</a>
+        <ul class="toc-sub">
+          <li class="toc-item" data-toc="sec-analysis-1"><a href="#sec-analysis-1">1. 用户洞察</a></li>
+          <li class="toc-item" data-toc="sec-analysis-2"><a href="#sec-analysis-2">2. 竞品调研与数据</a></li>
+          <li class="toc-item" data-toc="sec-analysis-3"><a href="#sec-analysis-3">3. 业务 PMF 与 OP</a></li>
+        </ul>
+      </li>
+<li class="toc-item is-parent" data-toc="sec-proposal">
+<a href="#sec-proposal">03 · 设计提案</a>
+<ul class="toc-sub">
+<li class="toc-item" data-toc="sec-proposal-1"><a href="#sec-proposal-1">1. 用户访问场景</a></li>
+<li class="toc-item" data-toc="sec-proposal-2"><a href="#sec-proposal-2">2. 改版框架方向</a></li>
+</ul>
+</li>
+<li class="toc-item is-parent" data-toc="sec-interaction">
+<a href="#sec-interaction">04 · 交互方案</a>
+<ul class="toc-sub">
+<li class="toc-item" data-toc="sec-interaction-1"><a href="#sec-interaction-1">思路 1 — 突出大牌好价</a></li>
+<li class="toc-item" data-toc="sec-interaction-2"><a href="#sec-interaction-2">思路 2 — 丰富运营活动区</a></li>
+</ul>
+</li>
+      <li class="toc-item" data-toc="sec-reflection"><a href="#sec-reflection">05 · 阶段性结论</a></li>
+    </ul>
+  </aside>
+
   <!-- CONTENT -->
   <div class="project-content">
 
     <!-- ① 背景 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-background">
       <div class="section-label">01 · Background</div>
       <div class="section-heading">背景</div>
 
@@ -1091,12 +1196,12 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     </div>
 
     <!-- ② 设计分析 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-analysis">
       <div class="section-label">02 · Design Analysis</div>
       <div class="section-heading">设计分析</div>
 
       <!-- 1. 用户洞察 -->
-      <div class="sub-heading">1. 用户洞察</div>
+      <div class="sub-heading" id="sec-analysis-1">1. 用户洞察</div>
       <p class="prose">基于直播高频正餐用户的调研，我们发现：</p>
 
       <!-- 1.1 下单动机 -->
@@ -1125,7 +1230,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       </div>
 
       <!-- 2. 竞品调研与数据分析 -->
-      <div class="sub-heading" style="margin-top: 72px;">2. 竞品调研与数据分析</div>
+      <div class="sub-heading" id="sec-analysis-2" style="margin-top: 72px;">2. 竞品调研与数据分析</div>
       <div class="highlight-box">
         <div class="label">核心结论</div>
         <p>竞品调研得出：在广场顶部承担运营心智塑造是趋势；</p>
@@ -1143,7 +1248,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       <p class="prose">历史数据显示，当广场结构明确承载交易与复购路径时（加底 tab 并保留「订单」），与交易相关的数据指标（点击、转化）均有明显提升。</p>
 
       <!-- 3. 业务 PMF 与 OP -->
-      <div class="sub-heading" style="margin-top:72px;">3. 业务 PMF 与 OP</div>
+      <div class="sub-heading" id="sec-analysis-3" style="margin-top:72px;">3. 业务 PMF 与 OP</div>
 
       <div class="pain-grid">
         <div class="insight-section">
@@ -1161,11 +1266,11 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     </div>
 
     <!-- ③ 设计提案 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-proposal">
       <div class="section-label">03 · Design Proposal</div>
       <div class="section-heading">设计提案</div>
 
-      <div class="sub-heading">用户会在哪些场景下访问直播广场？</div>
+      <div class="sub-heading" id="sec-proposal-1">1. 用户会在哪些场景下访问直播广场？</div>
       <p class="prose">在明确设计方向之前，我们首先梳理了用户会在哪些真实场景下访问直播广场，以确保改版框架能覆盖核心用户路径。</p>
 
       <div class="scenario-list">
@@ -1213,7 +1318,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
         </div>
       </div>
 
-      <div class="sub-heading" style="margin-top:48px;">结合以上判断，广场的改版框架有哪些可能？</div>
+      <div class="sub-heading" id="sec-proposal-2" style="margin-top:48px;">2. 结合以上判断，广场的改版框架有哪些可能？</div>
       <p class="prose">基于场景梳理，我们对广场的一级导航结构提出了两种框架方案，核心差异在于<strong>导航层级的放置位置</strong>，并围绕「顶 Tab 导航」展开了详细的 Feeds 架构探讨。</p>
 
       <div class="framework-compare" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; width:80%;">
@@ -1265,7 +1370,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     </div>
 
     <!-- ④ 交互方案 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-interaction">
       <div class="section-label">04 · Interaction Design</div>
       <div class="section-heading">交互方案</div>
       <p style="font-size:12px; color:var(--text-muted); margin-top:-16px; margin-bottom:28px; letter-spacing:0.02em;">以下为交互稿，非最终视觉稿</p>
@@ -1275,7 +1380,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
         <p>直播广场应<strong>提升「好买」的体验，同时增强「好逛」的感知</strong>。在保证交易转化的前提下，提供更明确的直播心智，让用户愿意反复来。</p>
       </div>
 
-            <div class="sub-heading">思路 1 — 突出大牌好价，强化「低价 + 品牌精选」心智</div>
+            <div class="sub-heading" id="sec-interaction-1">思路 1 — 突出大牌好价，强化「低价 + 品牌精选」心智</div>
       <p class="prose">通过前置「大牌好价」与明确营销入口，并在 Feeds 首位强化高价值直播展示，建立直播广场的「低价心智 + 品牌精选」认知。营销落地页覆盖大牌好价、整点秒杀、福利中心三个场景，形成完整的交易引导链路。</p>
 
       <!-- 思路1 方案图表格 -->
@@ -1336,7 +1441,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
         </tbody>
       </table>
 
-      <div class="sub-heading">思路 2 — 丰富运营活动区，让广场更好逛、更愿意反复来</div>
+      <div class="sub-heading" id="sec-interaction-2">思路 2 — 丰富运营活动区，让广场更好逛、更愿意反复来</div>
       <p class="prose">通过顶部可配置多个运营区与明星场置顶展示，底部提供资产入口，建立心智、增强广场的可逛性与回访意愿。</p>
 
       <!-- 思路2 方案图表格 -->
@@ -1381,7 +1486,7 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
     </div>
 
     <!-- ⑤ 阶段性结论 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-reflection">
       <div class="section-label">05 · Reflection</div>
       <div class="section-heading">阶段性结论</div>
 
@@ -1422,6 +1527,62 @@ if (location.href.indexOf('project-livestream2.html') > -1) {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.08 });
     sections.forEach(s => observer.observe(s));
+
+    // TOC: scroll until sticky
+    (function() {
+      const toc = document.querySelector('.toc-sidebar');
+      const firstSec = document.getElementById('sec-background');
+      if (!toc || !firstSec) return;
+      const TOC_FIXED_TOP = 80;
+      let initialOffset = 0;
+      const calcInitial = () => {
+        initialOffset = firstSec.getBoundingClientRect().top + window.scrollY - TOC_FIXED_TOP;
+      };
+      calcInitial();
+      window.addEventListener('resize', calcInitial);
+      let rafId = null;
+      const onScroll = () => {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+          rafId = null;
+          const shift = Math.max(0, initialOffset - window.scrollY);
+          toc.style.transform = `translateY(${shift}px)`;
+        });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // TOC highlight
+    const tocItems = document.querySelectorAll('.toc-item[data-toc]');
+    const tocAnchors = Array.from(tocItems).map(item => {
+      const id = item.getAttribute('data-toc');
+      return { item, el: document.getElementById(id) };
+    }).filter(x => x.el);
+    function updateToc() {
+      const scrollY = window.scrollY + 120;
+      let activeId = null;
+      for (let i = tocAnchors.length - 1; i >= 0; i--) {
+        if (tocAnchors[i].el.getBoundingClientRect().top + window.scrollY <= scrollY) {
+          activeId = tocAnchors[i].item.getAttribute('data-toc');
+          break;
+        }
+      }
+      tocItems.forEach(item => item.classList.remove('active', 'has-active'));
+      if (activeId) {
+        const activeItem = document.querySelector(`.toc-item[data-toc="${activeId}"]`);
+        if (activeItem) {
+          activeItem.classList.add('active');
+          let parent = activeItem.parentElement;
+          while (parent) {
+            if (parent.classList.contains('toc-item')) parent.classList.add('has-active');
+            parent = parent.parentElement;
+          }
+        }
+      }
+    }
+    window.addEventListener('scroll', updateToc, { passive: true });
+    updateToc();
 
     // Lightbox
     const lightbox = document.getElementById('lightbox');

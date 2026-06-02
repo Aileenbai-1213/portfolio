@@ -350,6 +350,62 @@
       transform: translateX(4px);
     }
 
+    /* ===== TOC SIDEBAR ===== */
+    .toc-sidebar {
+      position: fixed;
+      left: calc(50% - var(--content-width)/2 - 64px - 80px);
+      top: 80px;
+      width: 160px;
+      z-index: 50;
+    }
+    @media (max-width: 1280px) {
+      .toc-sidebar { display: none; }
+    }
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc-item a {
+      display: block;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      padding: 4px 0;
+      line-height: 1.5;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .toc-item a:hover {
+      color: rgba(255,255,255,0.6);
+    }
+    .toc-item.active > a {
+      color: var(--accent);
+    }
+    .toc-item.is-parent > a {
+      font-size: 12px;
+    }
+    .toc-item.is-parent.active > a {
+      color: var(--accent);
+    }
+    .toc-item.has-active > a {
+      color: rgba(255,255,255,0.55);
+    }
+    .toc-sub {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 4px 10px;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      padding-left: 10px;
+    }
+    .toc-sub .toc-item a {
+      font-size: 11px;
+      color: rgba(255,255,255,0.22);
+      padding: 3px 0;
+    }
+    .toc-sub .toc-item.active > a {
+      color: var(--accent);
+    }
+
     /* ===== PROGRESS BAR ===== */
     .reading-progress {
       position: fixed;
@@ -416,11 +472,21 @@
 
   <div class="divider"></div>
 
+  <!-- TOC SIDEBAR -->
+  <aside class="toc-sidebar">
+    <ul class="toc-list">
+      <li class="toc-item" data-toc="sec-overview"><a href="#sec-overview">01 · 项目概览</a></li>
+      <li class="toc-item" data-toc="sec-research"><a href="#sec-research">02 · 调研过程</a></li>
+      <li class="toc-item" data-toc="sec-design"><a href="#sec-design">03 · 设计方案</a></li>
+      <li class="toc-item" data-toc="sec-reflection"><a href="#sec-reflection">04 · 复盘与分享</a></li>
+    </ul>
+  </aside>
+
   <!-- CONTENT -->
   <div class="project-content">
 
     <!-- Section 1: 项目概览 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-overview">
       <div class="section-label">Overview</div>
       <div class="section-heading">项目概览</div>
 
@@ -440,7 +506,7 @@
     </div>
 
     <!-- Section 2: 调研过程 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-research">
       <div class="section-label">Research</div>
       <div class="section-heading">调研过程</div>
 
@@ -457,20 +523,33 @@
       <div class="img-caption">
         <span>04</span>供给分析 · 竞品摸排 · 抖音对标
       </div>
+    </div>
+
+    <!-- Section 3: 设计方案 -->
+    <div class="content-section" data-reveal id="sec-design">
+      <div class="section-label">Design Solution</div>
+      <div class="section-heading">设计方案</div>
 
       <div class="img-block">
-        <img src="images/17.png" alt="复盘与分享 — 用户特征洞察" loading="lazy" />
+        <img src="images/17.png" alt="方案框架 — 分意图结果页框架设计" loading="lazy" />
       </div>
       <div class="img-caption">
-        <span>05</span>复盘与分享 · 用户特征洞察：理解用户需求，判断不同场景下视频诉求程度
+        <span>05</span>方案框架：分意图结果页框架设计
       </div>
 
       <div class="img-block">
-        <img src="images/18.png" alt="复盘与分享 — 供给分析与字段梳理" loading="lazy" />
+        <img src="images/18.png" alt="方案展示 — 分意图结果页设计" loading="lazy" />
       </div>
       <div class="img-caption">
-        <span>06</span>复盘与分享 · 供给分析：分析供给情况，以指导视频在页面上的展示设计
+        <span>06</span>方案展示：分意图结果页设计
       </div>
+
+    </div>
+
+    <!-- Section 4: 复盘与分享 -->
+    <div class="content-section" data-reveal id="sec-reflection">
+      <div class="section-label">Reflection</div>
+      <div class="section-heading">复盘与分享</div>
 
       <div class="img-block">
         <img src="images/19.png" alt="复盘与分享 — 竞品摸排与方案呈现" loading="lazy" />
@@ -478,25 +557,19 @@
       <div class="img-caption">
         <span>07</span>复盘与分享 · 竞品摸排 · 方案呈现：了解视频展示触点与展示方式
       </div>
-    </div>
-
-    <!-- Section 3: 设计方案 -->
-    <div class="content-section" data-reveal>
-      <div class="section-label">Design Solution</div>
-      <div class="section-heading">设计方案</div>
 
       <div class="img-block">
-        <img src="images/20.png" alt="方案说明 — 视频诉求强弱与搜索词类型对应的框架/模板方案" loading="lazy" />
+        <img src="images/20.png" alt="复盘与分享 — 视频诉求强弱与搜索词类型对应的框架/模板方案" loading="lazy" />
       </div>
       <div class="img-caption">
-        <span>08</span>方案说明 · 视频诉求强弱 × 搜索词类型 → 改框架 / 改模板 / 加插入卡
+        <span>08</span>复盘与分享 · 视频诉求强弱 × 搜索词类型 → 改框架 / 改模板 / 加插入卡
       </div>
 
       <div class="img-block">
-        <img src="images/21.png" alt="方案展示 — 强/中/弱视频诉求下的完整方案与数据结果" loading="lazy" />
+        <img src="images/21.png" alt="复盘与分享 — 强/中/弱视频诉求下的完整方案与数据结果" loading="lazy" />
       </div>
       <div class="img-caption">
-        <span>09</span>方案展示 · 强 / 中 / 弱视频诉求场景完整方案 · 数据结果
+        <span>09</span>复盘与分享 · 强 / 中 / 弱视频诉求场景完整方案 · 数据结果
       </div>
     </div>
 
@@ -529,6 +602,64 @@
       });
     }, { threshold: 0.08 });
     sections.forEach(el => revealObs.observe(el));
+
+    // TOC: scroll until sticky
+    (function() {
+      const toc = document.querySelector('.toc-sidebar');
+      const firstSec = document.getElementById('sec-overview');
+      if (!toc || !firstSec) return;
+      const TOC_FIXED_TOP = 80;
+      let initialOffset = 0;
+      const calcInitial = () => {
+        const label = firstSec.querySelector('.section-label');
+        const anchor = label || firstSec;
+        initialOffset = anchor.getBoundingClientRect().top + window.scrollY - TOC_FIXED_TOP;
+      };
+      calcInitial();
+      window.addEventListener('resize', calcInitial);
+      let rafId = null;
+      const onScroll = () => {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+          rafId = null;
+          const shift = Math.max(0, initialOffset - window.scrollY);
+          toc.style.transform = `translateY(${shift}px)`;
+        });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // TOC highlight
+    const tocItems = document.querySelectorAll('.toc-item[data-toc]');
+    const tocAnchors = Array.from(tocItems).map(item => {
+      const id = item.getAttribute('data-toc');
+      return { item, el: document.getElementById(id) };
+    }).filter(x => x.el);
+    function updateToc() {
+      const scrollY = window.scrollY + 120;
+      let activeId = null;
+      for (let i = tocAnchors.length - 1; i >= 0; i--) {
+        if (tocAnchors[i].el.getBoundingClientRect().top + window.scrollY <= scrollY) {
+          activeId = tocAnchors[i].item.getAttribute('data-toc');
+          break;
+        }
+      }
+      tocItems.forEach(item => item.classList.remove('active', 'has-active'));
+      if (activeId) {
+        const activeItem = document.querySelector(`.toc-item[data-toc="${activeId}"]`);
+        if (activeItem) {
+          activeItem.classList.add('active');
+          let parent = activeItem.parentElement;
+          while (parent) {
+            if (parent.classList.contains('toc-item')) parent.classList.add('has-active');
+            parent = parent.parentElement;
+          }
+        }
+      }
+    }
+    window.addEventListener('scroll', updateToc, { passive: true });
+    updateToc();
 
     // Lightbox
     const lightbox = document.getElementById('lightbox');

@@ -336,6 +336,62 @@ if (location.href.indexOf('project-search2.html') > -1) {
     }
     .lightbox-close:hover { color: rgba(255,255,255,0.8); }
 
+    /* ===== TOC SIDEBAR ===== */
+    .toc-sidebar {
+      position: fixed;
+      left: calc(50% - var(--content-width)/2 - 64px - 80px);
+      top: 80px;
+      width: 160px;
+      z-index: 50;
+    }
+    @media (max-width: 1280px) {
+      .toc-sidebar { display: none; }
+    }
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc-item a {
+      display: block;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      padding: 4px 0;
+      line-height: 1.5;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .toc-item a:hover {
+      color: rgba(255,255,255,0.6);
+    }
+    .toc-item.active > a {
+      color: var(--accent);
+    }
+    .toc-item.is-parent > a {
+      font-size: 13px;
+    }
+    .toc-item.is-parent.active > a {
+      color: var(--accent);
+    }
+    .toc-item.has-active > a {
+      color: rgba(255,255,255,0.55);
+    }
+    .toc-sub {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 4px 10px;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      padding-left: 10px;
+    }
+    .toc-sub .toc-item a {
+      font-size: 11px;
+      color: rgba(255,255,255,0.22);
+      padding: 3px 0;
+    }
+    .toc-sub .toc-item.active > a {
+      color: var(--accent);
+    }
+
     /* NEXT PROJECT */
     .next-project {
       border-top: 1px solid var(--border);
@@ -435,11 +491,23 @@ if (location.href.indexOf('project-search2.html') > -1) {
 
   <div class="divider"></div>
 
+  <!-- TOC SIDEBAR -->
+  <aside class="toc-sidebar">
+    <ul class="toc-list">
+      <li class="toc-item" data-toc="sec-overview"><a href="#sec-overview">00 · 项目成果</a></li>
+      <li class="toc-item" data-toc="sec-background"><a href="#sec-background">01 · 项目背景</a></li>
+      <li class="toc-item" data-toc="sec-problem"><a href="#sec-problem">02 · 问题全景</a></li>
+      <li class="toc-item" data-toc="sec-analysis"><a href="#sec-analysis">03 · 问题挖掘</a></li>
+      <li class="toc-item" data-toc="sec-research1"><a href="#sec-research1">04 · 调研过程</a></li>
+      <li class="toc-item" data-toc="sec-solution1"><a href="#sec-solution1">05 · 方案</a></li>
+    </ul>
+  </aside>
+
   <!-- CONTENT -->
   <div class="project-content">
 
     <!-- 数据结果前置 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-overview">
       <div class="section-label">Overview</div>
       <div class="section-heading">项目成果</div>
       <div class="result-row">
@@ -465,7 +533,7 @@ if (location.href.indexOf('project-search2.html') > -1) {
     </div>
 
     <!-- 项目背景 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-background">
       <div class="section-label">01 · Background</div>
       <div class="section-heading">项目背景</div>
       <div class="highlight-box">
@@ -478,7 +546,7 @@ if (location.href.indexOf('project-search2.html') > -1) {
     </div>
 
     <!-- 问题全景 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-problem">
       <div class="section-label">02 · Problem Space</div>
       <div class="section-heading">美团主搜问题全景</div>
       <div class="prose">
@@ -490,7 +558,7 @@ if (location.href.indexOf('project-search2.html') > -1) {
     </div>
 
     <!-- 问题挖掘 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-analysis">
       <div class="section-label">03 · Problem Analysis</div>
       <div class="section-heading">问题挖掘 — 商品方向</div>
       <div class="prose">
@@ -502,7 +570,7 @@ if (location.href.indexOf('project-search2.html') > -1) {
     </div>
 
     <!-- 调研过程 1 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-research1">
       <div class="section-label">04 · Research</div>
       <div class="section-heading">调研过程 — 本品分析与业务理解</div>
       <div class="prose">
@@ -514,7 +582,7 @@ if (location.href.indexOf('project-search2.html') > -1) {
     </div>
 
     <!-- 调研过程 2 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-research2">
       <div class="section-label">04 · Research</div>
       <div class="section-heading">调研过程 — 竞品分析与业务数据解读</div>
       <div class="prose">
@@ -526,7 +594,7 @@ if (location.href.indexOf('project-search2.html') > -1) {
     </div>
 
     <!-- 方案 1 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-solution1">
       <div class="section-label">05 · Solution</div>
       <div class="section-heading">方案 — 建立信息准入与展示原则</div>
       <div class="highlight-box">
@@ -539,7 +607,7 @@ if (location.href.indexOf('project-search2.html') > -1) {
     </div>
 
     <!-- 方案 2 -->
-    <div class="content-section" data-reveal>
+    <div class="content-section" data-reveal id="sec-solution2">
       <div class="section-label">05 · Solution</div>
       <div class="section-heading">方案 — 6 类信息的系统性优化</div>
       <div class="prose">
@@ -579,6 +647,64 @@ if (location.href.indexOf('project-search2.html') > -1) {
       });
     }, { threshold: 0.06 });
     sections.forEach(el => revealObs.observe(el));
+
+    // TOC: scroll until sticky
+    (function() {
+      const toc = document.querySelector('.toc-sidebar');
+      const firstSec = document.getElementById('sec-overview');
+      if (!toc || !firstSec) return;
+      const TOC_FIXED_TOP = 80;
+      let initialOffset = 0;
+      const calcInitial = () => {
+        const label = firstSec.querySelector('.section-label');
+        const anchor = label || firstSec;
+        initialOffset = anchor.getBoundingClientRect().top + window.scrollY - TOC_FIXED_TOP;
+      };
+      calcInitial();
+      window.addEventListener('resize', calcInitial);
+      let rafId = null;
+      const onScroll = () => {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+          rafId = null;
+          const shift = Math.max(0, initialOffset - window.scrollY);
+          toc.style.transform = `translateY(${shift}px)`;
+        });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // TOC highlight
+    const tocItems = document.querySelectorAll('.toc-item[data-toc]');
+    const tocAnchors = Array.from(tocItems).map(item => {
+      const id = item.getAttribute('data-toc');
+      return { item, el: document.getElementById(id) };
+    }).filter(x => x.el);
+    function updateToc() {
+      const scrollY = window.scrollY + 120;
+      let activeId = null;
+      for (let i = tocAnchors.length - 1; i >= 0; i--) {
+        if (tocAnchors[i].el.getBoundingClientRect().top + window.scrollY <= scrollY) {
+          activeId = tocAnchors[i].item.getAttribute('data-toc');
+          break;
+        }
+      }
+      tocItems.forEach(item => item.classList.remove('active', 'has-active'));
+      if (activeId) {
+        const activeItem = document.querySelector(`.toc-item[data-toc="${activeId}"]`);
+        if (activeItem) {
+          activeItem.classList.add('active');
+          let parent = activeItem.parentElement;
+          while (parent) {
+            if (parent.classList.contains('toc-item')) parent.classList.add('has-active');
+            parent = parent.parentElement;
+          }
+        }
+      }
+    }
+    window.addEventListener('scroll', updateToc, { passive: true });
+    updateToc();
 
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
