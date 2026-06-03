@@ -179,12 +179,12 @@
     html { scroll-behavior: smooth; }
     body {
       background:
-        radial-gradient(ellipse 70% 55% at 8%  12%,  rgba(235,190,120,0.18) 0%, transparent 65%),
-        radial-gradient(ellipse 55% 60% at 92% 8%,   rgba(220,165, 80,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 80% 50% at 55% 90%,  rgba(220,155, 70,0.22) 0%, transparent 65%),
-        radial-gradient(ellipse 45% 45% at 78% 52%,  rgba(235,185, 90,0.10) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 40% at 20% 70%,  rgba(230,175, 85,0.10) 0%, transparent 60%),
-        #f4f1ec;
+        radial-gradient(ellipse 70% 55% at 8%  12%,  rgba(245,218,175,0.28) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 60% at 92% 8%,   rgba(240,212,168,0.20) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 50% at 55% 90%,  rgba(238,208,162,0.30) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 45% at 78% 52%,  rgba(245,215,172,0.16) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 20% 70%,  rgba(242,212,170,0.18) 0%, transparent 60%),
+        #f5f2ee;
       color: var(--ink);
       font-family: 'Inter','PingFang SC',-apple-system,sans-serif;
       line-height: 1.6;
@@ -886,10 +886,42 @@ overflow: hidden;
 
     <div class="projects-grid">
 
-      <!-- Card 1 – wide -->
-      <a class="project-card wide reveal" href="project-search.html" data-tags="design">
+      <!-- Card 1 – wide (AI封面) -->
+      <a class="project-card wide reveal" href="project-ai-cover.html" data-tags="ai design">
         <div class="card-img">
           <div class="card-img-inner" style="background:linear-gradient(135deg,#eef0f5 0%,#dde1ec 50%,#c8cedd 100%);">
+            <div class="mock-ui">
+              <div style="display:flex;flex-direction:column;gap:7px;width:168px;">
+                <div style="background:rgba(255,255,255,.75);border-radius:10px;padding:9px 12px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(100,110,160,.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;">✦</div>
+                  <div style="flex:1;">
+                    <div style="height:4px;background:rgba(60,70,120,.15);border-radius:3px;width:75%;"></div>
+                    <div style="height:3px;background:rgba(60,70,120,.08);border-radius:2px;width:48%;margin-top:5px;"></div>
+                  </div>
+                </div>
+                <div style="background:rgba(255,255,255,.75);border-radius:10px;padding:9px 12px;display:flex;gap:5px;">
+                  <div style="width:44px;height:38px;border-radius:6px;background:rgba(100,110,160,.15);flex-shrink:0;"></div>
+                  <div style="width:44px;height:38px;border-radius:6px;background:rgba(100,110,160,.1);flex-shrink:0;"></div>
+                  <div style="width:44px;height:38px;border-radius:6px;background:rgba(100,110,160,.06);flex-shrink:0;"></div>
+                </div>
+                <div style="background:rgba(100,110,160,.12);border:1.5px solid rgba(100,110,160,.25);border-radius:8px;padding:7px 12px;text-align:center;font-size:9px;color:rgba(60,70,120,.75);letter-spacing:.06em;">AI 封面生成</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag ai">AI 应用</span><span class="tag ux">B端工具</span><span class="tag" style="border-color:rgba(230,168,23,.35);color:#a07800;">prompt设计</span></div>
+          <div class="card-title">直播开播工具 · AI 生图</div>
+          <div class="card-desc">将 AIGC 能力融入工具类 B 端产品，为外行用户设计零门槛的 AI 生图交互体验。</div>
+          <div class="card-footer"><span class="card-meta">2025 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
+        </div>
+      </a>
+
+      <!-- Card 2 (搜索视频化) -->
+      <a class="project-card reveal reveal-delay-1" href="project-search.html" data-tags="design">
+        <div class="card-img">
+          <div class="card-img-inner" style="background:linear-gradient(135deg,#f5ede4 0%,#ecdcc8 50%,#dfc9a8 100%);">
             <div class="mock-ui">
               <div class="mock-browser">
                 <div class="mock-browser-bar">
@@ -898,7 +930,7 @@ overflow: hidden;
                   <div class="mock-dot" style="background:#28ca41;"></div>
                 </div>
                 <div class="mock-content">
-                  <div class="mock-block" style="background:rgba(100,110,160,.35);width:38%;"></div>
+                  <div class="mock-block" style="background:rgba(146,92,49,.35);width:38%;"></div>
                   <div class="mock-block"></div>
                   <div class="mock-block" style="width:62%;"></div>
                   <div class="mock-block" style="width:34%;"></div>
@@ -911,42 +943,10 @@ overflow: hidden;
           <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
         </div>
         <div class="card-body">
-<div class="card-tags"><span class="tag ux">体验设计</span><span class="tag ai">搜索体验</span><span class="tag" style="border-color:rgba(230,168,23,.35);color:#a07800;">框架设计</span></div>
-<div class="card-title">美团搜索交易视频化建设</div>
+          <div class="card-tags"><span class="tag ux">体验设计</span><span class="tag ai">搜索体验</span><span class="tag" style="border-color:rgba(230,168,23,.35);color:#a07800;">框架设计</span></div>
+          <div class="card-title">美团搜索交易视频化建设</div>
           <div class="card-desc">重构信息架构与视频内容呈现策略，基于用户需求分析与竞品研究。</div>
           <div class="card-footer"><span class="card-meta">2024 · Meituan搜索</span><div class="card-arrow">&nearr;</div></div>
-        </div>
-      </a>
-
-      <!-- Card 2 (AI封面) -->
-      <a class="project-card reveal reveal-delay-1" href="project-ai-cover.html" data-tags="ai design">
-        <div class="card-img">
-          <div class="card-img-inner" style="background:linear-gradient(135deg,#f5ede4 0%,#ecdcc8 50%,#dfc9a8 100%);">
-            <div class="mock-ui">
-              <div style="display:flex;flex-direction:column;gap:7px;width:168px;">
-                <div style="background:rgba(255,255,255,.75);border-radius:10px;padding:9px 12px;display:flex;align-items:center;gap:8px;">
-                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(146,92,49,.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;">✦</div>
-                  <div style="flex:1;">
-                    <div style="height:4px;background:rgba(100,60,20,.15);border-radius:3px;width:75%;"></div>
-                    <div style="height:3px;background:rgba(100,60,20,.08);border-radius:2px;width:48%;margin-top:5px;"></div>
-                  </div>
-                </div>
-                <div style="background:rgba(255,255,255,.75);border-radius:10px;padding:9px 12px;display:flex;gap:5px;">
-                  <div style="width:44px;height:38px;border-radius:6px;background:rgba(146,92,49,.15);flex-shrink:0;"></div>
-                  <div style="width:44px;height:38px;border-radius:6px;background:rgba(146,92,49,.1);flex-shrink:0;"></div>
-                  <div style="width:44px;height:38px;border-radius:6px;background:rgba(146,92,49,.06);flex-shrink:0;"></div>
-                </div>
-                <div style="background:rgba(146,92,49,.12);border:1.5px solid rgba(146,92,49,.25);border-radius:8px;padding:7px 12px;text-align:center;font-size:9px;color:rgba(120,70,20,.75);letter-spacing:.06em;">AI 封面生成</div>
-              </div>
-            </div>
-          </div>
-          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
-        </div>
-        <div class="card-body">
-          <div class="card-tags"><span class="tag ai">AI 应用</span><span class="tag ux">B端工具</span></div>
-          <div class="card-title">开播工具 AI 封面生成</div>
-          <div class="card-desc">将 AIGC 能力融入工具类 B 端产品，为外行用户设计零门槛的 AI 生图交互体验。</div>
-          <div class="card-footer"><span class="card-meta">2025 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
         </div>
       </a>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>开播工具AI封面制作 — Portfolio</title>
+  <title>直播开播工具 · AI 生图 — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -305,7 +305,7 @@ a { color: inherit; text-decoration: none; }
       background: #e8572a;
     }
     .section-heading {
-      font-size: 22px;
+      font-size: 25px;
       font-weight: 600;
       letter-spacing: -0.01em;
       line-height: 1.3;
@@ -313,7 +313,7 @@ a { color: inherit; text-decoration: none; }
       color: var(--text-primary);
     }
 
-    /* L2: 02下的子分类标题（前端交互设计 / 模型训练） */
+    /* L2: 02下的子分类标题（前端交互设计 / 后端Prompt设计） */
     .section-label-l2 {
       display: inline-flex;
       align-items: center;
@@ -344,13 +344,13 @@ a { color: inherit; text-decoration: none; }
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 10px;
-      letter-spacing: 0.12em;
+      font-size: 12.5px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--text-muted);
       margin-top: 36px;
       margin-bottom: 10px;
-      opacity: 0.75;
+      opacity: 0.82;
     }
     .section-label-l3::before {
       content: '';
@@ -623,7 +623,7 @@ a { color: inherit; text-decoration: none; }
       line-height: 1.8;
     }
     .decision-card .decision-q {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
       margin-bottom: 8px;
       font-style: italic;
@@ -1083,7 +1083,7 @@ a { color: inherit; text-decoration: none; }
   <!-- HERO -->
   <div class="project-hero">
     <div class="project-eyebrow">AI Application · Interaction Design · B-end Tool</div>
-    <h1 class="project-title">开播工具AI封面制作</h1>
+    <h1 class="project-title">直播开播工具 · AI 生图</h1>
     <div class="project-meta-row">
       <div class="meta-item">
         <div class="meta-label">Year</div>
@@ -1131,12 +1131,12 @@ a { color: inherit; text-decoration: none; }
             </ul>
           </li>
           <li class="toc-item is-parent" data-toc="sec-model-training">
-            <a href="#sec-model-training">模型训练</a>
-            <ul class="toc-sub">
-              <li class="toc-item" data-toc="sec-layers"><a href="#sec-layers">图层结构</a></li>
-              <li class="toc-item" data-toc="sec-workflow"><a href="#sec-workflow">工作流</a></li>
-              <li class="toc-item" data-toc="sec-prompt-design"><a href="#sec-prompt-design">Prompt 设计</a></li>
-            </ul>
+<a href="#sec-model-training">后端 Prompt 设计</a>
+<ul class="toc-sub">
+<li class="toc-item" data-toc="sec-layers"><a href="#sec-layers">步骤 1 · 图层结构拆解</a></li>
+<li class="toc-item" data-toc="sec-workflow"><a href="#sec-workflow">步骤 2 · 工作流设计</a></li>
+<li class="toc-item" data-toc="sec-prompt-design"><a href="#sec-prompt-design">步骤 3 · Prompt 设计</a></li>
+</ul>
           </li>
         </ul>
       </li>
@@ -1153,7 +1153,7 @@ a { color: inherit; text-decoration: none; }
     <!-- ① 项目背景 -->
     <div class="content-section" data-reveal id="sec-background">
       <div class="section-label">01 · Background</div>
-      <div class="section-heading">项目背景</div>
+      <div class="section-heading">01 · 项目背景</div>
 
       <div class="highlight-box">
         <div class="label">一句话描述</div>
@@ -1257,9 +1257,9 @@ a { color: inherit; text-decoration: none; }
     <!-- ② 我的挑战 -->
     <div class="content-section" data-reveal id="sec-challenge">
       <div class="section-label">02 · Design Challenge</div>
-      <div class="section-heading">核心设计挑战</div>
+      <div class="section-heading">02 · 核心设计挑战</div>
 
-      <div class="section-heading-l2" id="sec-frontend">前端交互设计</div>
+      <div class="section-heading-l2" id="sec-frontend" style="margin-top: 40px;">a. 前端交互设计</div>
 
       <div class="prose">
         这个项目的根本矛盾在于：<strong>目标用户完全没有AI工具使用经验</strong>，但我们又需要借助AI能力帮他们生成专业内容。普通AI产品的设计范式（自由输入框、prompt引导）在这里行不通。
@@ -1286,7 +1286,7 @@ a { color: inherit; text-decoration: none; }
     </div>
 
     <!-- ③ 竞品调研 -->
-    <div class="content-section" data-reveal id="sec-research">
+    <div class="content-section" data-reveal id="sec-research" style="padding-top: 40px;">
       <div class="section-label-l3">竞品调研</div>
       <div class="section-heading-l3">AI 输入交互模式</div>
 
@@ -1345,7 +1345,7 @@ a { color: inherit; text-decoration: none; }
     </div>
 
         <!-- ④ 设计方案 -->
-    <div class="content-section" data-reveal id="sec-solution">
+    <div class="content-section" data-reveal id="sec-solution" style="padding-top: 40px;">
       <div class="section-label-l3">设计方案</div>
       <div class="section-heading-l3">三个阶段的设计拆解</div>
 
@@ -1354,33 +1354,30 @@ a { color: inherit; text-decoration: none; }
       </div>
 
       <div class="flow-row">
-        <div class="flow-stage">
-          <div class="flow-stage-num">Stage 01 · 生成前</div>
-          <h4>触发与输入设计</h4>
-          <ul>
-            <li>封面入口新增"AI生成"，最小侵入主流程</li>
-            <li><strong>零输入直接生成</strong>：自动读取爆品、环境图、业务线、节庆时间</li>
-            <li>高阶用户可展开编辑 prompt 字段</li>
-          </ul>
-        </div>
-        <div class="flow-stage">
-          <div class="flow-stage-num">Stage 02 · 生成中</div>
-          <h4>等待体验设计</h4>
-          <ul>
-            <li>框选动效 + 倒计时，降低等待焦虑</li>
-            <li>超时自动转后台生成，不阻断其他操作</li>
-            <li>生成中点击"发布"弹出二次确认，主流程可走通</li>
-          </ul>
-        </div>
-        <div class="flow-stage">
-          <div class="flow-stage-num">Stage 03 · 生成后</div>
-          <h4>编辑与采纳设计</h4>
-          <ul>
-            <li><strong>局部重绘</strong>：涂抹区域 + 改图指令，精准修改</li>
-            <li><strong>重新编辑</strong>：修改 prompt 后整图重生成</li>
-            <li>历史记录三端互通，可回溯复用</li>
-          </ul>
-        </div>
+<div class="flow-stage">
+<div class="flow-stage-num">Stage 01 · 生成前</div>
+<h4>触发与输入设计</h4>
+<ul>
+<li>封面入口新增"AI生成"，对主流程无影响</li>
+<li><strong>零输入直接生成</strong>：自动读取爆品、业务线、节庆时间</li>
+</ul>
+</div>
+<div class="flow-stage">
+<div class="flow-stage-num">Stage 02 · 生成中</div>
+<h4>等待体验设计</h4>
+<ul>
+<li>渐变动画 + 倒计时，降低等待焦虑</li>
+<li>超时自动转后台，不阻断其他操作</li>
+</ul>
+</div>
+<div class="flow-stage">
+<div class="flow-stage-num">Stage 03 · 生成后</div>
+<h4>编辑与采纳设计</h4>
+<ul>
+<li><strong>局部重绘</strong>：涂抹区域 + 改图指令精准修改</li>
+<li><strong>重新编辑</strong>：修改 prompt 后整图重新生成</li>
+</ul>
+</div>
       </div>
 
       <div class="img-block" style="margin-bottom: 16px;">
@@ -1394,31 +1391,31 @@ a { color: inherit; text-decoration: none; }
     </div>
 
         <!-- ⑤ 设计决策亮点 -->
-    <div class="content-section" data-reveal id="sec-decisions">
+    <div class="content-section" data-reveal id="sec-decisions" style="padding-top: 40px;">
       <div class="section-label-l3">关键设计决策</div>
-      <div class="section-heading-l3">三个关键设计决策</div>
+      <div class="section-heading-l3">关键交互设计决策</div>
 
       <div class="decision-grid">
         <div class="decision-card">
           <div class="decision-num">Decision 01</div>
           <div class="decision-q">问题：用户不会写 prompt，怎么办？</div>
           <div class="decision-arrow">↓</div>
-          <h4>"零输入"方案的诞生</h4>
-          <p>调研确认目标用户完全不具备 prompt 能力后，放弃传统 AI 工具的输入框设计范式。后台自动解析商家爆品信息、业务线标签、节庆日历等数据拼装 prompt，用户感知不到 AI 输入的存在——点击即生成。</p>
+          <h4>"零输入"方案的产生</h4>
+          <p>放弃传统 AI 输入框范式，后台自动解析爆品信息、业务线标签、节庆日历等数据拼装 prompt，用户感知不到 AI 输入——点击即生成。</p>
         </div>
         <div class="decision-card">
           <div class="decision-num">Decision 02</div>
           <div class="decision-q">问题：20s 等待期怎么不阻塞开播？</div>
           <div class="decision-arrow">↓</div>
           <h4>等待期不断路设计</h4>
-          <p>梳理"有无旧封面 × 生成状态"四种边界组合，设计差异化弹窗策略：有旧封面时允许用旧封面先发布，无旧封面时引导再等等或停止生成。始终保障发布主流程在任何状态下都可走通。</p>
+          <p>梳理"有无旧封面 × 生成状态"四种边界，差异化弹窗策略：有旧封面可先发布，无旧封面引导等待或停止，保障发布主流程始终可走通。</p>
         </div>
         <div class="decision-card">
           <div class="decision-num">Decision 03</div>
           <div class="decision-q">问题：结果不满意，重新生成成本太高？</div>
           <div class="decision-arrow">↓</div>
           <h4>局部重绘降低改图成本</h4>
-          <p>不做"全量重新生成"作为唯一出口（成本高、用户挫败感强），而是提供"局部重绘 + prompt 精细编辑"的组合：涂抹特定区域后输入改图指令，只改需要改的部分，保留满意内容，降低修改门槛，提升最终采纳率。</p>
+          <p>提供"局部重绘 + prompt 精细编辑"组合，替代高成本的全量重生成：涂抹区域后输入改图指令，只改需要改的部分，降低修改门槛，提升采纳率。</p>
         </div>
       </div>
 
@@ -1426,13 +1423,13 @@ a { color: inherit; text-decoration: none; }
 
         <!-- ⑥ 模型训练 -->
     <div class="content-section" data-reveal id="sec-model-training">
-      <div class="section-heading-l2" id="sec-model-training-heading">模型训练</div>
+      <div class="section-heading-l2" id="sec-model-training-heading">b. 后端 Prompt 设计</div>
 
       <div class="prose">
         要让 AI 生成符合直播间场景的封面，首先需要让模型"理解"一张好封面的构成。我们对直播封面图进行了系统性的图层拆解，作为训练数据标注和 prompt 构建的基础框架。
       </div>
 
-      <div class="section-label-l3" id="sec-layers">图层结构</div>
+      <div class="section-label-l3" id="sec-layers">步骤 1 · 图层结构拆解</div>
       <div class="section-heading-l3">拆解封面结构，确定各层的数据来源</div>
 
       <div class="prose">
@@ -1477,7 +1474,8 @@ a { color: inherit; text-decoration: none; }
         </div>
       </div>
 
-      <div class="section-heading-l3" style="margin-top: 32px;" id="sec-workflow">将分层判断转化为工作流设计</div>
+      <div class="section-label-l3" style="margin-top: 32px;" id="sec-workflow">步骤 2 · 工作流设计</div>
+<div class="section-heading-l3">将分层判断转化为工作流设计</div>
       <div class="prose">
         确定各层数据来源后，我们将其转化为工作流的输入结构——商家环境图和节庆场景信息进入背景层生成，商品标题进入文案层生成，货架爆品实物图直接调取到商品层，最终合并输出完整封面。
       </div>
@@ -1486,7 +1484,8 @@ a { color: inherit; text-decoration: none; }
       </div>
 
       <!-- Prompt 设计 -->
-      <div class="section-heading-l3" id="sec-prompt-design">Prompt 分层设计</div>
+      <div class="section-label-l3" id="sec-prompt-design">步骤 3 · Prompt 设计</div>
+<div class="section-heading-l3">Prompt 分层设计</div>
 
       <div class="prose">
         用户看到的 prompt 并不是发给模型的完整指令，真实 prompt 包含画面比例、装饰元素、季节氛围、城市元素等更复杂的结构化指令，这些内容由系统自动注入。这样设计的目的是降低用户理解成本，同时保证模型收到足够完整的信息。
@@ -1552,14 +1551,14 @@ a { color: inherit; text-decoration: none; }
     <!-- ③ 数据验证 -->
     <div class="content-section" data-reveal id="sec-outcome">
       <div class="section-label">03 · Outcome</div>
-      <div class="section-heading">效果验证</div>
+      <div class="section-heading">03 · 效果验证</div>
 
       <div class="highlight-box">
         <div class="label">灰度测试结论</div>
         <p>上线 12 天，50% 灰度用户中，16 个业务单元共计 <strong>1,121 个主播</strong>使用过 AI 封面能力，整体数据验证了设计方向的有效性。</p>
       </div>
 
-      <div class="stat-row-4">
+      <div class="stat-row">
         <div class="stat-card blue">
           <div class="stat-num">9.69<span>%</span></div>
           <div class="stat-label">活跃主播覆盖率</div>
@@ -1569,11 +1568,6 @@ a { color: inherit; text-decoration: none; }
           <div class="stat-num">44.25<span>%</span></div>
           <div class="stat-label">主播采纳率</div>
           <div class="stat-desc">整体平均采纳率</div>
-        </div>
-        <div class="stat-card blue">
-          <div class="stat-num">33<span>s</span></div>
-          <div class="stat-label">平均生产耗时</div>
-          <div class="stat-desc">从触发到生成完成</div>
         </div>
         <div class="stat-card blue">
           <div class="stat-num">1,121<span>个</span></div>
@@ -1588,7 +1582,7 @@ a { color: inherit; text-decoration: none; }
     <!-- ④ 复盘与沉淀 -->
     <div class="content-section" data-reveal id="sec-reflection">
       <div class="section-label">04 · Reflection</div>
-      <div class="section-heading">设计经验沉淀</div>
+      <div class="section-heading">04 · 设计经验沉淀</div>
 
       <div class="prose">
         此项目将 AIGC 能力融入工具类 B 端产品，项目完成后沉淀了一套在工具类产品中接入 AI 能力的交互经验。
