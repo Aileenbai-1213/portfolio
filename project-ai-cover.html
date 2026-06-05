@@ -1170,7 +1170,7 @@ a { color: inherit; text-decoration: none; }
       </div>
 
       <div class="img-block" style="margin-bottom: 40px;">
-        <img src="images/ai-cover-result.webp" alt="项目成果：Before &amp; After">
+        <img src="images/ai-cover-result.webp" data-hd="images/ai-cover-result.png" alt="项目成果：Before &amp; After">
       </div>
 
       <div class="section-heading" style="font-size: 18px; margin-top: 0; margin-bottom: 16px;" id="sec-painpoint">核心痛点</div>
@@ -1381,10 +1381,10 @@ a { color: inherit; text-decoration: none; }
       </div>
 
       <div class="img-block" style="margin-bottom: 16px;">
-        <img src="images/生成中.webp" alt="生成中设计方案">
+        <img src="images/生成中.webp" data-hd="images/生成中.png" alt="生成中设计方案">
       </div>
       <div class="img-block" style="margin-bottom: 32px;">
-        <img src="images/生成后.webp" alt="生成后设计方案">
+        <img src="images/生成后.webp" data-hd="images/生成后.png" alt="生成后设计方案">
       </div>
 
 
@@ -1480,7 +1480,7 @@ a { color: inherit; text-decoration: none; }
         确定各层数据来源后，我们将其转化为工作流的输入结构——商家环境图和节庆场景信息进入背景层生成，商品标题进入文案层生成，货架爆品实物图直接调取到商品层，最终合并输出完整封面。
       </div>
       <div class="img-block" style="margin-bottom: 40px;">
-        <img src="images/ai-cover-workflow.webp" alt="模型训练理想工作流" style="width: 80%; border: 1px solid rgba(180,160,140,0.18); border-radius: var(--radius-lg);">
+        <img src="images/ai-cover-workflow.webp" data-hd="images/ai-cover-workflow.png" alt="模型训练理想工作流" style="width: 80%; border: 1px solid rgba(180,160,140,0.18); border-radius: var(--radius-lg);">
       </div>
 
       <!-- Prompt 设计 -->
@@ -1719,7 +1719,8 @@ a { color: inherit; text-decoration: none; }
     );
     lightboxTriggers.forEach(img => {
       img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
+        const hdSrc = img.getAttribute('data-hd');
+        lightboxImg.src = hdSrc || img.src;
         lightboxImg.alt = img.alt;
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
