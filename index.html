@@ -1458,6 +1458,89 @@ overflow: hidden;
         ipEl.querySelector('.ip-circle').style.transform = `translate(${dx*0.4}px,${dy*0.4}px)`;
       });
     }
+
+    // ===== PROJECT IMAGE PRELOADER =====
+    // 用户进入首页后，利用主线程空闲时间静默预加载三个重点项目的图片
+    // 覆盖：直播开播工具(project-ai-cover)、搜索交易化视频建设(project-search2)、直播用户购买动机洞察(project-livestream)
+    (function initProjectPreloader() {
+      // 按优先级分批：P0 = 各项目首屏第一张图，P1 = 其余图片
+      const preloadQueue = [
+        // ── P0：各项目首屏关键图（最先加载）──
+        'images/ai-cover-result.webp',
+        'images/search2/s2-1.webp',
+        'images/livestream/ls-1-1.webp',
+
+        // ── P1：直播开播工具 剩余图片 ──
+        'images/生成中.webp',
+        'images/生成后.webp',
+        'images/ai-cover-layers.webp',
+        'images/ai-cover-workflow.webp',
+        'images/ai-cover-example1.webp',
+        'images/ai-cover-example2.webp',
+        'assets/competitor/keling-expand.webp',
+        'assets/competitor/douyin-form.webp',
+        'assets/competitor/scene-preset.webp',
+        'assets/competitor/keling-reference.webp',
+        'assets/competitor/jimeng-multimodal.webp',
+        'assets/competitor/recraft-visual.webp',
+
+        // ── P1：搜索交易化视频建设 剩余图片 ──
+        'images/search2/s2-2.webp',
+        'images/search2/s2-3.webp',
+        'images/search2/s2-4.webp',
+        'images/search2/s2-5.webp',
+        'images/search2/s2-6.webp',
+        'images/search2/s2-7.webp',
+        'images/search2/s2-8.webp',
+
+        // ── P1：直播用户购买动机洞察 剩余图片 ──
+        'images/livestream/ls-1-2.webp',
+        'images/livestream/ls-1-3.webp',
+        'images/livestream/ls-2.webp',
+        'images/livestream/ls-3.webp',
+        'images/livestream/ls-4.webp',
+        'images/livestream/ls-5.webp',
+        'images/livestream/ls-6.webp',
+        'images/livestream/ls-7.webp',
+        'images/livestream/ls-8.webp',
+        'images/livestream/ls-9.webp',
+        'images/livestream/ls-feedback.webp',
+      ];
+
+      let idx = 0;
+
+      function preloadNext(deadline) {
+        // 每次 idle 回调中尽量多加载，但保留 10ms 给浏览器其他任务
+        while (idx < preloadQueue.length && (deadline.timeRemaining() > 10 || deadline.didTimeout)) {
+          const img = new Image();
+          img.src = preloadQueue[idx];
+          idx++;
+        }
+        if (idx < preloadQueue.length) {
+          scheduleNext();
+        }
+      }
+
+      function scheduleNext() {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(preloadNext, { timeout: 3000 });
+        } else {
+          // 降级：用 setTimeout 模拟低优先级加载
+          setTimeout(function() {
+            const img = new Image();
+            img.src = preloadQueue[idx++];
+            if (idx < preloadQueue.length) scheduleNext();
+          }, 200);
+        }
+      }
+
+      // 等页面完全加载后再启动预加载，避免与首页资源竞争
+      if (document.readyState === 'complete') {
+        scheduleNext();
+      } else {
+        window.addEventListener('load', scheduleNext);
+      }
+    })();
   </script>
 </body>
 </html>
