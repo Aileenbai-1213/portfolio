@@ -888,34 +888,27 @@ a { color: inherit; text-decoration: none; }
       border-radius: var(--radius-lg);
       overflow: hidden;
       border: 1px solid rgba(180,160,140,0.18);
+      counter-reset: user-item;
     }
     .user-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 14px 28px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      counter-increment: user-item;
     }
     .user-item + .user-item {
-      padding-top: 0;
+      margin-top: 12px;
     }
-    .user-num {
-      flex-shrink: 0;
-      width: 24px;
-      height: 24px;
-      background: rgba(184,92,0,0.1);
-      color: #d97706;
-      border-radius: 50%;
-      font-size: 13px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 1px;
-    }
+    .user-num { display: none; }
     .user-body {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.85;
+      line-height: 1.6;
+    }
+    .user-body strong::before {
+      content: counter(user-item) ". ";
+      color: var(--text-muted);
+      font-weight: 500;
     }
     .user-body strong {
       display: block;
@@ -1205,7 +1198,7 @@ a { color: inherit; text-decoration: none; }
       </div>
 
       <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;" id="sec-users">目标用户</div>
-      <div class="user-list" style="width: calc(66% + 100px);">
+      <div class="user-list" style="display: inline-flex; min-width: 0; padding: 24px 28px;">
         <div class="user-item">
           <div class="user-num">1</div>
           <div class="user-body">
@@ -1301,7 +1294,7 @@ a { color: inherit; text-decoration: none; }
             <th>输入方式</th>
             <th>典型产品</th>
             <th>核心逻辑</th>
-            <th>是否借鉴</th>
+            <th style="text-align:center;">是否借鉴</th>
           </tr>
         </thead>
         <tbody>
@@ -1309,33 +1302,33 @@ a { color: inherit; text-decoration: none; }
             <td><strong>智能扩写</strong></td>
             <td>可灵</td>
             <td>输入简短关键词，系统自动扩写为专业 prompt。示例："火锅" → "火锅店热闹场景，暖光氛围"<br><img src="assets/competitor/keling-expand.webp" alt="可灵智能扩写" style="max-height:110px;max-width:100%;border-radius:6px;margin-top:8px;display:block;"></td>
-            <td><span class="badge badge-yes">✓ 借鉴</span></td>
-          </tr>
-          <tr>
-            <td><strong>表单选择填空</strong></td>
+<td style="text-align:center;"><span class="badge badge-yes">✓ 借鉴</span></td>
+</tr>
+<tr>
+<td><strong>表单选择</strong></td>
             <td>豆包、剪映、抖音直播伴侣</td>
             <td>将复杂需求拆解为主题、风格、促销信息等简单选项，避免用户从零描述<br><img src="assets/competitor/douyin-form.webp" alt="抖音直播伴侣表单" style="max-height:110px;max-width:100%;border-radius:6px;margin-top:8px;display:block;"></td>
-            <td><span class="badge badge-yes">✓ 借鉴</span></td>
-          </tr>
-          <tr>
-            <td><strong>场景化模板预设</strong></td>
+<td style="text-align:center;"><span class="badge badge-yes">✓ 借鉴</span></td>
+</tr>
+<tr>
+<td><strong>场景化模板预设</strong></td>
             <td>淘宝商家工具</td>
             <td>按行业/身份（美妆主播 vs 家电商家）推荐常见模板，快速生成<br><img src="assets/competitor/scene-preset.webp" alt="场景化模板预设" style="max-height:110px;max-width:100%;border-radius:6px;margin-top:8px;display:block;"></td>
-            <td><span class="badge badge-yes">✓ 借鉴</span></td>
-          </tr>
-          <tr>
-            <td><strong>多模态输入</strong></td>
+<td style="text-align:center;"><span class="badge badge-yes">✓ 借鉴</span></td>
+</tr>
+<tr>
+<td><strong>多模态输入</strong></td>
             <td>可灵、美镜</td>
             <td>允许上传参考图/视频，AI 解析后生成类似设计<br><div style="display:flex;gap:6px;margin-top:8px;"><img src="assets/competitor/keling-reference.webp" alt="可灵参考生图" style="max-height:100px;max-width:48%;border-radius:6px;object-fit:cover;"><img src="assets/competitor/jimeng-multimodal.webp" alt="即梦多模态" style="max-height:100px;max-width:48%;border-radius:6px;object-fit:cover;"></div></td>
-            <td><span class="badge badge-low">低优，暂缓</span></td>
-          </tr>
-          <tr>
-            <td><strong>可视化编辑</strong></td>
+<td style="text-align:center;"><span class="badge badge-low">低优 暂缓</span></td>
+</tr>
+<tr>
+<td><strong>可视化编辑</strong></td>
             <td>Recraft</td>
             <td>生成后通过属性面板调整细节，操作自动转为 prompt 文本<br><img src="assets/competitor/recraft-visual.webp" alt="Recraft 可视化编辑" style="max-height:110px;max-width:100%;border-radius:6px;margin-top:8px;display:block;"></td>
-            <td><span class="badge badge-low">低优，暂缓</span></td>
-          </tr>
-        </tbody>
+<td style="text-align:center;"><span class="badge badge-low">低优 暂缓</span></td>
+</tr>
+</tbody>
       </table>
 
     </div>
@@ -1377,11 +1370,12 @@ a { color: inherit; text-decoration: none; }
       </div>
 
       <div class="img-block" style="margin-bottom: 16px;">
-        <img src="images/生成中.webp" data-hd="images/生成中.png" alt="生成中设计方案">
+        <img src="images/方案-网页1.webp" data-hd="images/方案-网页1.png" alt="网页端方案 — 生成过程">
       </div>
-      <div class="img-block" style="margin-bottom: 32px;">
-        <img src="images/生成后.webp" data-hd="images/生成后.png" alt="生成后设计方案">
+      <div class="img-block" style="margin-bottom: 40px;">
+        <img src="images/方案-网页2.webp" data-hd="images/方案-网页2.png" alt="网页端方案 — 生成后编辑">
       </div>
+
 
 
     </div>

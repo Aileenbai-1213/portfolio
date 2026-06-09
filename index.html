@@ -269,19 +269,69 @@
     }
     .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
 
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100svh;
-      padding: 0 64px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-    canvas#heroCanvas {
-      position: absolute; inset: 0; z-index: 0; opacity: .22;
-    }
+/* ===== HERO ===== */
+.hero {
+min-height: 100svh;
+padding: 0 64px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+position: relative;
+overflow: hidden;
+}
+
+/* ── Silk gradient background ── */
+.hero-silk {
+  position: absolute; inset: 0; z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-silk::before,
+.hero-silk::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  will-change: transform;
+}
+/* 主光晕：暖金，左侧漂移 */
+.hero-silk::before {
+  width: 80%; height: 80%;
+  top: -10%; left: -5%;
+  background: radial-gradient(
+    ellipse 70% 60% at 50% 50%,
+    rgba(230,168,23,0.18) 0%,
+    rgba(235,185,80,0.10) 45%,
+    transparent 75%
+  );
+  animation: silkDrift1 6s ease-in-out infinite alternate;
+}
+/* 副光晕：奶白偏冷，右侧反向漂移 */
+.hero-silk::after {
+  width: 75%; height: 75%;
+  top: 10%; right: -10%; left: auto;
+  background: radial-gradient(
+    ellipse 65% 65% at 50% 50%,
+    rgba(255,245,225,0.55) 0%,
+    rgba(248,235,210,0.28) 45%,
+    transparent 75%
+  );
+  animation: silkDrift2 8s ease-in-out infinite alternate;
+}
+@keyframes silkDrift1 {
+  0%   { transform: translate(0%,    0%)   scale(1);    }
+  50%  { transform: translate(22%,   8%)   scale(1.12); }
+  100% { transform: translate(10%,  -10%)  scale(0.92); }
+}
+@keyframes silkDrift2 {
+  0%   { transform: translate(0%,    0%)   scale(1);    }
+  50%  { transform: translate(-18%,  10%)  scale(1.10); }
+  100% { transform: translate(-8%,  -8%)   scale(0.93); }
+}
+
+canvas#heroCanvas {
+position: absolute; inset: 0; z-index: 0; opacity: .22;
+}
     .hero-left {
       position: relative; z-index: 1;
       padding-top: 100px; padding-bottom: 80px;
@@ -311,7 +361,7 @@
 
     .hero-title {
       font-family: 'Lora', serif;
-      font-size: clamp(40px, 4.6vw, 70px);
+      font-size: clamp(46px, 5.2vw, 78px);
       font-weight: 600; line-height: 1.08; letter-spacing: -.02em;
       margin-bottom: 0;
       word-break: keep-all;
@@ -825,6 +875,7 @@ overflow: hidden;
 
   <!-- HERO -->
   <section class="hero" id="hero">
+    <div class="hero-silk" aria-hidden="true"></div>
     <canvas id="heroCanvas"></canvas>
 
     <div class="hero-left">
@@ -1471,8 +1522,10 @@ overflow: hidden;
         'images/livestream/ls-1-1.webp',
 
         // ── P1：直播开播工具 剩余图片 ──
-        'images/生成中.webp',
-        'images/生成后.webp',
+        'images/方案-网页1.webp',
+        'images/方案-网页2.webp',
+        'images/方案-手机1.webp',
+        'images/方案-手机2.webp',
         'images/ai-cover-layers.webp',
         'images/ai-cover-workflow.webp',
         'images/ai-cover-example1.webp',
