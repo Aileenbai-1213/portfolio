@@ -515,7 +515,7 @@ a { color: inherit; text-decoration: none; }
       background: var(--surface);
       border: 1px solid rgba(180,160,140,0.18);
       border-radius: var(--radius-lg);
-      padding: 24px 28px;
+      padding: 24px 16px;
     }
     .problem-card .p-tag {
       display: inline-block;
@@ -1144,8 +1144,8 @@ a { color: inherit; text-decoration: none; }
     <div id="sec-result"></div>
 
     <!-- 封面图 -->
-    <div style="width:100%;border-radius:var(--radius);overflow:hidden;background:var(--surface);margin-top:20px;margin-bottom:8px;">
-      <img src="images/ai-cover-hero.webp" alt="开播工具 · AI 接管直播封面制作 — 项目封面" style="width:100%;height:auto;display:block;" loading="lazy" />
+    <div style="width:100%;border-radius:var(--radius);overflow:hidden;background:var(--surface);margin-top:20px;margin-bottom:8px;cursor:zoom-in;">
+      <img src="images/ai-cover-hero.webp" alt="开播工具 · AI 接管直播封面制作 — 项目封面" style="width:100%;height:auto;display:block;" loading="lazy" class="lightbox-trigger" />
     </div>
 
     <!-- ① 项目背景 -->
@@ -1153,19 +1153,28 @@ a { color: inherit; text-decoration: none; }
       <div class="section-label">01 · Background</div>
       <div class="section-heading">01 · 项目背景</div>
 
-      <div class="highlight-box">
-        <div class="label">一句话描述</div>
-        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 4px;">
-          <div style="display: flex; gap: 10px; align-items: baseline;">
-            <span style="flex-shrink: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: rgba(232,87,42,0.08); border: 1px solid rgba(232,87,42,0.2); border-radius: 4px; padding: 2px 7px;">前端交互</span>
-            <p style="margin: 0;">让中小商家和BD告别"手动p图"——通过AI能力一键生成专业直播间封面，降低开播准备门槛，提升封面质量与开播效率。</p>
-          </div>
-          <div style="display: flex; gap: 10px; align-items: baseline;">
-            <span style="flex-shrink: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #5a7abf; background: rgba(90,122,191,0.08); border: 1px solid rgba(90,122,191,0.2); border-radius: 4px; padding: 2px 7px;">后端模型</span>
-            <p style="margin: 0;">通过商家理解和模型训练以Agent能力创建直播封面的智能化运营工具。</p>
-          </div>
+      <!-- 直播封面用在哪里 tooltip -->
+      <div style="margin-top: -30px; margin-bottom: 32px; position: relative; display: inline-block;">
+        <span class="cover-where-trigger" style="font-size: 12.5px; color: var(--text-muted); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; user-select: none;">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="opacity:0.5;flex-shrink:0;"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><text x="8" y="12" text-anchor="middle" font-size="10" fill="currentColor" font-family="sans-serif">?</text></svg>
+          直播封面图用在哪里？
+        </span>
+        <div class="cover-where-tooltip" style="display:none; position: absolute; left: 0; top: calc(100% + 10px); z-index: 100; background: var(--surface); border: 1px solid rgba(180,160,140,0.2); border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); padding: 10px; width: 210px;">
+          <img src="images/ai-cover-c-side.webp" alt="C端直播广场封面入口" style="width: 100%; border-radius: 8px; display: block; border: 1px solid rgba(0,0,0,0.08);">
+          <div style="font-size: 11px; color: var(--text-tertiary); text-align: left; margin-top: 8px; line-height: 1.6; padding: 0 4px;">"直播封面图"会显示在 C 端直播广场的 feeds 流中，用以吸引用户点击进入直播间</div>
         </div>
       </div>
+      <script>
+        (function(){
+          var trigger = document.querySelector('.cover-where-trigger');
+          var tooltip = document.querySelector('.cover-where-tooltip');
+          if(!trigger || !tooltip) return;
+          trigger.addEventListener('mouseenter', function(){ tooltip.style.display = 'block'; });
+          trigger.addEventListener('mouseleave', function(){ tooltip.style.display = 'none'; });
+          tooltip.addEventListener('mouseenter', function(){ tooltip.style.display = 'block'; });
+          tooltip.addEventListener('mouseleave', function(){ tooltip.style.display = 'none'; });
+        })();
+      </script>
 
 <div class="section-heading" style="font-size: 18px; margin-top: 0; margin-bottom: 16px;" id="sec-painpoint">核心痛点</div>
 
@@ -1177,11 +1186,11 @@ a { color: inherit; text-decoration: none; }
           <ul class="bg-list">
             <li>
               <strong>素材设计成本高</strong>
-              官播等大规模商播依赖外部设计，单场成本高，令中小商播却步；
+              依赖外部设计，单场成本高，令中小商播却步；
             </li>
             <li>
               <strong>操作复杂</strong>
-              近 7 成为中小商播，其直播间装修操作时长比大规模商播多 0.98 分钟，部分主播因"不会用""不易用"影响开播。
+              装修时长比大规模商播多 0.98 分钟，"不会用""不易用"影响开播。
             </li>
           </ul>
         </div>
@@ -1192,11 +1201,11 @@ a { color: inherit; text-decoration: none; }
           <ul class="bg-list">
             <li>
               <strong>内容质量差异大</strong>
-              直播物料质量官播 ＞ 达播 ＞ 商播，对应观众停留时间递减。
+              物料质量官播 ＞ 达播 ＞ 商播，观众停留时间依次递减。
             </li>
             <li>
               <strong>同质化严重</strong>
-              装修模板虽简化操作，但导致大量相似直播间涌入，节庆期间尤为明显，引发用户"审美疲劳"。
+              大量相似直播间涌入，引发用户"审美疲劳"。
             </li>
           </ul>
         </div>
@@ -1255,25 +1264,21 @@ a { color: inherit; text-decoration: none; }
 
       <div class="section-heading-l2" id="sec-frontend" style="margin-top: 40px;">a. 前端交互设计</div>
 
-      <div class="prose">
-        这个项目的根本矛盾在于：<strong>目标用户完全没有AI工具使用经验</strong>，但我们又需要借助AI能力帮他们生成专业内容。普通AI产品的设计范式（自由输入框、prompt引导）在这里行不通。
-      </div>
-
-      <div class="challenge-grid">
+<div class="challenge-grid">
         <div class="problem-card">
           <div class="p-tag">挑战 1</div>
-          <h4>用户对"提示词"概念弱，描述需求不切实际</h4>
-          <p>开播工具用户对"提示词"概念弱，让中小商家老板、BD描述想要的封面风格不切实际，输入门槛决定了整个功能的采纳率上限。</p>
+          <h4>用户 AI 认知弱，如何降低上手门槛？</h4>
+          <p>输入门槛直接决定功能采纳率上限。</p>
         </div>
         <div class="problem-card">
           <div class="p-tag">挑战 2</div>
-          <h4>有时需要10多秒，如何保证主流程不断路？</h4>
-          <p>封面生成时用户可能点击“发布预告”，此时必须有明确的决策引导——不能让 AI 等待阻塞开播主流程，否则用户会直接放弃 AI 功能。</p>
+          <h4>生成有时时间长，如何提升体验？</h4>
+          <p>必须有明确决策引导，避免 AI 等待阻塞开播主流程。</p>
         </div>
         <div class="problem-card">
           <div class="p-tag">挑战 3</div>
           <h4>生成结果不满意时，怎么改？</h4>
-          <p>AI 生成内容不可能 100% 符合预期。如何在“接受”和“全部重来”之间提供更细粒度的编辑能力，直接影响用户最终的采纳率。</p>
+          <p>如何在"接受"和"全部重来"之间提供细粒度编辑能力，直接影响最终采纳率。</p>
         </div>
       </div>
 
@@ -1287,10 +1292,6 @@ a { color: inherit; text-decoration: none; }
       <div class="ai-box">
         <div class="label">调研核心结论</div>
         <p>针对<strong>完全无AI经验的外行用户</strong>，最友好的方式是<strong>"一键生成"</strong>——完全不需要用户输入任何内容，后台基于商家已有数据（商品信息、业务线、历史开播记录）自动构建 prompt，用户只需点击一个按钮。这是我们方案的核心设计原则。</p>
-      </div>
-
-      <div class="prose">
-        针对"外行用户如何驱动 AI 生图"这一核心问题，调研了抖音直播伴侣、豆包、可灵、淘宝商家工具、闲鱼、剪映、美镜等 8 款产品，梳理出 5 种主要输入模式及其适用场景。
       </div>
 
       <table class="comp-table">
