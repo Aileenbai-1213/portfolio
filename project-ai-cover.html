@@ -1143,6 +1143,11 @@ a { color: inherit; text-decoration: none; }
     <!-- ⓪ 锚点（目录用） -->
     <div id="sec-result"></div>
 
+    <!-- 封面图 -->
+    <div style="width:100%;border-radius:var(--radius);overflow:hidden;background:var(--surface);margin-top:20px;margin-bottom:8px;">
+      <img src="images/ai-cover-hero.webp" alt="开播工具 · AI 接管直播封面制作 — 项目封面" style="width:100%;height:auto;display:block;" loading="lazy" />
+    </div>
+
     <!-- ① 项目背景 -->
     <div class="content-section" data-reveal id="sec-background">
       <div class="section-label">01 · Background</div>
@@ -1426,10 +1431,10 @@ a { color: inherit; text-decoration: none; }
         我们对现有封面做了结构拆解，搞清每一层的数据来源。4 层均由系统自动生成，但输入各不相同：背景层和装饰层靠 prompt 驱动，文案层拉取商品标题，商品层调取货架爆品图。这一判断直接决定了工作流的输入结构。
       </div>
 
-      <div style="display: grid; grid-template-columns: 1fr 2fr; border: 1px solid rgba(180,160,140,0.18); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 40px;">
+      <div style="display: grid; grid-template-columns: auto 1fr; border: 1px solid rgba(180,160,140,0.18); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 40px;">
         <!-- 左：图片 -->
         <div style="background: var(--surface2); display: flex; align-items: center; justify-content: center; padding: 14px 24px;">
-          <img src="images/ai-cover-layers.webp" alt="直播封面图层拆解案例" style="width: 75%; border-radius: var(--radius-sm); display: block;">
+          <img src="images/ai-cover-layers.webp" alt="直播封面图层拆解案例" style="width: auto; max-height: 280px; border-radius: var(--radius-sm); display: block;">
         </div>
         <!-- 右：4行表格 -->
         <div style="display: flex; flex-direction: column; border-left: 1px solid rgba(180,160,140,0.18); flex: 1;">
@@ -1492,7 +1497,7 @@ a { color: inherit; text-decoration: none; }
           </div>
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr;">
-          <div style="padding: 18px 20px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.8; border-right: 1px solid rgba(180,160,140,0.12);">
+          <div style="padding: 18px 20px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.55; border-right: 1px solid rgba(180,160,140,0.12);">
             <span style="color:var(--text-tertiary)">设计一张直播封面，画面中不出现任何品牌标识；</span><br><br>
             <strong>背景：</strong>根据<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">「商品名称1」</span>、<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">「商品名称2」</span>、<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">「商品名称3」</span>和<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">行业</span>业务属性匹配生成；<br><br>
             <strong>大标题：</strong>根据<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">「商品名称1」</span>改写生成，最高不超过10个字，语言简洁凝练，符合行业调性。大标题位于画面顶部；<br><br>
@@ -1500,7 +1505,7 @@ a { color: inherit; text-decoration: none; }
             <span style="color:var(--text-tertiary)">装饰元素：直播间所在地是城市名称，希望呈现一些城市元素。同时我们现在是夏季促销阶段，请生成一些清凉感且有促销氛围的元素，以吸引用户点击；<br><br>
             画面比例为3:4，主要内容集中于画面1:1区域内。</span>
           </div>
-          <div style="padding: 18px 20px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.8;">
+          <div style="padding: 18px 20px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.55;">
             <strong>背景：</strong>根据<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">「商品名称1」</span>、<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">「商品名称2」</span>、<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">「商品名称3」</span>和<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">行业</span>业务属性匹配生成；<br><br>
             <strong>大标题：</strong>根据<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">「商品名称1」</span>改写生成，最高不超过10个字，语言简洁凝练，符合行业调性。大标题位于画面顶部；<br><br>
             <strong>画面中心：</strong>根据三个商品名称<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">「商品名称1」</span>、<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">「商品名称2」</span>、<span style="background:rgba(255,209,0,0.45);padding:0 2px;border-radius:2px;">「商品名称3」</span>生成相对应的商品。
