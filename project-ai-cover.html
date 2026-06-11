@@ -1715,9 +1715,12 @@ document.addEventListener('click', function(e) {
   const img = e.target.closest('.lightbox-trigger, .content-section img, .comp-table img, figure img, .img-block img');
   if (!img || img.tagName !== 'IMG') return;
   const hdSrc = img.getAttribute('data-hd') || img.getAttribute('src');
-  // 去掉查询参数后作为展示用，但保留完整 src
-  lightboxImg.src = hdSrc;
+  // 先清空再赋值，强制浏览器重新加载图片
+  lightboxImg.src = '';
   lightboxImg.alt = img.alt || '';
+  requestAnimationFrame(function() {
+    lightboxImg.src = hdSrc;
+  });
   lightbox.classList.add('active');
   document.body.style.overflow = 'hidden';
 });
