@@ -1145,7 +1145,7 @@ a { color: inherit; text-decoration: none; }
 
     <!-- 封面图 -->
     <div style="width:100%;border-radius:var(--radius);overflow:hidden;background:var(--surface);margin-top:20px;margin-bottom:8px;cursor:zoom-in;">
-      <img src="images/ai-cover-hero.webp?v=5" alt="开播工具 · AI 接管直播封面制作 — 项目封面" style="width:100%;height:auto;display:block;" loading="lazy" class="lightbox-trigger" />
+      <img src="images/ai-cover-hero.webp?v=6" data-hd="images/ai-cover-hero.webp?v=6" alt="开播工具 · AI 接管直播封面制作 — 项目封面" style="width:100%;height:auto;display:block;" class="lightbox-trigger" />
     </div>
 
     <!-- ① 项目背景 -->
@@ -1710,18 +1710,17 @@ a { color: inherit; text-decoration: none; }
     const lightboxImg = document.getElementById('lightboxImg');
     const lightboxClose = document.getElementById('lightboxClose');
 
-    const lightboxTriggers = document.querySelectorAll(
-      '.lightbox-trigger, .content-section img, .comp-table img, figure img, .img-block img'
-    );
-    lightboxTriggers.forEach(img => {
-      img.addEventListener('click', () => {
-        const hdSrc = img.getAttribute('data-hd');
-        lightboxImg.src = hdSrc || img.src;
-        lightboxImg.alt = img.alt;
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
-    });
+// 用事件委托，避免重复绑定；统一从 data-hd 或 src 取图
+document.addEventListener('click', function(e) {
+  const img = e.target.closest('.lightbox-trigger, .content-section img, .comp-table img, figure img, .img-block img');
+  if (!img || img.tagName !== 'IMG') return;
+  const hdSrc = img.getAttribute('data-hd') || img.getAttribute('src');
+  // 去掉查询参数后作为展示用，但保留完整 src
+  lightboxImg.src = hdSrc;
+  lightboxImg.alt = img.alt || '';
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+});
 
     function closeLightbox() {
       lightbox.classList.remove('active');
