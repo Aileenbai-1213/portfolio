@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ailin — Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet"></noscript>
 <style>@font-face{font-family:'AlibabaPuHuiTi3';src:url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff2') format('woff2');font-weight:400;font-display:swap;}@font-face{font-family:'AlibabaPuHuiTi3';src:url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-65-Medium/AlibabaPuHuiTi-3-65-Medium.woff2') format('woff2');font-weight:500 600;font-display:swap;}</style>
 
   <!-- ===== SPLASH STYLES ===== -->
@@ -903,10 +905,12 @@ overflow: hidden;
       <div class="hero-ip">
         <div class="ip-circle">
           <img
-            class="ip-img"
-            src="avatar_透明.png"
-            alt="ailin — Product Designer"
-          />
+             class="ip-img"
+             src="avatar_透明.webp"
+             alt="ailin — Product Designer"
+             fetchpriority="high"
+             decoding="async"
+           />
         </div>
 
       </div>
