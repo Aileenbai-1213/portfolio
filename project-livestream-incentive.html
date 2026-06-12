@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>直播激励中心建设 1.0 — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Dark theme */
+      --bg: #0d0d0f;
+      --bg2: #111114;
+      --surface: #18181c;
+      --surface2: #1e1e24;
+      --surface3: #252530;
+      --border: rgba(255,255,255,0.07);
+      --border-light: rgba(255,255,255,0.04);
+      --text-primary: #f0eff0;
+      --text-secondary: #a0a0b0;
+      --text-muted: #606070;
+      --accent: #ff6b35;
+      --accent-light: rgba(255,107,53,0.12);
+      --accent2: #8b7cf8;
+      --accent3: #4ecdc4;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.6);
+      --font-sans: 'Inter', 'PingFang SC', -apple-system, sans-serif;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-lg: 20px;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --content-width: 960px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      background: rgba(13,13,15,0.88);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      background: var(--surface);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .nav-back:hover {
+      color: var(--text-primary);
+      border-color: var(--accent);
+    }
+    .nav-back svg { transition: transform 0.2s; }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    /* ===== HERO ===== */
+    .project-hero {
+      padding: 140px 40px 100px;
+      max-width: calc(var(--content-width) + 80px);
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .project-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .project-eyebrow::before {
+      content: '';
+      width: 16px; height: 1px;
+      background: var(--accent);
+    }
+    .project-title {
+      font-size: clamp(26px, 3.5vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #f0eff0 0%, #a0a0b0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .project-subtitle {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+    .project-meta-row {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .meta-item {}
+    .meta-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .meta-value { font-size: 14px; color: var(--text-secondary); }
+    .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      background: var(--surface);
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .tag:hover { border-color: var(--accent); color: var(--accent); }
+    .tag.live { border-color: rgba(255,107,53,0.3); color: #ff6b35; background: rgba(255,107,53,0.08); }
+    .tag.ux { border-color: rgba(139,124,248,0.3); color: #8b7cf8; background: rgba(139,124,248,0.08); }
+    .tag.growth { border-color: rgba(78,205,196,0.3); color: #4ecdc4; background: rgba(78,205,196,0.08); }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: calc(var(--content-width) + 64px);
+      margin: 0 auto;
+    }
+
+    /* ===== TOC SIDEBAR ===== */
+    .toc-sidebar {
+      position: fixed;
+      top: 80px;
+      left: max(16px, calc(50vw - 680px));
+      width: 160px;
+      padding: 24px 0;
+      z-index: 50;
+    }
+    @media (max-width: 1280px) { .toc-sidebar { display: none; } }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .toc-item a {
+      display: block;
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border-radius: 6px;
+      border-left: 2px solid transparent;
+      transition: color 0.2s, background 0.2s, border-color 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .toc-item a:hover { color: var(--text-secondary); background: var(--surface2); }
+    .toc-item.active > a {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(255,107,53,0.05);
+      font-weight: 500;
+    }
+    .toc-item.is-parent > a { font-size: 13px; color: var(--text-muted); }
+    .toc-item.is-parent.active > a {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(255,107,53,0.05);
+      font-weight: 500;
+    }
+    /* 父级包含激活子项时，只改字色，不加背景/边框 */
+    .toc-item.has-active > a { color: var(--text-secondary); font-weight: 500; }
+    .toc-sub {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin-top: 1px;
+    }
+    .toc-sub .toc-item a {
+      font-size: 12px;
+      padding: 4px 12px 4px 20px;
+      color: var(--text-muted);
+    }
+    .toc-sub .toc-item.active > a {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(255,107,53,0.04);
+    }
+
+    /* ===== CONTENT ===== */
+    .project-content {
+      max-width: calc(var(--content-width) + 80px);
+      margin: 0 auto;
+      padding: 0 40px 120px;
+    }
+    .content-section {
+      padding: 64px 0 0;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .content-section.visible { opacity: 1; transform: translateY(0); }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .section-label::before {
+      content: '';
+      width: 12px; height: 1px;
+      background: var(--accent);
+    }
+    .section-title {
+      font-size: clamp(20px, 2.2vw, 30px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 28px;
+      color: var(--text-primary);
+    }
+    .subsection-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 16px 0;
+      line-height: 1.4;
+    }
+    .section-body {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    .section-body p { margin-bottom: 16px; }
+    .section-body p:last-child { margin-bottom: 0; }
+    .section-body strong { color: var(--text-primary); font-weight: 600; }
+
+    /* ===== INSIGHT CARDS ===== */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+    @media (max-width: 768px) { .insight-grid { grid-template-columns: 1fr; } }
+    .insight-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .insight-card:hover { border-color: rgba(255,107,53,0.25); background: var(--surface2); }
+    .insight-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .insight-icon.orange { background: rgba(255,107,53,0.12); }
+    .insight-icon.purple { background: rgba(139,124,248,0.12); }
+    .insight-icon.teal { background: rgba(78,205,196,0.12); }
+    .insight-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .insight-card-body {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== GOAL TABLE ===== */
+    .goal-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 32px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .goal-table th {
+      background: var(--surface2);
+      padding: 14px 20px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: left;
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+    .goal-table td {
+      padding: 16px 20px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: top;
+      line-height: 1.65;
+    }
+    .goal-table tr:last-child td { border-bottom: none; }
+    .goal-table td:first-child { color: var(--text-primary); font-weight: 500; width: 1%; white-space: nowrap; }
+    .goal-table td:nth-child(2), .goal-table th:nth-child(2) { width: 35%; }
+    .goal-table td:nth-child(3), .goal-table th:nth-child(3) { width: auto; }
+    .goal-table td strong { color: var(--text-primary); }
+
+    /* ===== STRATEGY BLOCKS ===== */
+    .strategy-block {
+      margin-top: 40px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .strategy-header {
+      background: linear-gradient(135deg, var(--surface2) 0%, var(--surface3) 100%);
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .strategy-num {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .strategy-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+    .strategy-body {
+      padding: 28px;
+      background: var(--surface);
+    }
+    .strategy-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    /* ===== IMAGE PLACEHOLDER ===== */
+    .img-placeholder {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px dashed rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      transition: border-color 0.2s;
+    }
+    .img-placeholder:hover { border-color: rgba(255,107,53,0.3); }
+    .img-placeholder svg { opacity: 0.4; }
+    .img-placeholder-label { opacity: 0.6; }
+
+    .img-row {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .img-row.cols-2 { grid-template-columns: 1fr 1fr; }
+    .img-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    @media (max-width: 640px) {
+      .img-row.cols-2, .img-row.cols-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ===== RESULT METRICS ===== */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+    @media (max-width: 768px) { .metrics-grid { grid-template-columns: 1fr 1fr; } }
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .metric-card:hover { border-color: rgba(255,107,53,0.3); transform: translateY(-2px); }
+    .metric-value {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .metric-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ===== TAKEAWAY ===== */
+    .takeaway-block {
+      background: linear-gradient(135deg, rgba(255,107,53,0.06) 0%, rgba(139,124,248,0.06) 100%);
+      border: 1px solid rgba(255,107,53,0.15);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      margin-top: 32px;
+    }
+    .takeaway-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .takeaway-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* ===== HERO COVER ===== */
+    .hero-cover {
+      width: 100%;
+      max-width: calc(var(--content-width) + 80px);
+      margin: 0 auto 0;
+      padding: 0 40px 60px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.3s forwards;
+    }
+    .hero-cover-inner {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+    }
+    .hero-cover-inner img {
+      width: 100%;
+      display: block;
+    }
+    .hero-cover-placeholder {
+      width: 100%;
+      aspect-ratio: 16/7;
+      background: linear-gradient(135deg, var(--surface2) 0%, var(--surface3) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* ===== AIDA DIAGRAM ===== */
+    .aida-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+    @media (max-width: 640px) { .aida-row { grid-template-columns: 1fr 1fr; } }
+    .aida-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 18px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .aida-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+    }
+    .aida-card:nth-child(1)::before { background: #ff6b35; }
+    .aida-card:nth-child(2)::before { background: #f7b731; }
+    .aida-card:nth-child(3)::before { background: #8b7cf8; }
+    .aida-card:nth-child(4)::before { background: #4ecdc4; }
+    .aida-letter {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .aida-card:nth-child(1) .aida-letter { color: #ff6b35; }
+    .aida-card:nth-child(2) .aida-letter { color: #f7b731; }
+    .aida-card:nth-child(3) .aida-letter { color: #8b7cf8; }
+    .aida-card:nth-child(4) .aida-letter { color: #4ecdc4; }
+    .aida-word {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .aida-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: calc(var(--content-width) + 80px);
+      margin: 0 auto;
+    }
+    .footer-text { font-size: 13px; color: var(--text-muted); }
+    .footer-nav { display: flex; gap: 24px; }
+    .footer-nav a {
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--text-primary); }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .project-hero { padding: 100px 20px 60px; }
+      .hero-cover { padding: 0 20px 40px; }
+      .project-content { padding: 0 20px 80px; }
+      footer { padding: 32px 20px; flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">Ailin<span>.</span></a>
+    <a class="nav-back" href="index.html">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      返回首页
+    </a>
+  </nav>
+
+<!-- TOC SIDEBAR -->
+<aside class="toc-sidebar">
+<ul class="toc-list">
+  <li class="toc-item is-parent" data-toc="section-bg">
+    <a href="#section-bg">01 · 项目背景</a>
+    <ul class="toc-sub">
+      <li class="toc-item" data-toc="bg-1"><a href="#bg-1">单点瓶颈</a></li>
+      <li class="toc-item" data-toc="bg-2"><a href="#bg-2">激励中心价值</a></li>
+    </ul>
+  </li>
+  <li class="toc-item is-parent" data-toc="section-goal">
+    <a href="#section-goal">02 · 设计目标</a>
+    <ul class="toc-sub">
+      <li class="toc-item" data-toc="goal-analysis"><a href="#goal-analysis">前期分析</a></li>
+      <li class="toc-item" data-toc="goal-strategy"><a href="#goal-strategy">目标与策略</a></li>
+    </ul>
+  </li>
+  <li class="toc-item is-parent" data-toc="section-strategy">
+    <a href="#section-strategy">03 · 设计举措</a>
+    <ul class="toc-sub">
+      <li class="toc-item" data-toc="strategy-1"><a href="#strategy-1">策略 1</a></li>
+      <li class="toc-item" data-toc="strategy-2"><a href="#strategy-2">策略 2</a></li>
+    </ul>
+  </li>
+  <li class="toc-item is-parent" data-toc="section-result">
+    <a href="#section-result">04 · 项目结果</a>
+    <ul class="toc-sub">
+      <li class="toc-item" data-toc="result-data"><a href="#result-data">数据效果</a></li>
+      <li class="toc-item" data-toc="result-knowledge"><a href="#result-knowledge">知识沉淀</a></li>
+    </ul>
+  </li>
+</ul>
+</aside>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="project-eyebrow">美团直播 · 2024</div>
+    <h1 class="project-title">直播激励中心建设</h1>
+    <div class="project-meta-row">
+      <div class="meta-item">
+        <div class="meta-label">角色</div>
+        <div class="meta-value">UX Designer</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">时间</div>
+        <div class="meta-value">2024</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">平台</div>
+        <div class="meta-value">美团 App · 直播场域</div>
+      </div>
+    </div>
+    <div class="project-tags">
+<span class="tag" style="border-color:rgba(232,87,42,.4);color:#e8572a;">增长玩法</span>
+    </div>
+  </section>
+
+  <!-- HERO COVER -->
+  <div class="hero-cover">
+    <div class="hero-cover-inner">
+      <img src="直播激励中心/封面.webp" alt="直播激励中心建设1.0封面" style="width:100%; display:block;">
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <main class="project-content">
+
+    <!-- 01 项目背景 -->
+    <section class="content-section" id="section-bg">
+      <div class="section-label">01 · Background</div>
+      <h2 class="section-title" style="margin-bottom: 32px;">项目背景</h2>
+
+      <h3 class="subsection-title" id="bg-1">1. 直播营销手段陷入"单点瓶颈"</h3>
+      <div class="section-body">
+        <p>目前的营销手段<strong>过于依赖单个直播间和单个主播的个人能力</strong>，玩法局限于"领券"和"抽奖"等基础互动。这种"各自为战"的模式导致了营销效率的低下，体现在：</p>
+      </div>
+
+      <div class="insight-grid">
+        <div class="insight-card">
+          <div class="insight-icon orange">👤</div>
+          <div class="insight-card-title">用户侧：体验碎片化，留存难</div>
+          <div class="insight-card-body">激励分散在各个直播间，缺乏统一的聚合入口。用户面对的是零散、断点的奖励，缺乏连续性的趣味玩法。这种"用完即走"的模式，难以形成高频访问习惯，对单个直播间有记忆、但对整体直播平台没认知。</div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-icon purple">📈</div>
+          <div class="insight-card-title">交易侧：刺激短视化，增长难</div>
+          <div class="insight-card-body">过于依赖发券和抽奖的"一次性刺激"，虽能带来瞬时的脉冲流量，但无法沉淀为长期的下单习惯。这种手段对 GTV 和 MAU 的驱动力正在边际递减，不持续。</div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-icon teal">🏗️</div>
+          <div class="insight-card-title">平台侧：运营离散化，心智弱</div>
+          <div class="insight-card-body">缺乏一个中心化的营销阵地，导致团队运营资源分散，无法形成合力去支撑大规模的平台级活动，用户对美团直播也难建立起"来直播必有福利"的强平台心智。</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px;">
+        <h3 class="subsection-title" id="bg-2">2. 统一的激励中心可以解决什么问题</h3>
+        <div class="section-body">
+          <p>为了突破上述瓶颈，营销需要从"单点工具"向"平台级体系"升级。建设<strong>直播激励中心</strong>，旨在打造一套<strong>集中化、标准化的任务与奖励体系</strong>。</p>
+          <p><strong>对用户</strong>：通过连续性的任务激励，提供持续的价值反馈，培养"<strong>每天来美团直播逛一逛</strong>"的访问习惯，提升留存。</p>
+          <p><strong>对业务</strong>：为平台提供一个可复用、强有力的<strong>统一营销抓手</strong>，将流量更高效地<strong>转化为交易</strong>，实现从"流量"到"留量"的转变。</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" style="margin-top: 64px;"></div>
+
+    <!-- 02 设计目标 -->
+    <section class="content-section" id="section-goal">
+      <div class="section-label">02 · Design Goal</div>
+      <h2 class="section-title">设计目标制定</h2>
+      <div class="section-body">
+        <div class="section-label" id="goal-analysis" style="margin-bottom: 12px; color: #fff; font-size: 20px;">前期分析</div>
+        <p>设计前，我们调研了行业内的激励玩法，发现 AIDA 模型是营销领域中成熟且验证有效的经典理论，同样契合美团直播场景的特点。可参考这一策略，将"吸引—兴趣—欲望—行动"融入到玩法体验中，从而有效提升参与度。</p>
+        <div style="margin-top: 20px;">
+          <img src="直播激励中心/2s.webp" alt="AIDA 分析" style="width:100%; border-radius: var(--radius); display:block; border: 1px solid rgba(255,255,255,0.08);">
+        </div>
+      </div>
+
+      <!-- 目标与策略表 -->
+      <div style="margin-top: 40px;">
+        <div class="section-label" id="goal-strategy" style="margin-bottom: 16px; color: #fff; font-size: 20px;">目标与策略</div>
+        <table class="goal-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>设计目标</th>
+              <th>设计策略</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2"><strong>用户角度</strong></td>
+              <td>让用户在参与前能够快速感知价值并产生兴趣</td>
+              <td>通过强视觉与轻量流畅的交互，让活动入口在复杂的直播背景中得到有效露出，快速吸引用户参与</td>
+            </tr>
+            <tr>
+              <td>让用户在过程中获得及时乐趣与满足感，更愿意逛买</td>
+              <td>通过即时奖励与进阶预告激发复访，结合简洁交互与趣味动效促进交易</td>
+            </tr>
+            <tr>
+              <td><strong>业务角度</strong></td>
+              <td>打造可复用、易配置的玩法运营策略，提升迭代速度</td>
+              <td>营造交易氛围、拓展出换肤结构，保障业务在七节两月和明星直播时的灵活延展，吸引用户常来</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <div class="divider" style="margin-top: 64px;"></div>
+
+    <!-- 03 设计举措 -->
+    <section class="content-section" id="section-strategy">
+      <div class="section-label">03 · Design Solution</div>
+      <h2 class="section-title">设计举措</h2>
+
+      <!-- 策略 1 -->
+      <div class="strategy-block" id="strategy-1">
+        <div class="strategy-header">
+          <div class="strategy-num">1</div>
+          <div class="strategy-title">通过强视觉与轻量流畅的交互，让活动入口在复杂的直播背景中得到有效露出，快速吸引用户参与</div>
+        </div>
+        <div class="strategy-body">
+          <div style="display:flex; flex-direction:column; gap:12px; margin-top:0;">
+            <img src="直播激励中心/3-1.gif" alt="入口动效演示" style="width:100%; border-radius: var(--radius); display:block;">
+            <img src="直播激励中心/3-2.webp" alt="方案细节图 1" style="width:100%; border-radius: var(--radius); display:block;">
+            <img src="直播激励中心/3-3.webp" alt="方案细节图 2" style="width:100%; border-radius: var(--radius); display:block;">
+            <img src="直播激励中心/5.webp" alt="方案细节图 3" style="width:100%; border-radius: var(--radius); display:block;">
+          </div>
+        </div>
+      </div>
+
+      <!-- 策略 2 -->
+      <div class="strategy-block" id="strategy-2">
+        <div class="strategy-header">
+          <div class="strategy-num">2</div>
+          <div class="strategy-title">通过即时奖励与进阶预告激发复访，结合简洁交互与趣味动效促进交易</div>
+        </div>
+        <div class="strategy-body">
+          <div style="display:flex; flex-direction:column; gap:12px; margin-top:0;">
+            <img src="直播激励中心/7-1.gif" alt="抽奖中制造悬念与心理错觉" style="width:100%; border-radius: var(--radius); display:block;">
+            <img src="直播激励中心/7-2.webp" alt="策略2方案细节" style="width:100%; border-radius: var(--radius); display:block;">
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="divider" style="margin-top: 64px;"></div>
+
+    <!-- 04 项目结果 -->
+    <section class="content-section" id="section-result">
+      <div class="section-label">04 · Outcome</div>
+      <h2 class="section-title">项目结果</h2>
+      <div class="section-body">
+        <div class="section-label" id="result-data" style="margin-bottom: 12px; color: #fff; font-size: 20px;">数据效果</div>
+        <p>本次需求首次将<strong>"单直播间玩法"升级为"聚合场域激励中心"</strong>，使互动行为从"偶然参与"转变为"常态参与"，并<strong>提高直播场域整体的停留与参与深度</strong>。上线后关键指标呈现积极增长趋势，如下：</p>
+      </div>
+
+      <div style="margin-top: 28px;">
+        <img src="直播激励中心/8-1.webp" alt="数据效果" style="width:100%; border-radius: var(--radius); display:block;">
+      </div>
+
+      <!-- 知识沉淀 -->
+      <div style="margin-top: 48px;">
+        <div class="section-label" id="result-knowledge" style="margin-bottom: 16px; color: #fff; font-size: 20px;">知识沉淀</div>
+        <div class="takeaway-block">
+          <div class="takeaway-body">
+            本次需求借鉴 AIDA 模型，将理论应用于玩法设计中，帮助我们更高效地梳理直播用户的动机路径与关键行为触点，并快速完成激励玩法的结构搭建。该策略可在未来激励类项目中复用，帮助团队快速建设高参与度、高留存的激励体验。
+          </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <img src="直播激励中心/8-2.webp" alt="知识沉淀" style="width:100%; border-radius: var(--radius); display:block;">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-text">© 2025 Ailin · UX Portfolio</span>
+    <nav class="footer-nav">
+      <a href="index.html">首页</a>
+      <a href="project-ai-cover.html">上一个项目</a>
+    </nav>
+  </footer>
+
+  <script>
+    // ===== SCROLL ANIMATION =====
+    const sections = document.querySelectorAll('.content-section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+    sections.forEach(s => observer.observe(s));
+
+    // ===== TOC ACTIVE =====
+    const tocItems = document.querySelectorAll('.toc-item[data-toc]');
+    const tocAnchors = Array.from(tocItems).map(item => {
+      const id = item.getAttribute('data-toc');
+      return { item, el: document.getElementById(id) };
+    }).filter(x => x.el);
+
+    function updateToc() {
+      const scrollY = window.scrollY + 120;
+      let activeId = null;
+      for (let i = tocAnchors.length - 1; i >= 0; i--) {
+        if (tocAnchors[i].el.getBoundingClientRect().top + window.scrollY <= scrollY) {
+          activeId = tocAnchors[i].item.getAttribute('data-toc');
+          break;
+        }
+      }
+      tocItems.forEach(item => item.classList.remove('active', 'has-active'));
+      if (activeId) {
+        const activeItem = document.querySelector(`.toc-item[data-toc="${activeId}"]`);
+        if (activeItem) {
+          activeItem.classList.add('active');
+          // 向上冒泡，给祖先 toc-item 加 has-active（不是 active）
+          let parent = activeItem.parentElement;
+          while (parent) {
+            if (parent.classList.contains('toc-item')) {
+              parent.classList.add('has-active');
+            }
+            parent = parent.parentElement;
+          }
+        }
+      }
+    }
+    window.addEventListener('scroll', updateToc, { passive: true });
+    updateToc();
+  </script>
+</body>
+</html>
