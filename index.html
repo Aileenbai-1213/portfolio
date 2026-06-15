@@ -6,8 +6,8 @@
   <title>ailin — Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet"></noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;700&family=PT+Mono&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans+SC:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;700&family=PT+Mono&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans+SC:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"></noscript>
 <style>@font-face{font-family:'AlibabaPuHuiTi3';src:url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff2') format('woff2');font-weight:400;font-display:swap;}@font-face{font-family:'AlibabaPuHuiTi3';src:url('https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-65-Medium/AlibabaPuHuiTi-3-65-Medium.woff2') format('woff2');font-weight:500 600;font-display:swap;}</style>
 
   <!-- ===== SPLASH STYLES ===== -->
@@ -98,7 +98,7 @@
     animation: splashFadeUp .6s .4s var(--ease-splash) forwards;
   }
   .splash-title {
-    font-family: 'Lora', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: 34px; font-weight: 400;
     letter-spacing: -.02em; line-height: 1.1;
     color: var(--splash-ink);
@@ -362,15 +362,18 @@ position: absolute; inset: 0; z-index: 0; opacity: .22;
     }
 
     .hero-title {
-      font-family: 'Lora', serif;
-      font-size: clamp(46px, 5.2vw, 78px);
-      font-weight: 600; line-height: 1.08; letter-spacing: -.02em;
+      font-family: 'DM Serif Display', serif;
+      font-size: 102px;
+      font-weight: 400; line-height: 1.08; letter-spacing: -.02em;
       margin-bottom: 0;
       word-break: keep-all;
       overflow-wrap: normal;
     }
     .hero-title-line {
-      display: block; overflow: visible;
+      display: block; overflow: visible; white-space: nowrap;
+    }
+    .hero-title-line:nth-child(1) {
+      margin-bottom: 0.18em;
     }
     .hero-title-inner {
       display: block;
@@ -385,10 +388,20 @@ position: absolute; inset: 0; z-index: 0; opacity: .22;
     .hero-title .italic { font-style: italic; color: var(--accent); }
     .hero-title .light  { color: var(--ink-2); font-weight: 400; }
 
+    .hero-slogan-cn {
+      margin-top: 13px;
+      font-family: 'AlibabaPuHuiTi3', 'PingFang SC', sans-serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: rgba(26,21,16,0.50);
+      letter-spacing: 0.06em;
+      line-height: 1.5;
+      opacity: 0; animation: fadeUp .8s .78s var(--ease) forwards;
+    }
     .hero-desc {
-      margin-top: 32px; font-size: 15.5px; color: var(--ink-2);
-      max-width: 400px; line-height: 1.8;
-      opacity: 0; animation: fadeUp .8s .88s var(--ease) forwards;
+      margin-top: 28px; font-size: 15.5px; color: var(--ink-2);
+      line-height: 1.8; white-space: nowrap;
+      opacity: 0; animation: fadeUp .8s .92s var(--ease) forwards;
     }
     .hero-actions {
       margin-top: 44px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
@@ -504,9 +517,9 @@ position: absolute; inset: 0; z-index: 0; opacity: .22;
       margin-bottom: 10px; display: block;
     }
     .section-title {
-      font-family: 'Lora', serif;
+      font-family: 'DM Serif Display', serif;
       font-size: clamp(30px, 3.8vw, 50px);
-      font-weight: 600; letter-spacing: -.02em; line-height: 1.1;
+      font-weight: 400; letter-spacing: -.02em; line-height: 1.1;
     }
 
     /* ===== WORK ===== */
@@ -610,7 +623,7 @@ position: absolute; inset: 0; z-index: 0; opacity: .22;
     .tag.ai       { border-color: rgba(var(--accent-rgb),.3); color: var(--accent); }
     .tag.research { border-color: rgba(62,207,160,.3); color: #2baa80; }
 
-    .card-title { font-family: 'AlibabaPuHuiTi3','PingFang SC',sans-serif; font-size: 17px; font-weight: 500; letter-spacing: -.01em; line-height: 1.28; margin-bottom: 7px; color: var(--ink); }
+    .card-title { font-family: 'Noto Sans SC','PingFang SC',sans-serif; font-size: 20px; font-weight: 500; letter-spacing: -.01em; line-height: 1.28; margin-bottom: 7px; color: var(--ink); }
     .card-desc  { font-size: 12.5px; color: var(--ink-2); line-height: 1.65; flex: 1; }
     .card-footer {
       display: flex; justify-content: space-between; align-items: center;
@@ -626,10 +639,10 @@ position: absolute; inset: 0; z-index: 0; opacity: .22;
 
     /* ===== ABOUT ===== */
     #about { background: var(--bg2); }
-    .about-grid { display: grid; grid-template-columns: 0.67fr 1.4fr; gap: 88px; align-items: start; }
+    .about-grid { display: grid; grid-template-columns: 0.7fr 1.4fr; gap: 73px; align-items: start; }
     .about-visual { position: relative; }
     .about-avatar {
-      aspect-ratio: 4/5; border-radius: 24px;
+      aspect-ratio: 4/5; border-radius: 30px;
       background: linear-gradient(150deg,#fdf0e6 0%,#f2d9c0 100%);
       border: 2px solid var(--border);
       position: relative; overflow: hidden;
@@ -642,7 +655,8 @@ position: absolute; inset: 0; z-index: 0; opacity: .22;
       background-size: 20px 20px;
     }
 .about-avatar-face {
-position: relative; z-index: 1; font-size: 110px; line-height: 1;
+position: absolute; inset: 0; z-index: 1;
+font-size: 110px; line-height: 1;
 filter: drop-shadow(0 8px 24px rgba(0,0,0,.06));
 border-radius: 0;
 overflow: hidden;
@@ -654,7 +668,8 @@ overflow: hidden;
       box-shadow: 0 8px 28px rgba(0,0,0,0.08);
     }
     .badge-num {
-      font-family: 'Lora',serif; font-size: 28px; font-weight: 600;
+      font-family: 'DM Serif Display',serif;
+      font-size: 28px; font-weight: 400;
       letter-spacing: -.02em; color: var(--accent);
     }
     .badge-label { font-size: 11px; color: var(--ink-3); margin-top: 3px; }
@@ -720,7 +735,7 @@ overflow: hidden;
     .process-cell:hover::after { width: 100%; }
     .process-num { font-size: 11px; color: rgba(244,241,236,0.25); letter-spacing: .1em; margin-bottom: 28px; }
     .process-icon { font-size: 32px; margin-bottom: 16px; }
-    .process-name { font-family: 'Lora',serif; font-size: 18px; font-weight: 600; margin-bottom: 10px; color: rgba(244,241,236,0.9); }
+    .process-name { font-family: 'DM Serif Display',serif; font-size: 18px; font-weight: 400; margin-bottom: 10px; color: rgba(244,241,236,0.9); }
     .process-desc { font-size: 13px; color: rgba(244,241,236,0.42); line-height: 1.72; }
 
     /* ===== CONTACT ===== */
@@ -735,8 +750,8 @@ overflow: hidden;
     }
     .contact-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
     .contact-title {
-      font-family: 'Lora',serif;
-      font-size: clamp(38px,5.8vw,72px); font-weight: 600;
+      font-family: 'DM Serif Display',serif;
+      font-size: clamp(38px,5.8vw,72px); font-weight: 400;
       letter-spacing: -.03em; line-height: 1.05; margin-bottom: 22px;
     }
     .contact-title em { font-style: italic; color: var(--accent); }
@@ -884,10 +899,12 @@ overflow: hidden;
       <div class="hero-tag"><div class="hero-tag-dot"></div>Senior Product Designer &amp; UX Researcher</div>
 
       <h1 class="hero-title">
-        <span class="hero-title-line"><span class="hero-title-inner">Designing from <span class="squiggle italic">insight,</span></span></span>
+        <span class="hero-title-line"><span class="hero-title-inner">Designing from</span></span>
+        <span class="hero-title-line"><span class="hero-title-inner"><span class="squiggle italic">insight,</span></span></span>
         <span class="hero-title-line"><span class="hero-title-inner"><span class="light">not assumption.</span></span></span>
       </h1>
 
+      <p class="hero-slogan-cn">以洞察为起点，而非假设</p>
       <p class="hero-desc">资深产品与体验设计经验，聚焦复杂产品中的用户行为、增长策略与业务驱动体验</p>
 
       <div class="hero-actions">
@@ -969,7 +986,7 @@ overflow: hidden;
           <div class="card-tags"><span class="tag ai">AI 应用</span><span class="tag ux">B端工具</span><span class="tag" style="border-color:rgba(230,168,23,.35);color:#a07800;">prompt设计</span></div>
           <div class="card-title">开播工具 · AI 接管直播封面制作</div>
           <div class="card-desc">将 aigc 能力融入B端产品，为用户设计零门槛的AI生图体验。</div>
-          <div class="card-footer"><span class="card-meta">2025 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
+          <div class="card-footer"><span class="card-meta">2025 · 美团直播</span><div class="card-arrow">&nearr;</div></div>
         </div>
       </a>
 
@@ -1001,7 +1018,7 @@ overflow: hidden;
           <div class="card-tags"><span class="tag ux">体验设计</span><span class="tag ai">搜索体验</span><span class="tag" style="border-color:rgba(230,168,23,.35);color:#a07800;">框架设计</span></div>
           <div class="card-title">美团搜索交易视频化建设</div>
           <div class="card-desc">重构信息架构与视频内容呈现策略，基于用户需求分析与竞品研究。</div>
-          <div class="card-footer"><span class="card-meta">2024 · Meituan搜索</span><div class="card-arrow">&nearr;</div></div>
+          <div class="card-footer"><span class="card-meta">2024 · 美团搜索</span><div class="card-arrow">&nearr;</div></div>
         </div>
       </a>
 
@@ -1028,46 +1045,12 @@ overflow: hidden;
           <div class="card-tags"><span class="tag research">用户调研</span><span class="tag ai">直播体验</span></div>
           <div class="card-title">直播用户购买动机与体验洞察专项</div>
           <div class="card-desc">深度访谈 + Session 分析，揭示购买决策机制与体验断点。</div>
-          <div class="card-footer"><span class="card-meta">2025 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
-        </div>
-      </a>
-
-      <!-- Card 4 – wide (直播广场) -->
-      <a href="project-livestream2.html" class="project-card wide reveal reveal-delay-1" data-tags="design">
-        <div class="card-img">
-          <div class="card-img-inner" style="background:linear-gradient(135deg,#fdf8e8 0%,#f8ecc8 50%,#f0dca0 100%);">
-            <div class="mock-ui">
-              <div style="display:flex;flex-direction:column;gap:7px;width:168px;">
-                <div style="background:rgba(255,255,255,.7);border:1.5px solid rgba(60,45,20,.1);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;">
-                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(230,168,23,.25);flex-shrink:0;"></div>
-                  <div style="flex:1;">
-                    <div style="height:4px;background:rgba(60,45,20,.15);border-radius:3px;width:70%;"></div>
-                    <div style="height:3px;background:rgba(60,45,20,.07);border-radius:2px;width:44%;margin-top:5px;"></div>
-                  </div>
-                </div>
-                <div style="background:rgba(255,255,255,.7);border:1.5px solid rgba(60,45,20,.1);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;">
-                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(232,87,42,.2);flex-shrink:0;"></div>
-                  <div style="flex:1;">
-                    <div style="height:4px;background:rgba(60,45,20,.15);border-radius:3px;width:60%;"></div>
-                    <div style="height:3px;background:rgba(60,45,20,.07);border-radius:2px;width:40%;margin-top:5px;"></div>
-                  </div>
-                </div>
-                <div style="background:rgba(230,168,23,.12);border:1.5px solid rgba(230,168,23,.3);border-radius:8px;padding:7px 12px;text-align:center;font-size:9px;color:rgba(180,120,0,.75);letter-spacing:.06em;">直播广场 · 改版探索</div>
-              </div>
-            </div>
-          </div>
-          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
-        </div>
-        <div class="card-body">
-          <div class="card-tags"><span class="tag ux">直播频道页建设</span><span class="tag" style="border-color:rgba(230,168,23,.35);color:#a07800;">框架设计</span></div>
-          <div class="card-title">直播广场改版探索</div>
-          <div class="card-desc">从 pmf 升级触发，探索框架改版方案，构建"好买+好逛"双体验。</div>
-          <div class="card-footer"><span class="card-meta">2026 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
+          <div class="card-footer"><span class="card-meta">2025 · 美团直播</span><div class="card-arrow">&nearr;</div></div>
         </div>
       </a>
 
 <!-- Card 3 -->
-<a class="project-card reveal reveal-delay-2" href="project-livestream-incentive.html" data-tags="design ux">
+<a class="project-card reveal reveal-delay-1" href="project-livestream-incentive.html" data-tags="design ux">
 <div class="card-img">
 <div class="card-img-inner" style="background:linear-gradient(135deg,#fff2eb 0%,#ffe0cc 50%,#ffc9a8 100%);">
 <div class="mock-ui">
@@ -1099,9 +1082,43 @@ overflow: hidden;
 <div class="card-tags"><span class="tag ux">体验设计</span><span class="tag ai">增长玩法</span></div>
 <div class="card-title">直播激励中心建设</div>
 <div class="card-desc">0-1建设直播激励中心，将碎片化玩法升级为玩法体系，提升用户留存与交易。</div>
-<div class="card-footer"><span class="card-meta">2025 · Meituan直播</span><div class="card-arrow">&nearr;</div></div>
+<div class="card-footer"><span class="card-meta">2025 · 美团直播</span><div class="card-arrow">&nearr;</div></div>
 </div>
 </a>
+
+      <!-- Card 4 – wide (直播广场) -->
+      <a href="project-livestream2.html" class="project-card wide reveal reveal-delay-2" data-tags="design">
+        <div class="card-img">
+          <div class="card-img-inner" style="background:linear-gradient(135deg,#fdf8e8 0%,#f8ecc8 50%,#f0dca0 100%);">
+            <div class="mock-ui">
+              <div style="display:flex;flex-direction:column;gap:7px;width:168px;">
+                <div style="background:rgba(255,255,255,.7);border:1.5px solid rgba(60,45,20,.1);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(230,168,23,.25);flex-shrink:0;"></div>
+                  <div style="flex:1;">
+                    <div style="height:4px;background:rgba(60,45,20,.15);border-radius:3px;width:70%;"></div>
+                    <div style="height:3px;background:rgba(60,45,20,.07);border-radius:2px;width:44%;margin-top:5px;"></div>
+                  </div>
+                </div>
+                <div style="background:rgba(255,255,255,.7);border:1.5px solid rgba(60,45,20,.1);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;">
+                  <div style="width:28px;height:28px;border-radius:7px;background:rgba(232,87,42,.2);flex-shrink:0;"></div>
+                  <div style="flex:1;">
+                    <div style="height:4px;background:rgba(60,45,20,.15);border-radius:3px;width:60%;"></div>
+                    <div style="height:3px;background:rgba(60,45,20,.07);border-radius:2px;width:40%;margin-top:5px;"></div>
+                  </div>
+                </div>
+                <div style="background:rgba(230,168,23,.12);border:1.5px solid rgba(230,168,23,.3);border-radius:8px;padding:7px 12px;text-align:center;font-size:9px;color:rgba(180,120,0,.75);letter-spacing:.06em;">直播广场 · 改版探索</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-img-overlay"><span class="card-cta">View Case &rarr;</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag ux">直播频道页建设</span><span class="tag" style="border-color:rgba(230,168,23,.35);color:#a07800;">框架设计</span></div>
+          <div class="card-title">直播广场改版探索</div>
+          <div class="card-desc">从 pmf 升级触发，探索框架改版方案，构建"好买+好逛"双体验。</div>
+          <div class="card-footer"><span class="card-meta">2026 · 美团直播</span><div class="card-arrow">&nearr;</div></div>
+        </div>
+      </a>
 
 <!-- Card 3 备用（搜索结果页信息简化与优化）
 <a class="project-card reveal reveal-delay-2" href="project-search2.html" data-tags="design research">
@@ -1134,7 +1151,7 @@ overflow: hidden;
 <div class="card-tags"><span class="tag ux">体验设计</span><span class="tag research">搜索体验</span><span class="tag" style="border-color:rgba(230,168,23,.35);color:#a07800;">信息设计</span></div>
 <div class="card-title">搜索结果页信息简化与优化</div>
 <div class="card-desc">建立准入与展示原则，系统性削减冗余字段，提升屏效与转化。</div>
-<div class="card-footer"><span class="card-meta">2024 · Meituan搜索</span><div class="card-arrow">&nearr;</div></div>
+<div class="card-footer"><span class="card-meta">2024 · 美团搜索</span><div class="card-arrow">&nearr;</div></div>
 </div>
 </a>
 -->
@@ -1164,7 +1181,7 @@ overflow: hidden;
           <div class="card-tags"><span class="tag ai">AI应用</span><span class="tag ux">体验设计</span></div>
           <div class="card-title">AI 在搜索链路的探索</div>
           <div class="card-desc">明确对话式交互的适用边界与产品形态。</div>
-          <div class="card-footer"><span class="card-meta">2024 · Meituan搜索</span><div class="card-arrow">&nearr;</div></div>
+          <div class="card-footer"><span class="card-meta">2024 · 美团搜索</span><div class="card-arrow">&nearr;</div></div>
         </div>
       </a>
 

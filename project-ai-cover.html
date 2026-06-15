@@ -1641,18 +1641,20 @@ a { color: inherit; text-decoration: none; }
     }, { threshold: 0.06 });
     sections.forEach(el => revealObs.observe(el));
 
-    // TOC: scroll down with page until sticky top
+    // TOC: 初始与封面图顶部对齐，滚动后固定在 top:80px
     (function() {
       const toc = document.querySelector('.toc-sidebar');
-      const firstSec = document.getElementById('sec-background');
-      if (!toc || !firstSec) return;
+      const coverImg = document.querySelector('.project-content > div:first-child');
+      if (!toc || !coverImg) return;
 
-      const STICKY_TOP = 88;
-      const TOC_FIXED_TOP = 80; // CSS top value
-      let initialOffsetFromTop = 0;
+      const STICKY_TOP = 80; // 滚动后固定的 top 值（与 CSS top:80px 一致）
+      let initialShift = 0;  // 初始需要向下偏移的量
 
       const calcInitial = () => {
-        initialOffsetFromTop = firstSec.getBoundingClientRect().top + window.scrollY - TOC_FIXED_TOP;
+        // 封面图顶部距页面顶部的绝对距离
+        const coverAbsTop = coverImg.getBoundingClientRect().top + window.scrollY;
+        // 初始偏移 = 封面图顶部 - CSS fixed top，让目录起始位置对齐封面图
+        initialShift = Math.max(0, coverAbsTop - STICKY_TOP);
       };
       calcInitial();
       window.addEventListener('resize', calcInitial);
@@ -1662,7 +1664,8 @@ a { color: inherit; text-decoration: none; }
         if (rafId) return;
         rafId = requestAnimationFrame(() => {
           rafId = null;
-          const shift = Math.max(0, initialOffsetFromTop - window.scrollY);
+          // 随滚动减少偏移，到 0 后目录固定在 top:80px 不再移动
+          const shift = Math.max(0, initialShift - window.scrollY);
           toc.style.transform = `translateY(${shift}px)`;
         });
       };
