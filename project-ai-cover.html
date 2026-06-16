@@ -352,11 +352,14 @@ a { color: inherit; text-decoration: none; }
       margin-bottom: 10px;
       opacity: 0.82;
     }
-    .section-label-l3::before {
-      content: '';
-      width: 6px; height: 1px;
-      background: var(--text-muted);
-    }
+.section-label-l3::before {
+content: '';
+width: 6px; height: 1px;
+background: var(--text-muted);
+}
+.section-label-l3.no-bar::before {
+display: none;
+}
     .section-heading-l3 {
       font-size: 18px;
       font-weight: 600;
@@ -1375,11 +1378,17 @@ a { color: inherit; text-decoration: none; }
 </div>
       </div>
 
+      <div class="section-label-l3 no-bar" style="margin-top: 8px; margin-bottom: 16px; font-size: 15px; font-weight: 600; color: var(--text-primary); opacity: 0.85;">网页版方案</div>
       <div class="img-block" style="margin-bottom: 16px;">
-        <img src="images/方案-网页1.webp" data-hd="images/方案-网页1.png" alt="网页端方案 — 生成过程">
+        <img src="images/方案-网页1.webp" data-hd="images/方案-网页1.webp" alt="网页端方案 — 生成过程">
       </div>
       <div class="img-block" style="margin-bottom: 40px;">
-        <img src="images/方案-网页2.webp" data-hd="images/方案-网页2.png" alt="网页端方案 — 生成后编辑">
+        <img src="images/方案-网页2.webp" data-hd="images/方案-网页2.webp" alt="网页端方案 — 生成后编辑">
+      </div>
+
+      <div class="section-label-l3 no-bar" style="margin-top: 8px; margin-bottom: 16px; font-size: 15px; font-weight: 600; color: var(--text-primary); opacity: 0.85;">手机版方案</div>
+      <div class="img-block" style="margin-bottom: 40px;">
+        <img src="images/方案-手机1.webp" alt="手机端方案">
       </div>
 
 
