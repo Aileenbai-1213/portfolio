@@ -58,7 +58,7 @@
       background: var(--bg);
       color: var(--text-primary);
       font-family: var(--font-sans);
-      line-height: 1.7;
+      line-height: 1.5;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -108,7 +108,7 @@ a { color: inherit; text-decoration: none; }
 
     /* ===== HERO ===== */
     .project-hero {
-      padding: 140px 40px 100px;
+      padding: 100px 40px 60px;
       max-width: calc(var(--content-width) + 80px);
       margin: 0 auto;
       opacity: 0;
@@ -130,7 +130,7 @@ a { color: inherit; text-decoration: none; }
       background: #e8572a;
     }
     .project-title {
-      font-size: clamp(24px, 3.2vw, 48px);
+      font-size: 48px;
       font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.1;
@@ -140,7 +140,7 @@ a { color: inherit; text-decoration: none; }
       display: flex;
       gap: 32px;
       flex-wrap: wrap;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
     .meta-label {
       font-size: 10px;
@@ -282,7 +282,7 @@ a { color: inherit; text-decoration: none; }
 
     /* Section block */
     .content-section {
-      padding: 60px 0 0;
+      padding: 40px 0 0;
       opacity: 0;
       transform: translateY(28px);
       transition: opacity 0.6s ease, transform 0.6s ease;
@@ -305,11 +305,11 @@ a { color: inherit; text-decoration: none; }
       background: #e8572a;
     }
     .section-heading {
-      font-size: 25px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-      margin-bottom: 24px;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 20px;
       color: var(--text-primary);
     }
 
@@ -331,10 +331,10 @@ a { color: inherit; text-decoration: none; }
       background: var(--text-muted);
     }
     .section-heading-l2 {
-      font-size: 20px;
-      font-weight: 600;
+      font-size: 24px;
+      font-weight: 700;
       letter-spacing: -0.01em;
-      line-height: 1.35;
+      line-height: 1.25;
       margin-bottom: 20px;
       color: var(--text-primary);
     }
@@ -361,10 +361,10 @@ background: var(--text-muted);
 display: none;
 }
     .section-heading-l3 {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -0.005em;
-      line-height: 1.4;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
       margin-bottom: 16px;
       color: var(--text-primary);
     }
@@ -376,9 +376,9 @@ display: none;
     /* ===== PROSE TEXT ===== */
     .prose {
       font-size: 15px;
-      line-height: 1.65;
+      line-height: 1.55;
       color: var(--text-secondary);
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
     .prose strong { color: var(--text-primary); font-weight: 600; }
     .prose em { color: var(--accent); font-style: normal; }
@@ -388,7 +388,7 @@ display: none;
       background: var(--accent-light);
       border: none;
       border-radius: var(--radius-lg);
-      padding: 28px 32px;
+      padding: 20px 24px;
       margin-bottom: 20px;
     }
     .highlight-box .label {
@@ -411,8 +411,8 @@ display: none;
       background: var(--accent-light);
       border: none;
       border-radius: var(--radius-lg);
-      padding: 28px 32px;
-      margin-bottom: 40px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
     }
     .ai-box .label {
       font-size: 13px;
@@ -434,8 +434,8 @@ display: none;
       background: rgba(90,63,192,0.05);
       border: none;
       border-radius: var(--radius-lg);
-      padding: 28px 32px;
-      margin-bottom: 40px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
     }
     .info-box .label {
       font-size: 13px;
@@ -447,7 +447,7 @@ display: none;
     }
     .info-box p {
       font-size: 15px;
-      line-height: 1.8;
+      line-height: 1.55;
       color: var(--text-secondary);
     }
     .info-box p strong { color: var(--text-primary); }
@@ -469,7 +469,7 @@ display: none;
       background: var(--surface);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-lg);
-      padding: 28px 24px;
+      padding: 20px 16px;
       text-align: center;
       transition: border-color 0.2s;
     }
@@ -479,12 +479,12 @@ display: none;
     .stat-card.blue { border: none; background: var(--accent-light); }
     .stat-card .stat-num {
       font-family: 'AlibabaPuHuiTi', 'Roboto', sans-serif;
-      font-size: 40px;
+      font-size: 48px;
       font-weight: 700;
       letter-spacing: -0.03em;
       color: var(--accent);
       line-height: 1;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .stat-card.blue .stat-num { color: var(--accent); }
     .stat-card .stat-num span { font-size: 14px; }
@@ -497,8 +497,8 @@ display: none;
     .stat-card .stat-desc {
       font-size: 14px;
       color: var(--text-secondary);
-      margin-top: 10px;
-      line-height: 1.7;
+      margin-top: 8px;
+      line-height: 1.5;
     }
 
     /* ===== PROBLEM CARDS ===== */
@@ -518,7 +518,7 @@ display: none;
       background: var(--surface);
       border: 1px solid rgba(180,160,140,0.18);
       border-radius: var(--radius-lg);
-      padding: 24px 16px;
+      padding: 20px 16px;
     }
     .problem-card .p-tag {
       display: inline-block;
@@ -533,15 +533,15 @@ display: none;
       margin-bottom: 14px;
     }
     .problem-card h4 {
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .problem-card p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.8;
+      line-height: 1.55;
     }
 
     /* ===== COMPETITOR TABLE ===== */
@@ -570,7 +570,7 @@ display: none;
       padding: 16px 20px;
       border-bottom: 1px solid var(--border-light);
       color: var(--text-secondary);
-      line-height: 1.7;
+      line-height: 1.55;
       font-size: 14px;
     }
     .comp-table tr:last-child td { border-bottom: none; }
@@ -598,7 +598,7 @@ display: none;
       background: var(--surface);
       border: 1px solid rgba(180,160,140,0.18);
       border-radius: var(--radius-lg);
-      padding: 24px 28px;
+      padding: 20px 24px;
       transition: border-color 0.2s;
     }
     .decision-card:hover {
@@ -614,16 +614,16 @@ display: none;
       font-weight: 500;
     }
     .decision-card h4 {
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       line-height: 1.4;
     }
     .decision-card p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.8;
+      line-height: 1.55;
     }
     .decision-card .decision-q {
       font-size: 14px;
@@ -649,7 +649,7 @@ display: none;
       background: var(--surface);
       border: 1px solid rgba(180,160,140,0.18);
       border-radius: var(--radius-lg);
-      padding: 24px 28px;
+      padding: 20px 24px;
       position: relative;
     }
     .flow-stage-num {
@@ -662,10 +662,10 @@ display: none;
       font-weight: 500;
     }
     .flow-stage h4 {
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
     .flow-stage ul {
       list-style: none;
@@ -676,7 +676,7 @@ display: none;
     .flow-stage ul li {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.7;
+      line-height: 1.55;
       padding-left: 16px;
       position: relative;
     }
@@ -699,7 +699,7 @@ display: none;
       background: var(--surface);
       border: 1px solid rgba(180,160,140,0.18);
       border-radius: var(--radius-lg);
-      padding: 24px 28px;
+      padding: 20px 24px;
     }
     .o-tag {
       display: inline-block;
@@ -715,16 +715,16 @@ display: none;
       font-weight: 600;
     }
     .outcome-card h4 {
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 18px;
+      font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       line-height: 1.4;
     }
     .outcome-card p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.8;
+      line-height: 1.55;
     }
 
     /* ===== IMAGE PLACEHOLDER ===== */
@@ -837,7 +837,7 @@ display: none;
     /* ===== NEXT PROJECT ===== */
     .next-project {
       border-top: 1px solid var(--border-light);
-      padding: 80px 40px;
+      padding: 48px 40px;
       max-width: calc(var(--content-width) + 80px);
       margin: 0 auto;
       display: flex;
@@ -906,7 +906,7 @@ display: none;
     .user-body {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.5;
     }
     .user-body strong::before {
       content: counter(user-item) ". ";
@@ -932,16 +932,16 @@ display: none;
       background: var(--surface);
       border: 1px solid rgba(180,160,140,0.18);
       border-radius: var(--radius-lg);
-      padding: 24px 28px;
+      padding: 20px 24px;
     }
     .bg-block-title {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
     .bg-block-icon { font-size: 17px; }
     .bg-list {
@@ -954,7 +954,7 @@ display: none;
     .bg-list li {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.5;
       padding-left: 0;
       border-left: none;
       counter-increment: bg-item;
@@ -1020,7 +1020,7 @@ display: none;
       padding: 14px 20px;
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.65;
+      line-height: 1.5;
       vertical-align: middle;
       border-bottom: 1px solid var(--border);
       background: var(--surface);
@@ -1215,7 +1215,7 @@ display: none;
       </div>
 
       <div class="section-heading" style="font-size: 18px; margin-top: 32px; margin-bottom: 16px;" id="sec-users">目标用户</div>
-      <div class="user-list" style="display: inline-flex; min-width: 0; padding: 24px 28px;">
+      <div class="user-list" style="display: inline-flex; min-width: 0; padding: 20px 24px;">
         <div class="user-item">
           <div class="user-num">1</div>
           <div class="user-body">
